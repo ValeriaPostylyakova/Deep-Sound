@@ -1,0 +1,42 @@
+.genres {
+  margin-bottom: 65px;
+  width: 100%;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    gap: 4rem;
+    flex-wrap: wrap;
+
+    &__link {
+      display: block;
+    }
+
+    &__playlist {
+      display: flex;
+      flex: 1 1 auto;
+      max-width: 250px;
+      max-height: 250px;
+      position: relative;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &__active {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 15px;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.29);
+      }
+    }
+  }
+}

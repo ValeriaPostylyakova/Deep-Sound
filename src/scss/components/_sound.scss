@@ -1,0 +1,43 @@
+.sound {
+  display: grid;
+  grid-template-columns: 47% 47%;
+  justify-content: space-between;
+  gap: 1.4rem;
+  margin-bottom: 65px;
+
+  &__block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .sound__left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      h2 {
+        font-size: 17px;
+        font-weight: 700;
+      }
+
+      .sound__name {
+        h3 {
+          font-size: 18px;
+          font-weight: 700;
+          margin-bottom: 0.4rem;
+        }
+      }
+
+      p {
+        font-weight: 300;
+        font-size: 14px;
+      }
+    }
+
+    .time {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
