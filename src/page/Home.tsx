@@ -1,5 +1,4 @@
 import Title from '../components/Title.tsx';
-import SoundContainer from '../components/SoundContainer.tsx';
 import SoundBlock from '../components/SoundBlock.tsx';
 import GenresBlock from '../components/GenresBlock.tsx';
 import CollectionsBlock from '../components/CollectionsBlock.tsx';
@@ -10,7 +9,6 @@ const Home = () => {
         <>
             <Slider />
             <Title text="Чарт DEEP SOUND" />
-            <SoundContainer />
             <section className="sound">
                 <SoundBlock />
                 <SoundBlock />

@@ -1,35 +1,52 @@
-import searchImg from '../assets/img/search.svg';
-import userImg from '../assets/img/user.svg';
-import sunImg from '../assets/img/sun.svg';
-import logoImg from '../assets/img/logo.svg';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 
-const search: string = String(searchImg);
-const user: string = String(userImg);
-const sun: string = String(sunImg);
-const logo: string = String(logoImg);
+import BurgerMenu from './BurgerMenu.tsx';
+import Search from './Search.tsx';
+
+import { logo, menu, close, sun, search, user } from '../viteImages/images.ts';
 
 const Header = () => {
+    const [menuActive, setMenuActive] = React.useState<boolean>(false);
+    const [searchActive, setSearchActive] = React.useState<boolean>(false);
+
     return (
         <header className="header">
             <div className="header__container">
                 <div className="header__right">
-                    <div className="header__logo">
-                        <img src={logo} alt="logo" />
-                    </div>
-                    <div className="header__search">
-                        <div className="header__search_container">
-                            <img src={search} alt="search" />
-                            <input type="text" placeholder="Хочу послушать" />
+                    <Link to="/">
+                        <div className="header__logo">
+                            <img src={logo} alt="logo" />
                         </div>
-                    </div>
+                    </Link>
+                    <Search searchState={searchActive} />
                 </div>
                 <div className="header__left">
+                    {!searchActive && (
+                        <button
+                            onClick={() => setSearchActive(!searchActive)}
+                            className="header__left-search-mobail"
+                        >
+                            <img width={30} src={search} alt="search" />
+                        </button>
+                    )}
                     <button>
                         <img src={user} alt="user" />
                     </button>
                     <button>
                         <img src={sun} alt="sun" />
                     </button>
+                    <button
+                        className="burger-menu__button"
+                        onClick={() => setMenuActive(!menuActive)}
+                    >
+                        {menuActive ? (
+                            <img src={close} alt="close" />
+                        ) : (
+                            <img src={menu} alt="menu" />
+                        )}
+                    </button>
+                    <BurgerMenu menu={menuActive} />
                 </div>
             </div>
         </header>

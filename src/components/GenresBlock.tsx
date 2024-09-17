@@ -1,14 +1,4 @@
-import popImg from '../assets/img/genres/popImg.png';
-import metalImg from '../assets/img/genres/metalImg.png';
-import indieImg from '../assets/img/genres/indieImg.png';
-import alternativeImg from '../assets/img/genres/alternativeImg.png';
-import rockImg from '../assets/img/genres/rockImg.png';
-
-const pop: string = String(popImg);
-const metal: string = String(metalImg);
-const indie: string = String(indieImg);
-const alternative: string = String(alternativeImg);
-const rock: string = String(rockImg);
+import { pop, rock, indie, alternative, metal } from '../viteImages/images.ts';
 
 const GenresBlock = () => {
     return (

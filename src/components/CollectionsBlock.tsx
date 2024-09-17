@@ -1,12 +1,4 @@
-import collection1 from '../assets/img/collections/1.svg';
-import collection2 from '../assets/img/collections/2.svg';
-import collection3 from '../assets/img/collections/3.svg';
-import collection4 from '../assets/img/collections/4.svg';
-
-const coll1: string = String(collection1);
-const coll2: string = String(collection2);
-const coll3: string = String(collection3);
-const coll4: string = String(collection4);
+import { coll1, coll2, coll3, coll4 } from '../viteImages/images.ts';
 
 const CollectionsBlock = () => {
     return (

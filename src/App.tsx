@@ -1,9 +1,15 @@
+import * as React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header.tsx';
 import Sidebar from './components/Sidebar.tsx';
+import Category from './components/Category.tsx';
 import Home from './page/Home.tsx';
 
 import './scss/app.scss';
-import Category from './components/Category.tsx';
+import Chart from './page/Chart.tsx';
+import Genres from './page/Genres.tsx';
+import Collections from './page/Collections.tsx';
 
 function App() {
     return (
@@ -14,7 +20,15 @@ function App() {
                 <main className="main">
                     <div className="main__container">
                         <Category />
-                        <Home />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="chart" element={<Chart />} />
+                            <Route path="genres" element={<Genres />} />
+                            <Route
+                                path="collections"
+                                element={<Collections />}
+                            />
+                        </Routes>
                     </div>
                 </main>
             </div>

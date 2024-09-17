@@ -5,6 +5,8 @@
 @import "components/sound";
 @import "components/genres";
 @import "components/collections";
+@import "components/chart";
+@import "components/menu";
 
 .wrapper {
   min-height: 100vh;
@@ -19,7 +21,6 @@
 }
 
 .main {
-  //flex: 1 1 auto;
   margin-left: 13%;
   width: 87%;
   margin-top: 100px;
@@ -52,4 +53,5 @@
     }
   }
 }
+
 

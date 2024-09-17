@@ -31,6 +31,22 @@
     display: flex;
     align-items: center;
     gap: 2rem;
+
+    .burger-menu__button {
+      display: none;
+
+      @media screen and (max-width: 1300px) {
+        display: block;
+      }
+    }
+
+    &-search-mobail {
+      display: none;
+
+      @media screen and (max-width: 1300px) {
+        display: block;
+      }
+    }
   }
 
   &__search {
@@ -38,6 +54,14 @@
     border-radius: 6px;
     border: 1px solid #ACACAC;
     padding: 10px;
+
+    @media screen and (max-width: 1300px) {
+      display: none;
+    }
+
+    &.search-active {
+      display: block;
+    }
   }
 
   &__search_container {

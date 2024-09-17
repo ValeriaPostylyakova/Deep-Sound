@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import arrow2Img from '../assets/img/arrow2.svg';
-const arrow2: string = String(arrow2Img);
+import { arrow2 } from '../viteImages/images.ts';
 
 type TitleProps = {
     text: string;
+    getImg: boolean;
 };
 
 const Title: React.FC<TitleProps> = ({ text }) => {

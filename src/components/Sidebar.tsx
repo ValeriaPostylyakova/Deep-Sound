@@ -1,12 +1,6 @@
-import homeImg from '../assets/img/home.svg';
-import favoriteImg from '../assets/img/favorite.svg';
-import plusImg from '../assets/img/plus.svg';
-import playlistImg from '../assets/img/playlist.svg';
+import { Link } from 'react-router-dom';
 
-const home: string = String(homeImg);
-const favorite: string = String(favoriteImg);
-const plus: string = String(plusImg);
-const playlist: string = String(playlistImg);
+import { home, favorite, plus, playlist } from '../viteImages/images.ts';
 
 const Sidebar = () => {
     return (
@@ -14,10 +8,12 @@ const Sidebar = () => {
             <div className="sidebar__container">
                 <div className="sidebar__top">
                     <ul>
-                        <li>
-                            <img src={home} alt="home" />
-                            <p>Главная</p>
-                        </li>
+                        <Link to="/">
+                            <li>
+                                <img src={home} alt="home" />
+                                <p>Главная</p>
+                            </li>
+                        </Link>
                         <li>
                             <img src={favorite} alt="favorite" />
                             <p>Закладки</p>

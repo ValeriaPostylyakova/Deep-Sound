@@ -2,14 +2,24 @@
   display: grid;
   grid-template-columns: 47% 47%;
   justify-content: space-between;
-  gap: 1.4rem;
   margin-bottom: 65px;
 
   &__block {
+    padding: 10px;
+    cursor: pointer;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid rgb(255, 255, 255);
+
+    &:hover {
+      border: 1px solid rgb(252, 213, 99);
+
+      .sound__play-container {
+        display: block;
+      }
+    }
 
     .sound__left {
       display: flex;
@@ -38,6 +48,22 @@
     .time {
       font-size: 14px;
       font-weight: 500;
+    }
+  }
+
+  &__container-block {
+    position: relative;
+    z-index: 10;
+
+    .sound__play-container {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 40;
+      border-radius: 100%;
+      background-color: #fff;
+      padding: 5px;
+      display: none;
     }
   }
 }

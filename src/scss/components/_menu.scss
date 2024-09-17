@@ -1,0 +1,40 @@
+.burger-menu {
+  position: fixed;
+  top: 101px;
+  right: -100%;
+  width: 20%;
+  padding: 0 10px;
+  background-color: #ffffff;
+  height: 100vh;
+
+  @media screen and (max-width: 965px) {
+    width: 30%;
+  }
+
+  @media screen and (max-width: 660px) {
+    width: 100%;
+  }
+}
+
+.menu-active {
+  right: 0;
+}
+
+.burger-menu__background {
+  transition: 0.3s;
+  position: absolute;
+  top: 101px;
+  left: 0;
+  width: 78.5%;
+  z-index: 200;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.43);
+
+  @media screen and (max-width: 965px) {
+    width: 68.5%;
+  }
+
+  @media screen and (max-width: 660px) {
+    width: 0;
+  }
+}

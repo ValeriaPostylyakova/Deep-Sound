@@ -1,8 +1,4 @@
-import playImg from '../assets/img/play.svg';
-import arrowImg from '../assets/img/arrow.svg';
-
-const play: string = String(playImg);
-const arrow: string = String(arrowImg);
+import { play, arrow } from '../viteImages/images.ts';
 
 const Slider = () => {
     return (
