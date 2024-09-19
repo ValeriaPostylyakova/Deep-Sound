@@ -1,0 +1,86 @@
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 30;
+    border-radius: 10px;
+    border-top: 1px solid #eeeded;
+
+    &__container {
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        h1 {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        &_container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+            }
+
+            &_info {
+                h2 {
+                    font-size: 1.2rem;
+                    font-weight: 400;
+                    margin-bottom: 3px;
+                }
+                p {
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    &__center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &_icon {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            .button {
+                cursor: pointer;
+                width: 26px;
+                height: 26px;
+                color: #6096bd;
+
+                &.rotate {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        &_time {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            input {
+                width: 300px;
+                height: 4px;
+                border-radius: 3px;
+                background-color: #dddddd;
+            }
+        }
+    }
+}

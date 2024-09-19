@@ -4,7 +4,6 @@ import { arrow2 } from '../viteImages/images.ts';
 
 type TitleProps = {
     text: string;
-    getImg: boolean;
 };
 
 const Title: React.FC<TitleProps> = ({ text }) => {

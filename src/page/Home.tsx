@@ -2,6 +2,7 @@ import * as React from 'react';
 import { fetchSongs } from '../redux/songs/slice.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store.ts';
+import { SongObj } from '../redux/songs/types.ts';
 
 import { Link } from 'react-router-dom';
 
@@ -10,8 +11,14 @@ import SoundBlock from '../components/SoundBlock.tsx';
 import GenresBlock from '../components/GenresBlock.tsx';
 import CollectionsBlock from '../components/CollectionsBlock.tsx';
 import SliderBlock from '../components/Slider/SliderBlock.tsx';
+import Player from '../components/Player.tsx';
 
-const Home = () => {
+type HomeProps = {
+    activePlayer: boolean;
+    setActivePlayer: (activePlayer: boolean) => void;
+};
+
+const Home: React.FC<HomeProps> = ({ activePlayer, setActivePlayer }) => {
     const dispatch: AppDispatch = useDispatch();
     const { songs } = useSelector((state: RootState) => state.songs);
 
@@ -21,13 +28,13 @@ const Home = () => {
 
     return (
         <>
-            <SliderBlock />
+            <SliderBlock setActivePlayer={setActivePlayer} />
             <Link className="link" to="chart">
                 <Title text="Чарт DEEP SOUND" />
             </Link>
             <section className="sound">
-                {songs.slice(0, 6).map((song) => (
-                    <SoundBlock {...song} />
+                {songs.slice(0, 6).map((song: SongObj) => (
+                    <SoundBlock key={song.id} {...song} />
                 ))}
             </section>
             <Link className="link" to="genres">
@@ -46,6 +53,7 @@ const Home = () => {
                     <CollectionsBlock />
                 </div>
             </section>
+            <Player activePlayer={activePlayer} />
         </>
     );
 };

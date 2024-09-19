@@ -1,60 +1,60 @@
-@import "components/header";
-@import "components/sidebar";
-@import "components/category";
-@import "components/slider";
-@import "components/sound";
-@import "components/genres";
-@import "components/collections";
-@import "components/chart";
-@import "components/menu";
+@import 'components/header';
+@import 'components/sidebar';
+@import 'components/category';
+@import 'components/slider';
+@import 'components/sound';
+@import 'components/genres';
+@import 'components/collections';
+@import 'components/chart';
+@import 'components/menu';
+@import 'components/player';
 
 .wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-weight: 600;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
 }
 
 .content {
-  display: flex;
-  gap: 0;
+    display: flex;
+    gap: 0;
 }
 
 .main {
-  margin-left: 13%;
-  width: 87%;
-  margin-top: 100px;
+    margin-left: 13%;
+    width: 87%;
+    margin-top: 100px;
 
-  @media screen and (max-width: 1300px) {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  &__container {
-    width: 95%;
-    margin: 0 auto;
-    padding: 21px 0;
-  }
-
-  &__title {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 40px;
-    cursor: pointer;
-    transition: 0.3s;
-    h1 {
-      font-size: 26px;
-      font-weight: 700;
+    @media screen and (max-width: 1300px) {
+        margin-left: 0;
+        width: 100%;
     }
 
-    &:hover {
-      color: rgb(110, 92, 248);
+    &__container {
+        width: 95%;
+        margin: 0 auto;
+        padding: 21px 0;
     }
-  }
+
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 40px;
+        cursor: pointer;
+        transition: 0.3s;
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        &:hover {
+            color: rgb(110, 92, 248);
+        }
+    }
 }
 
 .link {
-  color: #000000;
+    color: #000000;
 }
-

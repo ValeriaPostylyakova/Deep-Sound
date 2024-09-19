@@ -1,20 +1,9 @@
 import * as React from 'react';
+import { SongObj } from '../redux/songs/types.ts';
 
 import { play18, pause18 } from '../viteImages/images.ts';
 
-type SongBlockProps = {
-    title: string;
-    place: number;
-    author: string;
-    imageUrl: string;
-};
-
-const SoundBlock: React.FC<SongBlockProps> = ({
-    title,
-    place,
-    author,
-    imageUrl,
-}) => {
+const SoundBlock: React.FC<SongObj> = ({ title, place, author, imageUrl }) => {
     const [activeImg, setActiveImg] = React.useState<boolean>(false);
 
     const onClickPlay = () => {

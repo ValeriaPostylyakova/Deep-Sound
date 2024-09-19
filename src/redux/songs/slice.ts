@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import { Status, SongObj, SongsState } from './types';
 import axios from 'axios';
 
-export const fetchSongs = createAsyncThunk(
+export const fetchSongs = createAsyncThunk<SongObj>(
     'songs/fetchSongsStatus',
     async () => {
         const { data } = await axios.get(
@@ -12,8 +12,8 @@ export const fetchSongs = createAsyncThunk(
     }
 );
 
-const initialState = {
-    status: 'success',
+const initialState: SongsState = {
+    status: Status.LOADING,
     songs: [],
 };
 
@@ -21,25 +21,26 @@ const songsSlice = createSlice({
     name: 'songs',
     initialState,
     reducers: {
-        setCategoryIndex(state, action) {
-            state.categoryIndex = action.payload;
+        setClickPlay(state, action) {
+            state.songs = action.payload;
         },
     },
 
     extraReducers: (builder) => {
         builder.addCase(fetchSongs.pending, (state) => {
-            state.status = 'success';
+            state.status = Status.LOADING;
         });
 
         builder.addCase(fetchSongs.fulfilled, (state, action) => {
             state.songs = action.payload;
-            state.status = 'success';
+            state.status = Status.SUCCESS;
         });
 
         builder.addCase(fetchSongs.rejected, (state) => {
-            state.status = 'success';
+            state.status = Status.ERROR;
         });
     },
 });
 
+export const { setClickPlay } = songsSlice.actions;
 export default songsSlice.reducer;

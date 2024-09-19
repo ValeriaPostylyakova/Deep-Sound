@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 
@@ -8,7 +9,11 @@ import NavButtons from './NavButtons.tsx';
 import { play } from '../../viteImages/images.ts';
 import 'swiper/scss';
 
-const SliderBlock: React.FC = () => {
+type SliderProps = {
+    setActivePlayer: (activePlayer: boolean) => void;
+};
+
+const SliderBlock: React.FC<SliderProps> = ({ setActivePlayer }) => {
     return (
         <Swiper
             modules={[Navigation, Autoplay]}
@@ -21,16 +26,19 @@ const SliderBlock: React.FC = () => {
             }}
         >
             {slides.map((slide, index) => (
-                <SwiperSlide>
+                <SwiperSlide key={index}>
                     <div key={index} className={`slider ${slide.className}`}>
                         <div className={slide.className}></div>
                         <div className="slider__container">
                             <h1>{slide.title}</h1>
                             <p>{slide.subtitle}</p>
                             <div className="slider__container-bottom">
-                                <div className="play">
+                                <button
+                                    onClick={() => setActivePlayer(true)}
+                                    className="play"
+                                >
                                     <img src={play} alt="play" />
-                                </div>
+                                </button>
                                 <NavButtons />
                             </div>
                         </div>
