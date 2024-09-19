@@ -1,6 +1,7 @@
 .sound {
   display: grid;
   grid-template-columns: 47% 47%;
+  grid-template-rows: repeat(3, 1fr);
   justify-content: space-between;
   margin-bottom: 65px;
 
@@ -65,5 +66,11 @@
       padding: 5px;
       display: none;
     }
+  }
+
+  &__image-author {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
   }
 }

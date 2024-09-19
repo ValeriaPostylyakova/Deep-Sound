@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import filter from './filter/filterSlice.ts';
+import songs from './songs/slice.ts';
 
 export const store = configureStore({
     reducer: {
         filter,
+        songs,
     },
 });
 
