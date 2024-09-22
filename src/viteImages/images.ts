@@ -23,6 +23,7 @@ import soundImg from '../assets/img/sound-img.svg';
 import playImg18 from '../assets/img/play-18.svg';
 import pauseImg18 from '../assets/img/pause-18.svg';
 import arrow2Img from '../assets/img/arrow2.svg';
+import pauseImg from '../assets/img/pause.svg';
 
 export const coll1: string = String(collection1);
 export const coll2: string = String(collection2);
@@ -49,3 +50,4 @@ export const sound: string = String(soundImg);
 export const play18: string = String(playImg18);
 export const pause18: string = String(pauseImg18);
 export const arrow2: string = String(arrow2Img);
+export const pause: string = String(pauseImg);

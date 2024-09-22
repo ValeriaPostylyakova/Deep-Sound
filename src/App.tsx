@@ -11,8 +11,6 @@ import Chart from './page/Chart.tsx';
 import Genres from './page/Genres.tsx';
 import Collections from './page/Collections.tsx';
 
-export const PlayerContext = React.createContext('');
-
 function App() {
     const [activePlayer, setActivePlayer] = React.useState<boolean>(false);
 
@@ -26,15 +24,7 @@ function App() {
                     <div className="main__container">
                         <Category />
                         <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <Home
-                                        activePlayer={activePlayer}
-                                        setActivePlayer={setActivePlayer}
-                                    />
-                                }
-                            />
+                            <Route path="/" element={<Home />} />
                             <Route path="chart" element={<Chart />} />
                             <Route path="genres" element={<Genres />} />
                             <Route

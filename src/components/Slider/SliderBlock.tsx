@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+import { useDispatch } from 'react-redux';
+import { setClickPlay } from '../../redux/songs/slice.ts';
+import { AppDispatch } from '../../redux/store.ts';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 
@@ -9,11 +13,13 @@ import NavButtons from './NavButtons.tsx';
 import { play } from '../../viteImages/images.ts';
 import 'swiper/scss';
 
-type SliderProps = {
-    setActivePlayer: (activePlayer: boolean) => void;
-};
+const SliderBlock: React.FC = () => {
+    const dispatch: AppDispatch = useDispatch();
 
-const SliderBlock: React.FC<SliderProps> = ({ setActivePlayer }) => {
+    const onClickPlaySlider = () => {
+        dispatch(setClickPlay(true));
+    };
+
     return (
         <Swiper
             modules={[Navigation, Autoplay]}
@@ -34,7 +40,7 @@ const SliderBlock: React.FC<SliderProps> = ({ setActivePlayer }) => {
                             <p>{slide.subtitle}</p>
                             <div className="slider__container-bottom">
                                 <button
-                                    onClick={() => setActivePlayer(true)}
+                                    onClick={onClickPlaySlider}
                                     className="play"
                                 >
                                     <img src={play} alt="play" />

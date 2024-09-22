@@ -1,6 +1,7 @@
 export interface SongsState {
     status: Status;
     songs: SongObj[];
+    activePlayer: boolean;
 }
 
 export enum Status {
@@ -15,5 +16,7 @@ export type SongObj = {
     place: number;
     author: string;
     imageUrl: string;
+    songUrl: string;
+    time: string;
     key?: number;
 };

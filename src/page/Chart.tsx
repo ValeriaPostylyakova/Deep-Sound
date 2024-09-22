@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import SoundBlock from '../components/SoundBlock.tsx';
 import Title from '../components/Title.tsx';
-import { fetchSongs } from '../redux/songs/slice.ts';
+import { fetchSongs } from '../redux/songs/asyncAction.ts';
 import { AppDispatch, RootState } from '../redux/store.ts';
 
 const Chart = () => {

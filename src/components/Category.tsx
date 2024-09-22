@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+
 import { setCategoryIndex } from '../redux/filter/filterSlice.ts';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
@@ -9,14 +10,14 @@ type CategoryArray = {
     link: string;
 };
 
-const Category: React.FC = () => {
-    const categoryValue: CategoryArray[] = [
-        { value: 'Все', link: '/' },
-        { value: 'Чарт', link: 'chart' },
-        { value: 'Жанры', link: 'genres' },
-        { value: 'Подборки', link: 'collections' },
-    ];
+export const categoryValue: CategoryArray[] = [
+    { value: 'Все', link: '/' },
+    { value: 'Чарт', link: 'chart' },
+    { value: 'Жанры', link: 'genres' },
+    { value: 'Подборки', link: 'collections' },
+];
 
+const Category: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const { categoryIndex } = useSelector((state) => state.filter);
 
@@ -28,7 +29,7 @@ const Category: React.FC = () => {
         <nav>
             <ul className="main__category">
                 {categoryValue.map((obj: CategoryArray, index: number) => (
-                    <Link to={obj.link} key={index}>
+                    <Link to={obj.link} key={obj.link}>
                         <li>
                             <button
                                 className={

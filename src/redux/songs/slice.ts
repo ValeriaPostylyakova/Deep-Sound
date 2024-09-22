@@ -1,28 +1,19 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Status, SongObj, SongsState } from './types';
-import axios from 'axios';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Status, SongsState } from './types';
+import { fetchSongs } from './asyncAction.ts';
 
-export const fetchSongs = createAsyncThunk<SongObj>(
-    'songs/fetchSongsStatus',
-    async () => {
-        const { data } = await axios.get(
-            'https://985cc4acb156d262.mokky.dev/sounds'
-        );
-        return data;
-    }
-);
-
-const initialState: SongsState = {
+export const initialState: SongsState = {
     status: Status.LOADING,
     songs: [],
+    activePlayer: false,
 };
 
 const songsSlice = createSlice({
     name: 'songs',
     initialState,
     reducers: {
-        setClickPlay(state, action) {
-            state.songs = action.payload;
+        setClickPlay(state, action: PayloadAction<boolean>) {
+            state.activePlayer = action.payload;
         },
     },
 
