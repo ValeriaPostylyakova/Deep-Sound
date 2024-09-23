@@ -9,6 +9,7 @@ const initialState: PlayerState = {
     loop: false,
     currentTime: { min: 0, sec: 0 },
     trackWidth: 0,
+    volume: 30,
 };
 
 const PlayerSlice = createSlice({
@@ -34,10 +35,20 @@ const PlayerSlice = createSlice({
         setTrackWidth(state, action: PayloadAction<number>) {
             state.trackWidth = action.payload;
         },
+
+        setVolume(state, action: PayloadAction<number>) {
+            state.volume = action.payload;
+        },
     },
 });
 
-export const { setSong, setPlay, setLoop, setCurrentTime, setTrackWidth } =
-    PlayerSlice.actions;
+export const {
+    setSong,
+    setPlay,
+    setLoop,
+    setCurrentTime,
+    setTrackWidth,
+    setVolume,
+} = PlayerSlice.actions;
 
 export default PlayerSlice.reducer;

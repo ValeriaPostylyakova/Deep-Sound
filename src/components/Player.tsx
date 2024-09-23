@@ -8,6 +8,7 @@ import {
     setLoop,
     setCurrentTime,
     setTrackWidth,
+    setVolume,
 } from '../redux/player/slice.ts';
 
 import { IoPlay } from 'react-icons/io5';
@@ -16,30 +17,61 @@ import { MdOutlineReplay10 } from 'react-icons/md';
 import { RiRepeat2Line } from 'react-icons/ri';
 import { IoMdPause } from 'react-icons/io';
 import { RiRepeatOneLine } from 'react-icons/ri';
-import { ImVolumeMedium } from 'react-icons/im';
+import { _volumeImg } from '../viteImages/images.ts';
+import { volume_mute } from '../viteImages/images.ts';
 
 const Player: React.FC = () => {
+    const [volumeState, setVolumeState] = React.useState<number>(30);
+
     const dispatch: AppDispatch = useDispatch();
     const { activePlayer, songs } = useSelector(
         (state: RootState) => state.songs
     );
-    const { song, play, loop, currentTime, trackWidth } = useSelector(
+    const { song, play, loop, currentTime, trackWidth, volume } = useSelector(
         (state: RootState) => state.player
     );
+
+    React.useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume / 100;
+        }
+    }, [volume]);
+
+    const onChangeVolume = (event) => {
+        dispatch(setVolume(event.target.value));
+        setVolumeState(Number(event.target.value));
+    };
 
     const objSong = songs.find((obj) => obj.id === song.id);
 
     const audioRef = React.useRef<HTMLAudioElement | null>(null);
+    const trackRef = React.useRef<HTMLDivElement | null>(null);
 
-    const getCurrentTime = (event: any) => {
-        const time = event.target?.currentTime;
+    const getCurrentTime = () => {
+        if (audioRef.current) {
+            const time = audioRef.current.currentTime;
 
-        const minutes: number = Number(Math.floor(time / 60));
-        const seconds: number = Number(Math.floor(time - minutes * 60));
-        const trackWidthSong = Number((time * 100) / event.target?.duration);
+            const minutes = Number(Math.floor(time / 60));
+            const second: number = Number(Math.floor(time - minutes * 60));
+            const seconds: number | string =
+                second < 10 ? `0${second}` : second;
+            const trackWidthSong = Number(
+                (time / audioRef.current.duration) * 100
+            );
 
-        dispatch(setTrackWidth(trackWidthSong));
-        dispatch(setCurrentTime({ min: minutes, sec: seconds }));
+            dispatch(setTrackWidth(trackWidthSong));
+            dispatch(setCurrentTime({ min: minutes, sec: seconds }));
+        }
+    };
+
+    const onClickTracks = (event: React.MouseEvent) => {
+        if (audioRef.current) {
+            const width = Number(trackRef.current?.clientWidth);
+            const offset = Number(event.nativeEvent.offsetX);
+            const progress = (offset / width) * 100;
+            audioRef.current.currentTime =
+                (progress / 100) * audioRef.current.duration;
+        }
     };
 
     const onClickPlay = () => {
@@ -49,7 +81,7 @@ const Player: React.FC = () => {
             audioRef.current?.pause();
         } else {
             audioRef.current?.play();
-            getCurrentTime(null);
+            getCurrentTime();
         }
     };
 
@@ -65,6 +97,12 @@ const Player: React.FC = () => {
 
     const onClickRepeat = () => {
         dispatch(setLoop(!loop));
+    };
+
+    const onClickOfsetTime = () => {
+        if (audioRef.current) {
+            audioRef.current.currentTime = audioRef.current?.currentTime + 10;
+        }
     };
 
     return (
@@ -83,25 +121,30 @@ const Player: React.FC = () => {
                     </div>
                     <div className="player__center">
                         <div className="player__center_icon">
-                            <MdOutlineReplay10 className="button" />
+                            <button onClick={onClickOfsetTime}>
+                                <MdOutlineReplay10 className="button" />
+                            </button>
                             <button
                                 onClick={onClickPrev}
                                 disabled={song.id === 0}
                             >
-                                <IoPlaySkipForward className="button rotate" />
+                                <IoPlaySkipForward className="button prev" />
                             </button>
-                            <button onClick={onClickPlay}>
+                            <button
+                                onClick={onClickPlay}
+                                className="player__button-play"
+                            >
                                 {play ? (
-                                    <IoPlay className="button" />
+                                    <IoPlay className="button play" />
                                 ) : (
-                                    <IoMdPause className="button" />
+                                    <IoMdPause className="button play" />
                                 )}
                             </button>
                             <button
                                 onClick={onClickNext}
                                 disabled={song.id === 5}
                             >
-                                <IoPlaySkipForward className="button" />
+                                <IoPlaySkipForward className="button next" />
                             </button>
                             <button onClick={onClickRepeat}>
                                 {loop ? (
@@ -112,27 +155,52 @@ const Player: React.FC = () => {
                             </button>
                         </div>
                         <div className="player__center_time">
-                            <p>
+                            <p className="player__center_time_text">
                                 {currentTime.min}:{currentTime.sec}
                             </p>
-                            <div className="player__audioTracks">
+                            <div
+                                onClick={onClickTracks}
+                                className="player__audioTracks"
+                                ref={trackRef}
+                            >
                                 <span
                                     style={{ width: `${trackWidth}%` }}
                                 ></span>
                             </div>
+
                             <audio
                                 ref={audioRef}
                                 src={objSong?.songUrl}
                                 loop={loop}
                                 autoPlay
-                                onTimeUpdate={(event) => getCurrentTime(event)}
+                                onTimeUpdate={getCurrentTime}
                             ></audio>
-                            <p>{objSong?.time}</p>
+                            <p className="player__center_time_text">
+                                {objSong?.time}
+                            </p>
                         </div>
                     </div>
                     <div className="player__volume">
-                        <ImVolumeMedium className="button" />
-                        <input type="range" />
+                        {volumeState !== 0 ? (
+                            <img
+                                className="button"
+                                src={_volumeImg}
+                                alt="volume"
+                            />
+                        ) : (
+                            <img
+                                className="button"
+                                src={volume_mute}
+                                alt="volume-mute"
+                            />
+                        )}
+                        <input
+                            min={0}
+                            max={100}
+                            value={volume}
+                            onChange={onChangeVolume}
+                            type="range"
+                        />
                     </div>
                 </div>
             </div>

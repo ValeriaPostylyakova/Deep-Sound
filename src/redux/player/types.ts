@@ -1,6 +1,6 @@
 export type ObjCurrentTime = {
     min: number;
-    sec: number;
+    sec: number | string;
 };
 
 export type PlayerState = {
@@ -9,6 +9,7 @@ export type PlayerState = {
     loop: false;
     currentTime: ObjCurrentTime;
     trackWidth: number;
+    volume: number;
 };
 
 export type SongId = {
