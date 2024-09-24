@@ -1,5 +1,5 @@
 export interface SongsState {
-    status: Status;
+    status: 'loading' | 'success' | 'error';
     songs: SongObj[];
     activePlayer: boolean;
 }

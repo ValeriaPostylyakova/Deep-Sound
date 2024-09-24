@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Status, SongsState } from './types';
+import { SongsState, Status } from './types';
 import { fetchSongs } from './asyncAction.ts';
 
 export const initialState: SongsState = {

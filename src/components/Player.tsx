@@ -22,6 +22,8 @@ import { volume_mute } from '../viteImages/images.ts';
 
 const Player: React.FC = () => {
     const [volumeState, setVolumeState] = React.useState<number>(30);
+    const audioRef = React.useRef<HTMLAudioElement | null>(null);
+    const trackRef = React.useRef<HTMLDivElement | null>(null);
 
     const dispatch: AppDispatch = useDispatch();
     const { activePlayer, songs } = useSelector(
@@ -37,15 +39,37 @@ const Player: React.FC = () => {
         }
     }, [volume]);
 
-    const onChangeVolume = (event) => {
-        dispatch(setVolume(event.target.value));
+    const onChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setVolume(Number(event.target.value)));
         setVolumeState(Number(event.target.value));
     };
 
     const objSong = songs.find((obj) => obj.id === song.id);
 
-    const audioRef = React.useRef<HTMLAudioElement | null>(null);
-    const trackRef = React.useRef<HTMLDivElement | null>(null);
+    const onClickPlay = () => {
+        dispatch(setPlay(!play));
+
+        if (!play) {
+            audioRef.current?.pause();
+        } else {
+            audioRef.current?.play();
+            getCurrentTime();
+        }
+    };
+
+    const onClickNext = () => {
+        dispatch(setPlay(false));
+        dispatch(setSong({ id: Number(song.id + 1) }));
+    };
+
+    const onClickPrev = () => {
+        dispatch(setPlay(false));
+        dispatch(setSong({ id: Number(song.id - 1) }));
+    };
+
+    const onClickRepeat = () => {
+        dispatch(setLoop(!loop));
+    };
 
     const getCurrentTime = () => {
         if (audioRef.current) {
@@ -72,31 +96,6 @@ const Player: React.FC = () => {
             audioRef.current.currentTime =
                 (progress / 100) * audioRef.current.duration;
         }
-    };
-
-    const onClickPlay = () => {
-        dispatch(setPlay(!play));
-
-        if (!play) {
-            audioRef.current?.pause();
-        } else {
-            audioRef.current?.play();
-            getCurrentTime();
-        }
-    };
-
-    const onClickNext = () => {
-        dispatch(setPlay(false));
-        dispatch(setSong({ id: Number(song.id + 1) }));
-    };
-
-    const onClickPrev = () => {
-        dispatch(setPlay(false));
-        dispatch(setSong({ id: Number(song.id - 1) }));
-    };
-
-    const onClickRepeat = () => {
-        dispatch(setLoop(!loop));
     };
 
     const onClickOfsetTime = () => {
