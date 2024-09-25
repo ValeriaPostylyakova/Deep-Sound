@@ -3,7 +3,7 @@ import { SongObj } from '../../redux/songs/types.ts';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
 import { setClickPlay } from '../../redux/songs/slice.ts';
-import { setActivePlayerSlide } from '../../redux/slider/slice.ts';
+import { setActivePlayerSlide } from '../../redux/sliderPlayer/slice.ts';
 import { setSong } from '../../redux/player/slice.ts';
 import { setPlay } from '../../redux/player/slice.ts';
 

@@ -11,9 +11,9 @@ import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
 import GenresBlock from '../components/GenresBlock.tsx';
 import CollectionsBlock from '../components/CollectionsBlock.tsx';
 import SliderBlock from '../components/Slider/SliderBlock.tsx';
-import Player from '../components/Player.tsx';
+import Player from '../components/FullPlayer/Player.tsx';
 import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx';
-import PlayerSlider from '../components/Slider/PlayerSlider.tsx';
+import PlayerSlider from '../components/PlayerSlider.tsx';
 // import SoundBlockSkeleton from '../components/SoundBlockSkeleton.tsx';
 
 const Home: React.FC = () => {
@@ -38,9 +38,9 @@ const Home: React.FC = () => {
                             .toLowerCase()
                             .includes(searchValue.toLowerCase())
                     )
-                    .map((song: SongObj) =>
+                    .map((song: SongObj, index) =>
                         status === 'loading' ? (
-                            <SoundBlockSkeleton />
+                            <SoundBlockSkeleton key={index} />
                         ) : (
                             <SoundBlock key={song.id} {...song} />
                         )

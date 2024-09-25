@@ -20,7 +20,7 @@ const Chart = () => {
             <Title text="Чарт DEEP SOUND" />
             <div className="chart__container">
                 {songs.map((song) => (
-                    <SoundBlock {...song} />
+                    <SoundBlock key={song.id} {...song} />
                 ))}
             </div>
         </>

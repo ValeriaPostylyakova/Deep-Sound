@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { search } from '../viteImages/images.ts';
 
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
 import { setSearchValue } from '../redux/filter/filterSlice.ts';
+
+import { search } from '../viteImages/images.ts';
 
 type SearchProps = {
     searchState: boolean;

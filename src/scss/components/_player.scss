@@ -37,6 +37,7 @@
             }
 
             &_info {
+                margin-right: 4rem;
                 h2 {
                     font-size: 1.2rem;
                     font-weight: 400;
@@ -46,6 +47,17 @@
                     font-weight: 300;
                 }
             }
+        }
+
+        &_buttons {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        &-button {
+            width: 19px;
+            height: 19px;
         }
     }
 
