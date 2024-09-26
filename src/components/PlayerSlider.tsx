@@ -10,13 +10,14 @@ import PlayerVolume from './FullPlayer/PlayerVolume.tsx';
 import { IoPlaySkipForward } from 'react-icons/io5';
 import { GrFavorite } from 'react-icons/gr';
 import { FiPlus } from 'react-icons/fi';
+import { SongObj } from '../redux/songs/types.ts';
 
 const PlayerSlider = () => {
     const { activePlayerSlide, slideFilterData } = useSelector(
         (state: RootState) => state.slider
     );
 
-    const [song, setSong] = React.useState(null);
+    const [song, setSong] = React.useState<SongObj | null>(null);
     const audioSliderRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -27,13 +28,13 @@ const PlayerSlider = () => {
     }, [obj]);
 
     const onClickNext = () => {
-        const index = slideFilterData.findIndex((obj) => obj.id === song.id);
+        const index = slideFilterData.findIndex((obj) => obj.id === song?.id);
         const nextObj = slideFilterData[index + 1];
         setSong(nextObj);
     };
 
     const onClickPrev = () => {
-        const index = slideFilterData.findIndex((obj) => obj.id === song.id);
+        const index = slideFilterData.findIndex((obj) => obj.id === song?.id);
         const prevObj = slideFilterData[index - 1];
         setSong(prevObj);
     };

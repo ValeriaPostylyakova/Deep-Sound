@@ -1,10 +1,22 @@
 import * as React from 'react';
+import { MutableRefObject } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
+import { SongObj } from '../../redux/songs/types.ts';
 import { setCurrentTime, setTrackWidth } from '../../redux/player/slice.ts';
 
-const PlayerTracks = ({ audioRef, trackRef, obj }) => {
+type PlayerTracksProps = {
+    audioRef: MutableRefObject<HTMLAudioElement | null>;
+    trackRef: MutableRefObject<HTMLDivElement | null>;
+    obj: SongObj | null;
+};
+
+const PlayerTracks: React.FC<PlayerTracksProps> = ({
+    audioRef,
+    trackRef,
+    obj,
+}) => {
     const dispatch: AppDispatch = useDispatch();
 
     const { loop, currentTime, trackWidth } = useSelector(
@@ -12,7 +24,7 @@ const PlayerTracks = ({ audioRef, trackRef, obj }) => {
     );
 
     const getCurrentTime = () => {
-        if ('currentTime' in audioRef.current) {
+        if (audioRef.current && 'currentTime' in audioRef.current) {
             const time = audioRef.current.currentTime;
 
             const minutes = Number(Math.floor(time / 60));
@@ -29,7 +41,7 @@ const PlayerTracks = ({ audioRef, trackRef, obj }) => {
     };
 
     const onClickTracks = (event: React.MouseEvent) => {
-        if ('currentTime' in audioRef.current) {
+        if (audioRef.current && 'currentTime' in audioRef.current) {
             const width = Number(trackRef.current?.clientWidth);
             const offset = Number(event.nativeEvent.offsetX);
             const progress = (offset / width) * 100;

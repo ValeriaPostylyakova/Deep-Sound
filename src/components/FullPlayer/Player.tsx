@@ -42,7 +42,7 @@ const Player: React.FC = () => {
     };
 
     const onClickOfsetTime = () => {
-        if ('currentTime' in audioRef.current) {
+        if (audioRef.current && 'currentTime' in audioRef.current) {
             audioRef.current.currentTime = audioRef.current?.currentTime + 10;
         }
     };

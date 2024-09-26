@@ -14,7 +14,7 @@ const Search: React.FC<SearchProps> = ({ searchState }) => {
     const [value, setValue] = React.useState('');
     const dispatch: AppDispatch = useDispatch();
 
-    const onChangeInput = (event) => {
+    const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
         dispatch(setSearchValue(event.target.value));
     };

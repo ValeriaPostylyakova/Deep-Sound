@@ -1,6 +1,6 @@
-import { arrow } from '../../viteImages/images.ts';
-import * as React from 'react';
 import { useSwiper } from 'swiper/react';
+
+import { arrow } from '../../viteImages/images.ts';
 
 const NavButtons = () => {
     const swiper = useSwiper();

@@ -5,7 +5,7 @@ const initialState: PlayerState = {
     song: {
         id: 0,
     },
-    play: false,
+    isPlay: false,
     loop: false,
     currentTime: { min: 0, sec: 0 },
     trackWidth: 0,
@@ -21,7 +21,7 @@ const PlayerSlice = createSlice({
         },
 
         setPlay(state, action: PayloadAction<boolean>) {
-            state.play = action.payload;
+            state.isPlay = action.payload;
         },
 
         setLoop(state, action: PayloadAction<boolean>) {

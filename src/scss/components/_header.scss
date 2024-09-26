@@ -74,6 +74,15 @@
       color: #9E9E9E;
     }
   }
+
+  &__user, &__sun {
+    width: 35px;
+    height: 35px;
+    color: #646464;
+  }
+  &__sun {
+    color: #796041;
+  }
 }
 
 button {

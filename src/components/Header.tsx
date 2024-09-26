@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { FaRegUserCircle } from 'react-icons/fa';
+import { MdOutlineWbSunny } from 'react-icons/md';
+// import { FiMoon } from "react-icons/fi";
 
 import BurgerMenu from './BurgerMenu.tsx';
 import Search from './Search.tsx';
 
-import { logo, menu, close, sun, search, user } from '../viteImages/images.ts';
+import { logo, menu, close, search } from '../viteImages/images.ts';
 
 const Header = () => {
     const [menuActive, setMenuActive] = React.useState<boolean>(false);
@@ -31,10 +34,10 @@ const Header = () => {
                         </button>
                     )}
                     <button>
-                        <img src={user} alt="user" />
+                        <FaRegUserCircle className="header__user" />
                     </button>
                     <button>
-                        <img src={sun} alt="sun" />
+                        <MdOutlineWbSunny className="header__sun" />
                     </button>
                     <button
                         className="burger-menu__button"

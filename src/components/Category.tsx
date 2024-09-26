@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { setCategoryIndex } from '../redux/filter/filterSlice.ts';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
+import { RootState } from '../redux/store.ts';
 
 type CategoryArray = {
     value: string;
@@ -19,9 +20,9 @@ export const categoryValue: CategoryArray[] = [
 
 const Category: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { categoryIndex } = useSelector((state) => state.filter);
+    const { categoryIndex } = useSelector((state: RootState) => state.filter);
 
-    const onClickCategory = (index) => {
+    const onClickCategory = (index: number) => {
         dispatch(setCategoryIndex(index));
     };
 

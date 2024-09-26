@@ -5,7 +5,7 @@ export type ObjCurrentTime = {
 
 export type PlayerState = {
     song: SongId;
-    play: boolean;
+    isPlay: boolean;
     loop: false;
     currentTime: ObjCurrentTime;
     trackWidth: number;
