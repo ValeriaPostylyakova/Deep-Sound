@@ -21,6 +21,7 @@ import arrowImg from '../assets/img/arrow.svg';
 import arrow2Img from '../assets/img/arrow2.svg';
 import volumeImg from '../assets/img/volume.svg';
 import volumeMuteImg from '../assets/img/volume-mute.svg';
+import favorite1Img from '../assets/img/favorite-1.svg';
 
 export const coll1: string = String(collection1);
 export const coll2: string = String(collection2);
@@ -45,3 +46,4 @@ export const arrow: string = String(arrowImg);
 export const arrow2: string = String(arrow2Img);
 export const _volumeImg: string = String(volumeImg);
 export const volume_mute: string = String(volumeMuteImg);
+export const favorite1: string = String(favorite1Img);

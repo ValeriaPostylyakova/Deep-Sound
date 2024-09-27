@@ -1,5 +1,5 @@
 export interface SongsState {
-    status: 'loading' | 'success' | 'error';
+    status: string;
     songs: SongObj[];
     activePlayer: boolean;
 }
@@ -12,11 +12,12 @@ export enum Status {
 
 export type SongObj = {
     id: number;
+    currentId?: number;
     title: string;
-    place: number;
+    place?: number;
     author: string;
     imageUrl: string;
-    songUrl: string;
+    songUrl?: string;
     time: string;
     key?: number;
 };

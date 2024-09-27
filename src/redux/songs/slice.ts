@@ -23,8 +23,8 @@ const songsSlice = createSlice({
         });
 
         builder.addCase(fetchSongs.fulfilled, (state, action) => {
-            state.songs = action.payload;
             state.status = Status.SUCCESS;
+            state.songs = action.payload;
         });
 
         builder.addCase(fetchSongs.rejected, (state) => {

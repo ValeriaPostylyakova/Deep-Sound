@@ -44,12 +44,6 @@ const sliderSlice = createSlice({
     },
 });
 
-export const {
-    setDataSongs,
-    setSliderId,
-    setActivePlayerSlide,
-    setIsPlay,
-    setCurrentTime,
-    setTrackWidth,
-} = sliderSlice.actions;
+export const { setDataSongs, setSliderId, setActivePlayerSlide } =
+    sliderSlice.actions;
 export default sliderSlice.reducer;

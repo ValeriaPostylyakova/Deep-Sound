@@ -9,7 +9,7 @@ import { setCurrentTime, setTrackWidth } from '../../redux/player/slice.ts';
 type PlayerTracksProps = {
     audioRef: MutableRefObject<HTMLAudioElement | null>;
     trackRef: MutableRefObject<HTMLDivElement | null>;
-    obj: SongObj | null;
+    obj: SongObj | undefined;
 };
 
 const PlayerTracks: React.FC<PlayerTracksProps> = ({

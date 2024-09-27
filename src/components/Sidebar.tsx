@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { home, favorite, plus, playlist } from '../viteImages/images.ts';
 
@@ -14,10 +15,12 @@ const Sidebar = () => {
                                 <p>Главная</p>
                             </li>
                         </Link>
-                        <li>
-                            <img src={favorite} alt="favorite" />
-                            <p>Закладки</p>
-                        </li>
+                        <Link to="favorite">
+                            <li>
+                                <img src={favorite} alt="favorite" />
+                                <p>Закладки</p>
+                            </li>
+                        </Link>
                     </ul>
                 </div>
                 <div className="sidebar__bottom">

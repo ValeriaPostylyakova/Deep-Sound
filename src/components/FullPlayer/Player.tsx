@@ -3,17 +3,17 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { setPlay, setSong, setLoop } from '../../redux/player/slice.ts';
+import { SongObj } from '../../redux/songs/types.ts';
 
 import { IoPlaySkipForward } from 'react-icons/io5';
 import { MdOutlineReplay10 } from 'react-icons/md';
 import { RiRepeat2Line } from 'react-icons/ri';
-
 import { RiRepeatOneLine } from 'react-icons/ri';
-import { GrFavorite } from 'react-icons/gr';
-import { FiPlus } from 'react-icons/fi';
+
 import ButtonPlayPause from './ButtonPlayPause.tsx';
 import PlayerTracks from './PlayerTracks.tsx';
 import PlayerVolume from './PlayerVolume.tsx';
+import ButtonsFavorite from './ButtonsFavorite.tsx';
 
 const Player: React.FC = () => {
     const audioRef = React.useRef<HTMLAudioElement | null>(null);
@@ -25,16 +25,18 @@ const Player: React.FC = () => {
     );
     const { song, loop } = useSelector((state: RootState) => state.player);
 
-    const objSong = songs.find((obj) => obj.id === song.id);
+    const objSong = songs.find((obj: SongObj) => obj.id === song.id);
 
-    const onClickNext = () => {
+    const onClickNextPrev = (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        const classBtn: string = event.currentTarget.className;
         dispatch(setPlay(false));
-        dispatch(setSong({ id: Number(song.id + 1) }));
-    };
-
-    const onClickPrev = () => {
-        dispatch(setPlay(false));
-        dispatch(setSong({ id: Number(song.id - 1) }));
+        if (classBtn === 'next') {
+            dispatch(setSong({ id: Number(song.id + 1) }));
+        } else {
+            dispatch(setSong({ id: Number(song.id - 1) }));
+        }
     };
 
     const onClickRepeat = () => {
@@ -60,14 +62,7 @@ const Player: React.FC = () => {
                                 <p>{objSong?.author}</p>
                             </div>
                         </div>
-                        <div className="player__left_buttons">
-                            <button>
-                                <GrFavorite className="player__left-button" />
-                            </button>
-                            <button>
-                                <FiPlus className="player__left-button" />
-                            </button>
-                        </div>
+                        <ButtonsFavorite objFavorite={objSong} />
                     </div>
                     <div className="player__center">
                         <div className="player__center_icon">
@@ -75,16 +70,16 @@ const Player: React.FC = () => {
                                 <MdOutlineReplay10 className="button" />
                             </button>
                             <button
-                                onClick={onClickPrev}
-                                disabled={song.id === 0}
+                                className="prev"
+                                onClick={(e) => onClickNextPrev(e)}
                             >
                                 <IoPlaySkipForward className="button prev" />
                             </button>
 
                             <ButtonPlayPause audioRef={audioRef} />
                             <button
-                                onClick={onClickNext}
-                                disabled={song.id === 5}
+                                className="next"
+                                onClick={(e) => onClickNextPrev(e)}
                             >
                                 <IoPlaySkipForward className="button next" />
                             </button>

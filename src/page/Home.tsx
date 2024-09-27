@@ -14,16 +14,19 @@ import SliderBlock from '../components/Slider/SliderBlock.tsx';
 import Player from '../components/FullPlayer/Player.tsx';
 import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx';
 import PlayerSlider from '../components/PlayerSlider.tsx';
-// import SoundBlockSkeleton from '../components/SoundBlockSkeleton.tsx';
 
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { songs, status } = useSelector((state: RootState) => state.songs);
+    const { status, songs } = useSelector((state: RootState) => state.songs);
     const { searchValue } = useSelector((state: RootState) => state.filter);
 
     React.useEffect(() => {
         dispatch(fetchSongs());
     }, []);
+
+    // const onClickChart = (e) => {
+
+    // };
     return (
         <>
             <SliderBlock />
@@ -32,13 +35,13 @@ const Home: React.FC = () => {
             </Link>
             <section className="sound">
                 {songs
-                    .slice(0, 6)
                     .filter((obj: SongObj) =>
                         obj.title
                             .toLowerCase()
                             .includes(searchValue.toLowerCase())
                     )
-                    .map((song: SongObj, index) =>
+                    .slice(0, 8)
+                    .map((song: SongObj, index: number) =>
                         status === 'loading' ? (
                             <SoundBlockSkeleton key={index} />
                         ) : (

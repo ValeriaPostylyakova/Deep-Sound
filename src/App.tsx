@@ -10,10 +10,9 @@ import './scss/app.scss';
 import Chart from './page/Chart.tsx';
 import Genres from './page/Genres.tsx';
 import Collections from './page/Collections.tsx';
+import Favorite from './page/Favorite.tsx';
 
 function App() {
-    const [activePlayer, setActivePlayer] = React.useState<boolean>(false);
-
     return (
         <div className="wrapper">
             <Header />
@@ -22,7 +21,7 @@ function App() {
 
                 <main className="main">
                     <div className="main__container">
-                        <Category />
+                        {/*<Category />*/}
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="chart" element={<Chart />} />
@@ -31,6 +30,7 @@ function App() {
                                 path="collections"
                                 element={<Collections />}
                             />
+                            <Route path="favorite" element={<Favorite />} />
                         </Routes>
                     </div>
                 </main>

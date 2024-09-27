@@ -15,12 +15,12 @@ type PlayPauseProps = {
 const ButtonPlayPause: React.FC<PlayPauseProps> = ({ audioRef }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const { play } = useSelector((state: RootState) => state.player);
+    const { isPlay } = useSelector((state: RootState) => state.player);
 
     const onClickPlayPause = () => {
-        dispatch(setPlay(!play));
+        dispatch(setPlay(!isPlay));
 
-        if (!play) {
+        if (!isPlay) {
             audioRef.current?.pause();
         } else {
             audioRef.current?.play();
@@ -29,7 +29,7 @@ const ButtonPlayPause: React.FC<PlayPauseProps> = ({ audioRef }) => {
 
     return (
         <button onClick={onClickPlayPause} className="player__button-play">
-            {play ? (
+            {isPlay ? (
                 <IoPlay className="button play" />
             ) : (
                 <IoMdPause className="button play" />

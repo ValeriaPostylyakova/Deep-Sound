@@ -17,7 +17,7 @@ const PlayerSlider = () => {
         (state: RootState) => state.slider
     );
 
-    const [song, setSong] = React.useState<SongObj | null>(null);
+    const [song, setSong] = React.useState<SongObj | undefined>();
     const audioSliderRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -27,16 +27,15 @@ const PlayerSlider = () => {
         setSong(obj);
     }, [obj]);
 
-    const onClickNext = () => {
-        const index = slideFilterData.findIndex((obj) => obj.id === song?.id);
-        const nextObj = slideFilterData[index + 1];
-        setSong(nextObj);
-    };
+    const index = slideFilterData.findIndex((obj) => obj.id === song?.id);
 
-    const onClickPrev = () => {
-        const index = slideFilterData.findIndex((obj) => obj.id === song?.id);
-        const prevObj = slideFilterData[index - 1];
-        setSong(prevObj);
+    const onClickNextPrev = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const classBtn = event.currentTarget.className;
+        if (classBtn === 'next') {
+            return setSong(slideFilterData[index + 1]);
+        } else {
+            return setSong(slideFilterData[index - 1]);
+        }
     };
 
     return (
@@ -62,12 +61,20 @@ const PlayerSlider = () => {
                     </div>
                     <div className="player__center">
                         <div className="player__center_icon_slider">
-                            <button onClick={onClickPrev}>
+                            <button
+                                disabled={index === 0}
+                                className="prev"
+                                onClick={(e) => onClickNextPrev(e)}
+                            >
                                 <IoPlaySkipForward className="button prev" />
                             </button>
 
                             <ButtonPlayPause audioRef={audioSliderRef} />
-                            <button onClick={onClickNext}>
+                            <button
+                                disabled={index === 4}
+                                onClick={(e) => onClickNextPrev(e)}
+                                className="next"
+                            >
                                 <IoPlaySkipForward className="button next" />
                             </button>
                         </div>
