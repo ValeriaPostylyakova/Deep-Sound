@@ -14,11 +14,11 @@
     }
 
     &__playlist {
+      position: relative;
       display: flex;
       flex: 1 1 auto;
       max-width: 250px;
       max-height: 250px;
-      position: relative;
 
       img {
         width: 100%;
@@ -35,7 +35,8 @@
       transition: 0.3s;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.29);
+        opacity: 0.3;
+        background-color: rgba(0, 0, 0, 0.40);
       }
     }
   }

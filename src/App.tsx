@@ -11,6 +11,8 @@ import Chart from './page/Chart.tsx';
 import Genres from './page/Genres.tsx';
 import Collections from './page/Collections.tsx';
 import Favorite from './page/Favorite.tsx';
+import Player from './components/FullPlayer/Player.tsx';
+import PlayerSlider from './components/PlayerSlider.tsx';
 
 function App() {
     return (
@@ -35,6 +37,8 @@ function App() {
                     </div>
                 </main>
             </div>
+            <Player />
+            <PlayerSlider />
         </div>
     );
 }

@@ -27,7 +27,7 @@ const GenresBlock = () => {
                     <div className="genres__active"></div>
                 </div>
             </a>
-            <a className="genres__link genres-5" href="">
+            <a className="genres__link genres-5" href="/">
                 <div className="genres__playlist">
                     <img src={alternative} alt="alternative" />
                     <div className="genres__active"></div>

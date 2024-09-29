@@ -12,7 +12,7 @@ export enum Status {
 
 export type SongObj = {
     id: number;
-    currentId?: number;
+    currentId: number;
     title: string;
     place?: number;
     author: string;

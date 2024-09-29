@@ -3,45 +3,57 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
+import { setFavorite } from '../../redux/favorite/slice.ts';
+import { setFavoriteActive } from '../../redux/favorite/slice.ts';
 import { SongObj } from '../../redux/songs/types.ts';
 
 import { GrFavorite } from 'react-icons/gr';
 import { FiPlus } from 'react-icons/fi';
-import { setFavorite } from '../../redux/favorite/slice.ts';
+import { FaHeart } from 'react-icons/fa6';
 
 type ButtonsFavoriteProps = {
     objFavorite: SongObj;
 };
 
 const ButtonsFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
-    const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const dispatch: AppDispatch = useDispatch();
+    const { favorite, favoriteActive } = useSelector(
+        (state: RootState) => state.favorite
+    );
 
-    const { favorite } = useSelector((state: RootState) => state.favorite);
+    const onClickAddFavorite = async () => {
+        const findObj = favorite.find(
+            (obj) => obj.currentId === objFavorite.id
+        );
 
-    const obj = { ...objFavorite, currentId: objFavorite.id };
+        const active = favorite.some((obj) => obj.currentId === objFavorite.id);
+        dispatch(setFavoriteActive(active));
 
-    const onClickAddFavorite = () => {
-        // const findObjFavorite = favorite.find(
-        //     (objState) => objState.id === obj.currentId
-        // );
-        //
-        // if (findObjFavorite) {
-        //     axios.delete(
-        //         `https://985cc4acb156d262.mokky.dev/favorite/${obj.currentId}`
-        //     );
-        // } else {
-        axios.post('https://985cc4acb156d262.mokky.dev/favorite', obj);
-        dispatch(setFavorite(obj));
-        setIsFavorite(!isFavorite);
-        // }
+        try {
+            if (findObj) {
+                favorite.filter((obj) => obj.id !== findObj.id);
+                await axios.delete(
+                    `https://985cc4acb156d262.mokky.dev/favorite/${findObj.id}`
+                );
+            } else {
+                const { data } = await axios.post(
+                    `https://985cc4acb156d262.mokky.dev/favorite`,
+                    objFavorite
+                );
+
+                dispatch(setFavorite(data));
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Ошибка при получении или удалении закладки');
+        }
     };
 
     return (
         <div className="player__left_buttons">
             <button onClick={onClickAddFavorite}>
-                {isFavorite ? (
-                    <GrFavorite className="player__left-button-red" />
+                {favoriteActive ? (
+                    <FaHeart className="player__left-button-red" />
                 ) : (
                     <GrFavorite className="player__left-button" />
                 )}

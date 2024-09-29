@@ -11,7 +11,6 @@ import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
 import GenresBlock from '../components/GenresBlock.tsx';
 import CollectionsBlock from '../components/CollectionsBlock.tsx';
 import SliderBlock from '../components/Slider/SliderBlock.tsx';
-import Player from '../components/FullPlayer/Player.tsx';
 import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx';
 import PlayerSlider from '../components/PlayerSlider.tsx';
 
@@ -65,8 +64,6 @@ const Home: React.FC = () => {
                     <CollectionsBlock />
                 </div>
             </section>
-            <Player />
-            <PlayerSlider />
         </>
     );
 };

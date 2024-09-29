@@ -21,10 +21,12 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
                                     <p>Главная</p>
                                 </li>
                             </Link>
-                            <li>
-                                <img src={favorite} alt="favorite" />
-                                <p>Закладки</p>
-                            </li>
+                            <Link to="favorite">
+                                <li>
+                                    <img src={favorite} alt="favorite" />
+                                    <p>Закладки</p>
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                     <div className="sidebar__bottom">
