@@ -5,14 +5,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store.ts';
 
 import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
-import Title from '../components/Title.tsx';
+import GoBack from '../components/GoBack.tsx';
 
 const Chart = () => {
     const { songs } = useSelector((state: RootState) => state.songs);
 
     return (
         <>
-            <Title text="Чарт DEEP SOUND" />
+            <GoBack />
             <div className="chart__container">
                 {songs.map((song: SongObj) => (
                     <SoundBlock key={song.id} {...song} />

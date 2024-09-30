@@ -1,39 +1,18 @@
-import { pop, rock, indie, alternative, metal } from '../viteImages/images.ts';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 
-const GenresBlock = () => {
+type GenresBlockProps = {
+    imageUrl: string;
+};
+
+const GenresBlock: React.FC<GenresBlockProps> = ({ imageUrl }) => {
     return (
-        <>
-            <a className="genres__link" href="/">
-                <div className="genres__playlist">
-                    <img src={pop} alt="pop" />
-                    <div className="genres__active"></div>
-                </div>
-            </a>
-            <a className="genres__link" href="/">
-                <div className="genres__playlist">
-                    <img src={rock} alt="rock" />
-                    <div className="genres__active"></div>
-                </div>
-            </a>
-            <a className="genres__link" href="/">
-                <div className="genres__playlist">
-                    <img src={indie} alt="indie" />
-                    <div className="genres__active"></div>
-                </div>
-            </a>
-            <a className="genres__link" href="/">
-                <div className="genres__playlist">
-                    <img src={metal} alt="metal" />
-                    <div className="genres__active"></div>
-                </div>
-            </a>
-            <a className="genres__link genres-5" href="/">
-                <div className="genres__playlist">
-                    <img src={alternative} alt="alternative" />
-                    <div className="genres__active"></div>
-                </div>
-            </a>
-        </>
+        <Link to="/genres/pop" className="genres__container_link">
+            <div className="genres__container_playlist">
+                <img src={imageUrl} alt="genre" />
+                <div className="genres__container_active"></div>
+            </div>
+        </Link>
     );
 };
 

@@ -102,9 +102,9 @@
         width: 40px;
         height: 40px;
         text-align: center;
-        background-color: rgb(154, 183, 213);
+        background-color: rgb(56, 103, 163);
+        box-shadow: 0px 3px 10px 5px rgba(56, 103, 163, 0.5);
         border-radius: 100%;
-        box-shadow: 0px 3px 10px 5px rgba(154, 183, 213, 0.5);
     }
 
     &__audioTracks {
@@ -123,7 +123,7 @@
         span {
             display: block;
             height: 100%;
-            background-color: rgb(135, 171, 199);
+            background-color: rgb(56, 103, 163);
         }
     }
 
@@ -138,19 +138,19 @@
     cursor: pointer;
     width: 23px;
     height: 23px;
-    color: #000000;
+    color: rgb(56, 103, 163);
 
     &.play {
         color: #ffffff;
     }
 
     &.next {
-        color: rgb(154, 183, 213)
+        color: rgb(56, 103, 163);
     }
 
     &.prev {
         transform: rotate(180deg);
-        color: rgb(154, 183, 213);
+        color: rgb(56, 103, 163);
     }
 
     &.repeat {

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { GrFavorite } from 'react-icons/gr';
-
 import { removeItem } from '../../redux/favorite/slice.ts';
 import { SongObj } from '../../redux/songs/types.ts';
 import { AppDispatch } from '../../redux/store.ts';
@@ -54,7 +52,6 @@ const FavoriteBlock: React.FC<SongObj> = ({
             <div className="sound__right">
                 <p className="sound__time-favorite">{time}</p>
                 <button onClick={onClickRemoveFavorite}>
-                    {/*<GrFavorite className="sound__right-favorite" />*/}
                     <FaHeart className="player__left-button-red" />
                 </button>
             </div>

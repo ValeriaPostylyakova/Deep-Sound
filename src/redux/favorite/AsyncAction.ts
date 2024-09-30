@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { SongObj } from '../songs/types.ts';
 import axios from 'axios';
-import { setBlockFavorite } from './slice.ts';
 
 export const fetchFavorite = createAsyncThunk<SongObj>(
     'favorite/fetchFavoriteStatus',

@@ -12,20 +12,21 @@ import GenresBlock from '../components/GenresBlock.tsx';
 import CollectionsBlock from '../components/CollectionsBlock.tsx';
 import SliderBlock from '../components/Slider/SliderBlock.tsx';
 import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx';
-import PlayerSlider from '../components/PlayerSlider.tsx';
+import { fetchGenres } from '../redux/genres/asyncAction.ts';
 
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const { status, songs } = useSelector((state: RootState) => state.songs);
+    const { statusGenres, genres } = useSelector(
+        (state: RootState) => state.genres
+    );
     const { searchValue } = useSelector((state: RootState) => state.filter);
 
     React.useEffect(() => {
         dispatch(fetchSongs());
+        dispatch(fetchGenres());
     }, []);
 
-    // const onClickChart = (e) => {
-
-    // };
     return (
         <>
             <SliderBlock />
@@ -53,7 +54,9 @@ const Home: React.FC = () => {
             </Link>
             <section className="genres">
                 <div className="genres__container">
-                    <GenresBlock />
+                    {genres.slice(0, 5).map((genre) => (
+                        <GenresBlock key={genre.id} {...genre} />
+                    ))}
                 </div>
             </section>
             <Link className="link" to="collections">

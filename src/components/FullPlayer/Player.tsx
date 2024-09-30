@@ -6,7 +6,7 @@ import { setPlay, setSong, setLoop } from '../../redux/player/slice.ts';
 import { SongObj } from '../../redux/songs/types.ts';
 
 import { IoPlaySkipForward } from 'react-icons/io5';
-import { MdOutlineReplay10 } from 'react-icons/md';
+import { TbRewindForward10 } from 'react-icons/tb';
 import { RiRepeat2Line } from 'react-icons/ri';
 import { RiRepeatOneLine } from 'react-icons/ri';
 
@@ -67,7 +67,7 @@ const Player: React.FC = () => {
                     <div className="player__center">
                         <div className="player__center_icon">
                             <button onClick={onClickOfsetTime}>
-                                <MdOutlineReplay10 className="button" />
+                                <TbRewindForward10 className="button" />
                             </button>
                             <button
                                 className="prev"

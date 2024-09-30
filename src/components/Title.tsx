@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { arrow2 } from '../viteImages/images.ts';
+import { IoIosArrowForward } from 'react-icons/io';
 
 type TitleProps = {
     text: string;
@@ -10,7 +10,7 @@ const Title: React.FC<TitleProps> = ({ text }) => {
     return (
         <div className="main__title">
             <h1>{text}</h1>
-            <img className="active-arrow" src={arrow2} alt="arrow" />
+            <IoIosArrowForward className="main__title_icon" />
         </div>
     );
 };

@@ -4,6 +4,7 @@ import songs from './songs/slice.ts';
 import player from './player/slice.ts';
 import slider from './sliderPlayer/slice.ts';
 import favorite from './favorite/slice.ts';
+import genres from './genres/slice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         player,
         slider,
         favorite,
+        genres,
     },
 });
 

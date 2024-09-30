@@ -9,11 +9,11 @@
     gap: 4rem;
     flex-wrap: wrap;
 
-    &__link {
+    &_link {
       display: block;
     }
 
-    &__playlist {
+    &_playlist {
       position: relative;
       display: flex;
       flex: 1 1 auto;
@@ -22,10 +22,11 @@
 
       img {
         width: 100%;
+        border-radius: 15px;
       }
     }
 
-    &__active {
+    &_active {
       position: absolute;
       top: 0;
       left: 0;

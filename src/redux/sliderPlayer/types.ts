@@ -3,6 +3,7 @@ import { ObjCurrentTime } from '../player/types.ts';
 
 export type DataObj = {
     id: number;
+    imageUrl?: string;
     sliderSongs: SongObj[];
 };
 
