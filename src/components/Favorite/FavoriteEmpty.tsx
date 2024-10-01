@@ -1,5 +1,4 @@
 import { favorite1 } from '../../viteImages/images.ts';
-import * as React from 'react';
 
 const FavoriteEmpty = () => {
     return (

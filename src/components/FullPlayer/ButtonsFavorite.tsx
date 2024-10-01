@@ -12,7 +12,7 @@ import { FiPlus } from 'react-icons/fi';
 import { FaHeart } from 'react-icons/fa6';
 
 type ButtonsFavoriteProps = {
-    objFavorite: SongObj;
+    objFavorite: SongObj | undefined;
 };
 
 const ButtonsFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
@@ -23,10 +23,12 @@ const ButtonsFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
 
     const onClickAddFavorite = async () => {
         const findObj = favorite.find(
-            (obj) => obj.currentId === objFavorite.id
+            (obj) => obj.currentId === objFavorite?.id
         );
 
-        const active = favorite.some((obj) => obj.currentId === objFavorite.id);
+        const active = favorite.some(
+            (obj) => obj.currentId === objFavorite?.id
+        );
         dispatch(setFavoriteActive(active));
 
         try {

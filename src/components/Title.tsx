@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { IoIosArrowForward } from 'react-icons/io';
 
 type TitleProps = {

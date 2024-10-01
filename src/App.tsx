@@ -13,7 +13,7 @@ import Collections from './page/Collections.tsx';
 import Favorite from './page/Favorite.tsx';
 import Player from './components/FullPlayer/Player.tsx';
 import PlayerSlider from './components/PlayerSlider.tsx';
-import GenresPop from './page/GenresPop.tsx';
+import Pop from './page/Genre/Pop.tsx';
 
 function App() {
     return (
@@ -34,7 +34,11 @@ function App() {
                                 element={<Collections />}
                             />
                             <Route path="favorite" element={<Favorite />} />
-                            <Route path="genres/pop" element={<GenresPop />} />
+                            <Route path="/genres/pop" element={<Pop />} />
+                            <Route path="/genres/rock" element={<Pop />} />
+                            <Route path="/genres/pop" element={<Pop />} />
+                            <Route path="/genres/pop" element={<Pop />} />
+                            <Route path="/genres/pop" element={<Pop />} />
                         </Routes>
                     </div>
                 </main>

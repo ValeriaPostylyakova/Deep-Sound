@@ -8,11 +8,13 @@ import { SongObj } from '../redux/songs/types.ts';
 
 import Title from '../components/Title.tsx';
 import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
-import GenresBlock from '../components/GenresBlock.tsx';
+import GenresBlock from '../components/GenresBlock/GenresBlock.tsx';
 import CollectionsBlock from '../components/CollectionsBlock.tsx';
 import SliderBlock from '../components/Slider/SliderBlock.tsx';
 import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx';
 import { fetchGenres } from '../redux/genres/asyncAction.ts';
+import GenresBlockSkeleton from '../components/GenresBlock/GenresBlockSkeleton.tsx';
+import { Genres } from '../redux/genres/types.ts';
 
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -54,9 +56,19 @@ const Home: React.FC = () => {
             </Link>
             <section className="genres">
                 <div className="genres__container">
-                    {genres.slice(0, 5).map((genre) => (
-                        <GenresBlock key={genre.id} {...genre} />
-                    ))}
+                    {genres
+                        .slice(0, 5)
+                        .map((genre: Genres, index: number) =>
+                            statusGenres === 'loading' ? (
+                                <GenresBlockSkeleton key={index} />
+                            ) : (
+                                <GenresBlock
+                                    key={genre.id}
+                                    imageUrl={genre.imageUrl}
+                                    linkUrl={genre.linkUrl}
+                                />
+                            )
+                        )}
                 </div>
             </section>
             <Link className="link" to="collections">

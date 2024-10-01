@@ -13,5 +13,5 @@ export type PlayerState = {
 };
 
 export type SongId = {
-    id: number | undefined;
+    id: number;
 };

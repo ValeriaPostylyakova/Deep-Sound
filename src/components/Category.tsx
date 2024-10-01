@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import { setCategoryIndex } from '../redux/filter/filterSlice.ts';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,9 +12,9 @@ type CategoryArray = {
 
 export const categoryValue: CategoryArray[] = [
     { value: 'Все', link: '/' },
-    { value: 'Чарт', link: 'chart' },
-    { value: 'Жанры', link: 'genres' },
-    { value: 'Подборки', link: 'collections' },
+    { value: 'Русская поп-музыка', link: 'chart' },
+    { value: 'Диско', link: 'genres' },
+    { value: 'К-pop', link: 'collections' },
 ];
 
 const Category: React.FC = () => {
@@ -30,18 +29,14 @@ const Category: React.FC = () => {
         <nav>
             <ul className="main__category">
                 {categoryValue.map((obj: CategoryArray, index: number) => (
-                    <Link to={obj.link} key={obj.link}>
-                        <li>
-                            <button
-                                className={
-                                    index === categoryIndex ? 'active' : ''
-                                }
-                                onClick={() => onClickCategory(index)}
-                            >
-                                {obj.value}
-                            </button>
-                        </li>
-                    </Link>
+                    <li key={index}>
+                        <button
+                            className={index === categoryIndex ? 'active' : ''}
+                            onClick={() => onClickCategory(index)}
+                        >
+                            {obj.value}
+                        </button>
+                    </li>
                 ))}
             </ul>
         </nav>

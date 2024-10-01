@@ -9,6 +9,8 @@
 @import 'components/menu';
 @import 'components/player';
 @import 'components/favorite';
+@import 'components/playlist';
+@import 'components/playlist';
 
 .wrapper {
     min-height: 100vh;
@@ -20,6 +22,7 @@
 .content {
     display: flex;
     gap: 0;
+    padding-bottom: 80px;
 }
 
 .main {

@@ -1,0 +1,21 @@
+.playlist {
+  cursor: pointer;
+  max-width: 150px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+  &__images {
+    border-radius: 20px;
+    max-width: 150px;
+    max-height: 150px;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

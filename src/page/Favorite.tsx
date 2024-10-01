@@ -25,9 +25,9 @@ const Favorite = () => {
                 <h1>Избранное</h1>
                 {blockFavorite.length > 0 ? (
                     <div className="favorite__container_2">
-                        {blockFavorite.map((obj: SongObj) =>
+                        {blockFavorite.map((obj: SongObj, index: number) =>
                             status === 'loading' ? (
-                                <FavoriteSkeleton />
+                                <FavoriteSkeleton key={index} />
                             ) : (
                                 <FavoriteBlock {...obj} key={obj.id} />
                             )

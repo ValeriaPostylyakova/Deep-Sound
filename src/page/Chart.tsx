@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { SongObj } from '../redux/songs/types.ts';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store.ts';

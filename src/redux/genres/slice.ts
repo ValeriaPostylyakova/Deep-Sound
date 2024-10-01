@@ -19,16 +19,16 @@ const genresSlice = createSlice({
 
     extraReducers: (builder) => {
         builder.addCase(fetchGenres.pending, (state) => {
-            state.status = Status.LOADING;
+            state.statusGenres = Status.LOADING;
         });
 
         builder.addCase(fetchGenres.fulfilled, (state, action) => {
-            state.status = Status.SUCCESS;
+            state.statusGenres = Status.SUCCESS;
             state.genres = action.payload;
         });
 
         builder.addCase(fetchGenres.rejected, (state) => {
-            state.status = Status.ERROR;
+            state.statusGenres = Status.ERROR;
         });
     },
 });
