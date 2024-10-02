@@ -6,6 +6,7 @@ import slider from './sliderPlayer/slice.ts';
 import favorite from './favorite/slice.ts';
 import genres from './genres/slice.ts';
 import genresBlock from './genres/blockSlice.ts';
+import genre from './genre/slice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         favorite,
         genres,
         genresBlock,
+        genre,
     },
 });
 

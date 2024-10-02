@@ -3,21 +3,14 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
 import { RootState } from '../redux/store.ts';
-import { setCategoryId } from '../redux/genres/slice.ts';
-
-type CategoryArray = {
-    value: string;
-};
-
-export const categoryValue: CategoryArray[] = [
-    { value: 'Все' },
-    { value: 'Русская поп-музыка' },
-    { value: 'Диско' },
-];
+import { setCategoryId } from '../redux/genre/slice.ts';
+import { CategoryArray } from '../redux/genres/types.ts';
 
 const Category: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { categoryId } = useSelector((state: RootState) => state.genres);
+
+    const { categoryArray } = useSelector((state: RootState) => state.genres);
+    const { categoryId } = useSelector((state: RootState) => state.genre);
 
     const onClickCategory = (index: number) => {
         dispatch(setCategoryId(index));
@@ -26,7 +19,7 @@ const Category: React.FC = () => {
     return (
         <nav>
             <ul className="main__category">
-                {categoryValue.map((obj: CategoryArray, index: number) => (
+                {categoryArray.map((obj: CategoryArray, index: number) => (
                     <button
                         key={index}
                         className={

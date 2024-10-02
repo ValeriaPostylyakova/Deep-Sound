@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Genres, GenresState } from './types';
+import { CategoryArray, GenresState } from './types';
 import { fetchGenres } from './asyncAction.ts';
 import { Status } from '../songs/types.ts';
 
 const initialState: GenresState = {
     genres: [],
-    genre: [],
-    genreId: 0,
-    categoryId: 0,
+    categoryArray: [
+        { value: 'Все' },
+        { value: 'Русская поп-музыка' },
+        { value: 'Диско' },
+    ],
     statusGenres: Status.LOADING,
 };
 
@@ -15,20 +17,8 @@ const genresSlice = createSlice({
     name: 'genres',
     initialState,
     reducers: {
-        setGenres(state, action: PayloadAction<Genres>) {
-            state.genres = action.payload;
-        },
-
-        setGenreId(state, action: PayloadAction<number>) {
-            state.genreId = action.payload;
-        },
-
-        setCategoryId(state, action: PayloadAction<number>) {
-            state.categoryId = action.payload;
-        },
-
-        setGenre(state, action: PayloadAction<Genres>) {
-            state.genre = action.payload;
+        setCategoryArray(state, action: PayloadAction<CategoryArray>) {
+            state.categoryArray = action.payload;
         },
     },
 
@@ -48,7 +38,6 @@ const genresSlice = createSlice({
     },
 });
 
-export const { setGenres, setGenreId, setGenre, setCategoryId } =
-    genresSlice.actions;
+export const { setCategoryArray } = genresSlice.actions;
 
 export default genresSlice.reducer;

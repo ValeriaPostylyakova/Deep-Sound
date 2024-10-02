@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { PlaylistObj } from '../redux/genres/types.ts';
+
 import { SongObj } from '../redux/songs/types.ts';
 
 type PlaylistProps = {
-    // playlists: PlaylistObj;
     imageUrl: string;
     title: string;
     songs: SongObj[];
+    key?: number;
 };
 
 const Playlist: React.FC<PlaylistProps> = ({ imageUrl, title, songs }) => {

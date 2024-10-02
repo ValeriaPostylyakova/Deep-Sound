@@ -1,10 +1,8 @@
-import { SongObj, Status } from '../songs/types.ts';
+import { Status } from '../songs/types.ts';
+import { PlaylistObj } from '../genre/types.ts';
 
-export type PlaylistObj = {
-    id: number;
-    title: string;
-    imageUrl: string;
-    songs: SongObj[];
+export type CategoryArray = {
+    value: string;
 };
 
 export type Genres = {
@@ -16,10 +14,8 @@ export type Genres = {
 
 export type GenresState = {
     genres: Genres[];
-    genre: Genres[];
     statusGenres: Status;
-    genreId: number;
-    categoryId: number;
+    categoryArray: CategoryArray[];
 };
 
 export interface GenresBlock {

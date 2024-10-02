@@ -55,22 +55,23 @@ const SliderBlock: React.FC = () => {
             }}
         >
             {slides.map((slide, index) => (
-                <SwiperSlide key={index} onClick={() => onClickSlide(slide.id)}>
+                <SwiperSlide key={index}>
                     <div key={index} className={`slider ${slide.className}`}>
-                        <div className={slide.className}></div>
                         <div className="slider__container">
-                            <h1>{slide.title}</h1>
-                            <p>{slide.subtitle}</p>
-                            <div className="slider__container-bottom">
-                                <button className="play">
-                                    {isPlay ? (
-                                        <IoMdPause className="slider__container-bottom-buttons" />
-                                    ) : (
-                                        <IoPlay className="player__container-bottom-buttons" />
-                                    )}
-                                </button>
-                                <NavButtons />
+                            <div onClick={() => onClickSlide(slide.id)}>
+                                <h1>{slide.title}</h1>
+                                <p>{slide.subtitle}</p>
+                                <div className="slider__container-bottom">
+                                    <button className="play">
+                                        {isPlay ? (
+                                            <IoMdPause className="slider__container-bottom-buttons" />
+                                        ) : (
+                                            <IoPlay className="slider__container-bottom-buttons" />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
+                            <NavButtons />
                         </div>
                     </div>
                 </SwiperSlide>

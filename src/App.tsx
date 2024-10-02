@@ -23,7 +23,6 @@ function App() {
 
                 <main className="main">
                     <div className="main__container">
-                        {/*<Category />*/}
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="chart" element={<Chart />} />
@@ -40,7 +39,8 @@ function App() {
                                 path="/genres/alternative"
                                 element={<Genre />}
                             />
-                            <Route path="/genres/rep" element={<Genre />} />
+                            <Route path="/genres/dance" element={<Genre />} />
+                            <Route path="/genres/rap" element={<Genre />} />
                         </Routes>
                     </div>
                 </main>
