@@ -66,6 +66,7 @@ const Home: React.FC = () => {
                                     key={genre.id}
                                     imageUrl={genre.imageUrl}
                                     linkUrl={genre.linkUrl}
+                                    id={genre.id}
                                 />
                             )
                         )}

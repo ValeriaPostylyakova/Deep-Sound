@@ -4,15 +4,17 @@
   gap: 1rem;
   margin-bottom: 40px;
 
-  button {
+  &_button {
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 15px;
     font-weight: 600;
     background-color: #f8f8f8;
+
+    &.active {
+      background-color: #7399e2;
+      color: #ffffff;
+    }
   }
 }
 
-.active {
-  color: #395da2;
-}

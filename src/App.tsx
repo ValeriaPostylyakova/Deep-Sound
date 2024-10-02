@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header.tsx';
 import Sidebar from './components/Sidebar.tsx';
-import Category from './components/Category.tsx';
 import Home from './page/Home.tsx';
 
 import './scss/app.scss';
@@ -13,7 +12,7 @@ import Collections from './page/Collections.tsx';
 import Favorite from './page/Favorite.tsx';
 import Player from './components/FullPlayer/Player.tsx';
 import PlayerSlider from './components/PlayerSlider.tsx';
-import Pop from './page/Genre/Pop.tsx';
+import Genre from './page/Genre.tsx';
 
 function App() {
     return (
@@ -34,11 +33,14 @@ function App() {
                                 element={<Collections />}
                             />
                             <Route path="favorite" element={<Favorite />} />
-                            <Route path="/genres/pop" element={<Pop />} />
-                            <Route path="/genres/rock" element={<Pop />} />
-                            <Route path="/genres/pop" element={<Pop />} />
-                            <Route path="/genres/pop" element={<Pop />} />
-                            <Route path="/genres/pop" element={<Pop />} />
+                            <Route path="/genres/pop" element={<Genre />} />
+                            <Route path="/genres/rock" element={<Genre />} />
+                            <Route path="/genres/indie" element={<Genre />} />
+                            <Route
+                                path="/genres/alternative"
+                                element={<Genre />}
+                            />
+                            <Route path="/genres/rep" element={<Genre />} />
                         </Routes>
                     </div>
                 </main>

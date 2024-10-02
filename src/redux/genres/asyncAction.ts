@@ -4,9 +4,9 @@ import { DataObj } from '../sliderPlayer/types.ts';
 
 export const fetchGenres = createAsyncThunk<DataObj>(
     'genres/fetchGenresStatus',
-    async () => {
+    async (genreId) => {
         const { data } = await axios.get(
-            'https://985cc4acb156d262.mokky.dev/genres'
+            `https://985cc4acb156d262.mokky.dev/genres`
         );
         return data;
     }

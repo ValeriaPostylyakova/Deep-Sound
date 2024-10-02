@@ -16,7 +16,10 @@ export type Genres = {
 
 export type GenresState = {
     genres: Genres[];
+    genre: Genres[];
     statusGenres: Status;
+    genreId: number;
+    categoryId: number;
 };
 
 export interface GenresBlock {
