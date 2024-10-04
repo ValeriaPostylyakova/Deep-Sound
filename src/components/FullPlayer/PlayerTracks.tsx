@@ -10,12 +10,14 @@ type PlayerTracksProps = {
     audioRef: MutableRefObject<HTMLAudioElement | null>;
     trackRef: MutableRefObject<HTMLDivElement | null>;
     obj: SongObj | undefined;
+    getAutoNextSong: () => void;
 };
 
 const PlayerTracks: React.FC<PlayerTracksProps> = ({
     audioRef,
     trackRef,
     obj,
+    getAutoNextSong
 }) => {
     const dispatch: AppDispatch = useDispatch();
 
@@ -64,6 +66,7 @@ const PlayerTracks: React.FC<PlayerTracksProps> = ({
             </div>
 
             <audio
+                onEnded={getAutoNextSong}
                 ref={audioRef}
                 src={obj?.songUrl}
                 loop={loop}

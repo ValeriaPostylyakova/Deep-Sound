@@ -21,6 +21,7 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
     categoryArray,
 }) => {
     const dispatch: AppDispatch = useDispatch();
+
     const onClickPlaylist = ({ id, categoryArray }) => {
         dispatch(setGenreId(id));
         dispatch(setCategoryArray(categoryArray));

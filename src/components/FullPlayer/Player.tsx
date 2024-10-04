@@ -39,6 +39,10 @@ const Player: React.FC = () => {
         }
     };
 
+    const getAutoNextSong = () => {
+        dispatch(setSong({ id: Number(song.id + 1) }));
+    }
+
     const onClickRepeat = () => {
         dispatch(setLoop(!loop));
     };
@@ -95,6 +99,7 @@ const Player: React.FC = () => {
                             audioRef={audioRef}
                             trackRef={trackRef}
                             obj={objSong}
+                            getAutoNextSong={getAutoNextSong}
                         />
                     </div>
                     <PlayerVolume audioRef={audioRef} />
