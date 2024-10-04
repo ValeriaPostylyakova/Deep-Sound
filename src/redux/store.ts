@@ -7,6 +7,7 @@ import favorite from './favorite/slice.ts';
 import genres from './genres/slice.ts';
 import genresBlock from './genres/blockSlice.ts';
 import genre from './genre/slice.ts';
+import playlist from './playlistPlayer/slice.ts'
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
         genres,
         genresBlock,
         genre,
+        playlist,
     },
 });
 

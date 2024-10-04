@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header.tsx';
@@ -13,6 +12,7 @@ import Favorite from './page/Favorite.tsx';
 import Player from './components/FullPlayer/Player.tsx';
 import PlayerSlider from './components/PlayerSlider.tsx';
 import Genre from './page/Genre.tsx';
+import PlayerPlaylist from './components/PlayerPlaylist.tsx';
 
 function App() {
     return (
@@ -47,6 +47,7 @@ function App() {
             </div>
             <Player />
             <PlayerSlider />
+            <PlayerPlaylist/>
         </div>
     );
 }

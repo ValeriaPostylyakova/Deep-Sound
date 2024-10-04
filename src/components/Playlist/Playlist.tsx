@@ -1,6 +1,12 @@
 import * as React from 'react';
 
-import { SongObj } from '../redux/songs/types.ts';
+import { SongObj } from '../../redux/songs/types.ts';
+import { AppDispatch } from '../../redux/store.ts';
+import { useDispatch } from 'react-redux';
+import {
+    setPlayerActive,
+    setPlaylist,
+} from '../../redux/playlistPlayer/slice.ts';
 
 type PlaylistProps = {
     imageUrl: string;
@@ -10,8 +16,15 @@ type PlaylistProps = {
 };
 
 const Playlist: React.FC<PlaylistProps> = ({ imageUrl, title, songs }) => {
+    const dispatch: AppDispatch = useDispatch();
+
+    const onClickPlaylist = () => {
+        dispatch(setPlayerActive(true));
+        dispatch(setPlaylist(songs));
+    };
+
     return (
-        <div className="playlist">
+        <div onClick={onClickPlaylist} className="playlist">
             <div className="playlist__container-top">
                 <img className="playlist__images" src={imageUrl} alt="alt" />
                 <h3 className="playlist__title">{title}</h3>

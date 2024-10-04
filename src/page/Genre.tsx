@@ -2,10 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store.ts';
 
 import Category from '../components/Category.tsx';
-import Playlist from '../components/Playlist.tsx';
+import Playlist from '../components/Playlist/Playlist.tsx';
 import * as React from 'react';
 import { fetchGenre } from '../redux/genre/asyncAction.ts';
-import PlaylistSkeleton from '../components/PlaylistSkeleton.tsx';
+import PlaylistSkeleton from '../components/Playlist/PlaylistSkeleton.tsx';
 
 const Genre = () => {
     const dispatch: AppDispatch = useDispatch();

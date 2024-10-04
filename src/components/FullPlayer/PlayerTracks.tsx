@@ -10,7 +10,7 @@ type PlayerTracksProps = {
     audioRef: MutableRefObject<HTMLAudioElement | null>;
     trackRef: MutableRefObject<HTMLDivElement | null>;
     obj: SongObj | undefined;
-    getAutoNextSong: () => void;
+    getAutoNextSong?: () => void;
 };
 
 const PlayerTracks: React.FC<PlayerTracksProps> = ({

@@ -5,7 +5,7 @@ const PlaylistSkeleton = () => {
         <ContentLoader
             speed={2}
             width={150}
-            height={230}
+            height={210}
             viewBox="0 0 150 230"
             backgroundColor="#f2f2f2"
             foregroundColor="#ecebeb"
