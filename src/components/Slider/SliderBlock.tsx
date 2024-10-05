@@ -21,6 +21,7 @@ import {
 import { setClickPlay } from '../../redux/songs/slice.ts';
 
 import { DataObj } from '../../redux/sliderPlayer/types.ts';
+import { setPlayerActive } from '../../redux/playlistPlayer/slice.ts';
 
 const SliderBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -40,6 +41,7 @@ const SliderBlock: React.FC = () => {
     const onClickSlide = (id: number) => {
         dispatch(setSliderId({ id } as DataObj));
         dispatch(setClickPlay(false));
+        dispatch(setPlayerActive(false));
         dispatch(setActivePlayerSlide(true));
     };
 
