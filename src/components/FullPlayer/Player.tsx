@@ -2,18 +2,17 @@ import * as React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
-import { setPlay, setSong, setLoop } from '../../redux/player/slice.ts';
+import { setPlay, setSong } from '../../redux/player/slice.ts';
 import { SongObj } from '../../redux/songs/types.ts';
 
 import { IoPlaySkipForward } from 'react-icons/io5';
-import { TbRewindForward10 } from 'react-icons/tb';
-import { RiRepeat2Line } from 'react-icons/ri';
-import { RiRepeatOneLine } from 'react-icons/ri';
 
 import ButtonPlayPause from './ButtonPlayPause.tsx';
 import PlayerTracks from './PlayerTracks.tsx';
 import PlayerVolume from './PlayerVolume.tsx';
 import ButtonsFavorite from './ButtonsFavorite.tsx';
+import ButtonOfsetTime from './ButtonOfsetTime.tsx';
+import ButtonRepeat from './ButtonRepeat.tsx';
 
 const Player: React.FC = () => {
     const audioRef = React.useRef<HTMLAudioElement | null>(null);
@@ -23,7 +22,7 @@ const Player: React.FC = () => {
     const { activePlayer, songs } = useSelector(
         (state: RootState) => state.songs
     );
-    const { song, loop } = useSelector((state: RootState) => state.player);
+    const { song } = useSelector((state: RootState) => state.player);
 
     const objSong = songs.find((obj: SongObj) => obj.id === song.id);
 
@@ -43,16 +42,6 @@ const Player: React.FC = () => {
         dispatch(setSong({ id: Number(song.id + 1) }));
     }
 
-    const onClickRepeat = () => {
-        dispatch(setLoop(!loop));
-    };
-
-    const onClickOfsetTime = () => {
-        if (audioRef.current && 'currentTime' in audioRef.current) {
-            audioRef.current.currentTime = audioRef.current?.currentTime + 10;
-        }
-    };
-
     return (
         activePlayer && (
             <div className="player">
@@ -70,9 +59,7 @@ const Player: React.FC = () => {
                     </div>
                     <div className="player__center">
                         <div className="player__center_icon">
-                            <button onClick={onClickOfsetTime}>
-                                <TbRewindForward10 className="button" />
-                            </button>
+                           <ButtonOfsetTime audioRef={audioRef}/>
                             <button
                                 className="prev"
                                 onClick={(e) => onClickNextPrev(e)}
@@ -87,13 +74,7 @@ const Player: React.FC = () => {
                             >
                                 <IoPlaySkipForward className="button next" />
                             </button>
-                            <button onClick={onClickRepeat}>
-                                {loop ? (
-                                    <RiRepeatOneLine className="button" />
-                                ) : (
-                                    <RiRepeat2Line className="button" />
-                                )}
-                            </button>
+                            <ButtonRepeat/>
                         </div>
                         <PlayerTracks
                             audioRef={audioRef}

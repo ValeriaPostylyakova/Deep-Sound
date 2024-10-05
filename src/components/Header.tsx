@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { MdOutlineWbSunny } from 'react-icons/md';
 // import { FiMoon } from "react-icons/fi";
+import { CiSearch } from "react-icons/ci";
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
 
 import BurgerMenu from './BurgerMenu.tsx';
 import Search from './Search.tsx';
 
-import { logo, menu, close, search } from '../viteImages/images.ts';
+import {logo} from '../viteImages/images.ts';
 
 const Header = () => {
     const [menuActive, setMenuActive] = React.useState<boolean>(false);
@@ -30,7 +33,7 @@ const Header = () => {
                             onClick={() => setSearchActive(!searchActive)}
                             className="header__left-search-mobail"
                         >
-                            <img width={30} src={search} alt="search" />
+                            <CiSearch className="header__left-search-mobail-search"/>
                         </button>
                     )}
                     <button>
@@ -44,9 +47,9 @@ const Header = () => {
                         onClick={() => setMenuActive(!menuActive)}
                     >
                         {menuActive ? (
-                            <img src={close} alt="close" />
+                            <IoClose className="burger-menu__button_icon"/>
                         ) : (
-                            <img src={menu} alt="menu" />
+                            <HiOutlineMenuAlt1 className="burger-menu__button_icon"/>
                         )}
                     </button>
                     <BurgerMenu menu={menuActive} />

@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import { home, favorite, plus, playlist } from '../viteImages/images.ts';
+import { IoHome } from "react-icons/io5";
+import { MdFavorite } from "react-icons/md";
+import { MdPlaylistPlay } from "react-icons/md";
+import { FaPlus } from "react-icons/fa6";
 
 const Sidebar = () => {
     return (
@@ -10,25 +13,25 @@ const Sidebar = () => {
                     <ul>
                         <Link to="/">
                             <li>
-                                <img src={home} alt="home" />
+                                <IoHome style={{width: '20px', height: '20px', color: 'black'}}/>
                                 <p>Главная</p>
                             </li>
                         </Link>
                         <Link to="favorite">
                             <li>
-                                <img src={favorite} alt="favorite" />
-                                <p>Закладки</p>
+                                <MdFavorite style={{width: '21px', height: '21px', color: 'red'}}/>
+                                <p>Избранное</p>
                             </li>
                         </Link>
                     </ul>
                 </div>
                 <div className="sidebar__bottom">
                     <div>
-                        <img src={playlist} alt="playlist" />
+                        <MdPlaylistPlay style={{width: '25px', height: '25px'}}/>
                         <p>Мои плейлисты</p>
                     </div>
                     <button>
-                        <img src={plus} alt="plus" />
+                        <FaPlus style={{width: '16px', height: '16px'}}/>
                         <p>Создать плейлист</p>
                     </button>
                 </div>

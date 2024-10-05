@@ -7,6 +7,8 @@ import { IoPlaySkipForward } from 'react-icons/io5';
 import ButtonPlayPause from './FullPlayer/ButtonPlayPause.tsx';
 import PlayerTracks from './FullPlayer/PlayerTracks.tsx';
 import PlayerVolume from './FullPlayer/PlayerVolume.tsx';
+import ButtonOfsetTime from './FullPlayer/ButtonOfsetTime.tsx';
+import ButtonRepeat from './FullPlayer/ButtonRepeat.tsx';
 
 type PlayerProps = {
     sliceArray: SongObj[];
@@ -59,6 +61,7 @@ const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
             </div>
             <div className="player__center">
                 <div className="player__center_icon_slider">
+                    <ButtonOfsetTime audioRef={audioSliderRef}/>
                     <button
                         disabled={index === 0}
                         className="prev"
@@ -75,6 +78,7 @@ const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
                     >
                         <IoPlaySkipForward className="button next" />
                     </button>
+                    <ButtonRepeat/>
                 </div>
                 <PlayerTracks
                     audioRef={audioSliderRef}

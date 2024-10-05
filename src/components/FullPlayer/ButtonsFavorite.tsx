@@ -26,23 +26,19 @@ const ButtonsFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
             (obj) => obj.currentId === objFavorite?.id
         );
 
-        const active = favorite.some(
-            (obj) => obj.currentId === objFavorite?.id
-        );
-        dispatch(setFavoriteActive(active));
-
         try {
             if (findObj) {
                 favorite.filter((obj) => obj.id !== findObj.id);
                 await axios.delete(
                     `https://985cc4acb156d262.mokky.dev/favorite/${findObj.id}`
                 );
+                dispatch(setFavoriteActive(false))
             } else {
                 const { data } = await axios.post(
                     `https://985cc4acb156d262.mokky.dev/favorite`,
                     objFavorite
                 );
-
+                dispatch(setFavoriteActive(true))
                 dispatch(setFavorite(data));
             }
         } catch (e) {
