@@ -9,10 +9,10 @@ import { CategoryArray } from '../../redux/genres/types.ts';
 
 export type GenresBlockProps = {
     id: number;
-    title: string;
+    title?: string;
     imageUrl: string;
     linkUrl: string;
-    categoryArray: CategoryArray[] | null;
+    categoryArray?: CategoryArray[];
 };
 
 const GenresBlock: React.FC<GenresBlockProps> = ({
@@ -24,7 +24,11 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
 }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const onClickPlaylist = (id: number, categoryArray: CategoryArray[] | null, title: string | null) => {
+    const onClickPlaylist = (
+        id: number,
+        categoryArray: CategoryArray[] | undefined,
+        title: string | undefined
+    ) => {
         dispatch(setGenreId(id));
         dispatch(setTitle(title));
         dispatch(setCategoryArray(categoryArray));

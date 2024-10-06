@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { FaRegUserCircle } from 'react-icons/fa';
-import { MdOutlineWbSunny } from 'react-icons/md';
-// import { FiMoon } from "react-icons/fi";
-import { CiSearch } from "react-icons/ci";
-import { HiOutlineMenuAlt1 } from "react-icons/hi";
-import { IoClose } from "react-icons/io5";
 
 import BurgerMenu from './BurgerMenu.tsx';
 import Search from './Search.tsx';
-import { RiNeteaseCloudMusicLine } from "react-icons/ri";
+
+import { FaRegUserCircle } from 'react-icons/fa';
+import { MdOutlineWbSunny } from 'react-icons/md';
+// import { FiMoon } from "react-icons/fi";
+import { CiSearch } from 'react-icons/ci';
+import { HiOutlineMenuAlt1 } from 'react-icons/hi';
+import { IoClose } from 'react-icons/io5';
+import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
 
 const Header = () => {
     const [menuActive, setMenuActive] = React.useState<boolean>(false);
@@ -21,8 +22,7 @@ const Header = () => {
                 <div className="header__right">
                     <Link to="/">
                         <div className="header__logo">
-                            {/*<img src={logo} alt="logo" />*/}
-                            <RiNeteaseCloudMusicLine className="header__logo_icon"/>
+                            <RiNeteaseCloudMusicLine className="header__logo_icon" />
                             <div>
                                 <p>DEEP</p>
                                 <p>SOUND</p>
@@ -37,7 +37,7 @@ const Header = () => {
                             onClick={() => setSearchActive(!searchActive)}
                             className="header__left-search-mobail"
                         >
-                            <CiSearch className="header__left-search-mobail-search"/>
+                            <CiSearch className="header__left-search-mobail-search" />
                         </button>
                     )}
                     <button>
@@ -51,9 +51,9 @@ const Header = () => {
                         onClick={() => setMenuActive(!menuActive)}
                     >
                         {menuActive ? (
-                            <IoClose className="burger-menu__button_icon"/>
+                            <IoClose className="burger-menu__button_icon" />
                         ) : (
-                            <HiOutlineMenuAlt1 className="burger-menu__button_icon"/>
+                            <HiOutlineMenuAlt1 className="burger-menu__button_icon" />
                         )}
                     </button>
                     <BurgerMenu menu={menuActive} />

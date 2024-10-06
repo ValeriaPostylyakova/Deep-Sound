@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
@@ -14,7 +13,6 @@ import NavButtons from './NavButtons.tsx';
 
 import 'swiper/scss';
 import {
-    setDataSongs,
     setSliderId,
     setActivePlayerSlide,
 } from '../../redux/sliderPlayer/slice.ts';
@@ -22,20 +20,14 @@ import { setClickPlay } from '../../redux/songs/slice.ts';
 
 import { DataObj } from '../../redux/sliderPlayer/types.ts';
 import { setPlayerActive } from '../../redux/playlistPlayer/slice.ts';
+import { fetchSlider } from '../../redux/sliderPlayer/asyncAction.ts';
 
 const SliderBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const { isPlay } = useSelector((state: RootState) => state.player);
 
     React.useEffect(() => {
-        const dataSlider = async () => {
-            const { data } = await axios.get(
-                'https://985cc4acb156d262.mokky.dev/slider'
-            );
-            dispatch(setDataSongs(data));
-        };
-
-        dataSlider();
+        dispatch(fetchSlider());
     }, []);
 
     const onClickSlide = (id: number) => {

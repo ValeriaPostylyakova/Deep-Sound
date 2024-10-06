@@ -3,7 +3,7 @@ import { SongObj, Status } from '../songs/types.ts';
 export interface GenreState {
     genre: PlaylistObj[];
     genreId: number;
-    title: string;
+    title: string | undefined;
     categoryId: number;
     statusGenre: Status;
 }

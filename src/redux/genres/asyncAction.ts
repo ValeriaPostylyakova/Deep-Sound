@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { DataObj } from '../sliderPlayer/types.ts';
+import { Genres } from './types';
 
-export const fetchGenres = createAsyncThunk<DataObj>(
+export const fetchGenres = createAsyncThunk<Genres[]>(
     'genres/fetchGenresStatus',
     async () => {
         const { data } = await axios.get(

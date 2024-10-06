@@ -12,7 +12,7 @@ const Genres = () => {
             <GoBack />
             <div className="genres__container">
                 {genres.map((genre, index: number) => (
-                    <GenresBlock {...genre} key={index} categoryArray={[]} title=''/>
+                    <GenresBlock {...genre} key={index} />
                 ))}
             </div>
         </>

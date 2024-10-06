@@ -1,4 +1,4 @@
-import { SongObj } from '../songs/types.ts';
+import { SongObj, Status } from '../songs/types.ts';
 import { ObjCurrentTime } from '../player/types.ts';
 
 export type DataObj = {
@@ -8,8 +8,9 @@ export type DataObj = {
 };
 
 export interface SliderState {
-    activePlayerSlide: boolean;
     dataSongs: DataObj[];
+    status: Status;
+    activePlayerSlide: boolean;
     slideFilterData: SongObj[];
     isPlay: boolean;
     currentTime: ObjCurrentTime;

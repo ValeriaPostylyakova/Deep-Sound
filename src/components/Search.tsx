@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
-import { setSearchValue } from '../redux/filter/filterSlice.ts';
+import { setSearchValue } from '../redux/filter/slice.ts';
 import { CiSearch } from 'react-icons/ci';
 
 type SearchProps = {
@@ -28,7 +28,7 @@ const Search: React.FC<SearchProps> = ({ searchState }) => {
                 }
             >
                 <div className="header__search_container">
-                    <CiSearch className="header__search_container_search"/>
+                    <CiSearch className="header__search_container_search" />
                     <input
                         value={value}
                         onChange={onChangeInput}

@@ -9,7 +9,7 @@ const blockSlice = createSlice({
     name: 'genresBlock',
     initialState,
     reducers: {
-        setGenresBlock(state, action: PayloadAction<Genres>) {
+        setGenresBlock(state, action: PayloadAction<Genres[]>) {
             state.genresBlock = action.payload;
         },
     },

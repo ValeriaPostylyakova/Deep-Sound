@@ -1,6 +1,5 @@
 import { GenreState } from './types.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PlaylistObj } from './types.ts';
 import { fetchGenre } from './asyncAction.ts';
 import { Status } from '../songs/types.ts';
 
@@ -24,12 +23,8 @@ const genreSlice = createSlice({
             state.categoryId = action.payload;
         },
 
-        setGenre(state, action: PayloadAction<PlaylistObj>) {
-            state.genre = action.payload;
-        },
-
-        setTitle(state, action: PayloadAction<string | null>) {
-            if(action.payload) {
+        setTitle(state, action: PayloadAction<string | undefined>) {
+            if (action.payload) {
                 state.title = action.payload;
             }
         },
@@ -51,7 +46,6 @@ const genreSlice = createSlice({
     },
 });
 
-export const { setGenre, setGenreId, setCategoryId, setTitle } =
-    genreSlice.actions;
+export const { setGenreId, setCategoryId, setTitle } = genreSlice.actions;
 
 export default genreSlice.reducer;

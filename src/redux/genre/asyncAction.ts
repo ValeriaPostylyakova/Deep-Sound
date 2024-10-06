@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { PlaylistObj, GenreFetch } from './types.ts';
 import axios from 'axios';
 
-export const fetchGenre = createAsyncThunk<PlaylistObj, GenreFetch>(
+export const fetchGenre = createAsyncThunk<PlaylistObj[], GenreFetch>(
     'genre/fetchGenreStatus',
     async (params) => {
         const { genreId, categoryFilter } = params;
