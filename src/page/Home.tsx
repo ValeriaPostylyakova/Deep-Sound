@@ -62,7 +62,7 @@ const Home: React.FC = () => {
                             statusGenres === 'loading' ? (
                                 <GenresBlockSkeleton key={index} />
                             ) : (
-                                <GenresBlock key={genre.id} {...genre} />
+                                <GenresBlock categoryArray={[]} title='' key={genre.id} {...genre}/>
                             )
                         )}
                 </div>

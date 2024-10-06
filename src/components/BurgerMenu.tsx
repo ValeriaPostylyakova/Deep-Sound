@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { home, favorite, plus, playlist } from '../viteImages/images.ts';
+import { home, favorite0, plus, playlist } from '../viteImages/images.ts';
 
 type BurgerMenuProps = {
     menu: boolean;
@@ -23,7 +23,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
                             </Link>
                             <Link to="favorite">
                                 <li>
-                                    <img src={favorite} alt="favorite" />
+                                    <img src={favorite0} alt="favorite" />
                                     <p>Закладки</p>
                                 </li>
                             </Link>

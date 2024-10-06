@@ -19,5 +19,6 @@ export type SongObj = {
     imageUrl: string;
     songUrl?: string;
     time: string;
+    favorite?: boolean;
     key?: number;
 };

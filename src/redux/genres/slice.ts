@@ -17,8 +17,10 @@ const genresSlice = createSlice({
     name: 'genres',
     initialState,
     reducers: {
-        setCategoryArray(state, action: PayloadAction<CategoryArray>) {
-            state.categoryArray = action.payload;
+        setCategoryArray(state, action: PayloadAction<CategoryArray[] | null>) {
+            if(action.payload) {
+                state.categoryArray = action.payload;
+            }
         },
     },
 
@@ -29,7 +31,7 @@ const genresSlice = createSlice({
 
         builder.addCase(fetchGenres.fulfilled, (state, action) => {
             state.statusGenres = Status.SUCCESS;
-            state.genres = action.payload;
+                state.genres = action.payload;
         });
 
         builder.addCase(fetchGenres.rejected, (state) => {

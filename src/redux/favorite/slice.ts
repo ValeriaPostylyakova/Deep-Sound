@@ -18,12 +18,16 @@ const favoriteSlice = createSlice({
             state.favorite.push(action.payload);
         },
 
-        setBlockFavorite(state, action: PayloadAction<SongObj>) {
+        setBlockFavorite(state, action) {
             state.blockFavorite = action.payload;
         },
 
-        setFavoriteActive(state, action: PayloadAction<boolean>) {
-            state.favoriteActive = action.payload;
+        setFavoriteActive(state) {
+            if (state.favorite.find((obj) => obj.currentId)) {
+                state.favoriteActive = true;
+            } else {
+                state.favoriteActive = false;
+            }
         },
 
         removeItem(state, action) {

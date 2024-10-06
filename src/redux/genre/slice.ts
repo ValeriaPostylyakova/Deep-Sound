@@ -28,8 +28,10 @@ const genreSlice = createSlice({
             state.genre = action.payload;
         },
 
-        setTitle(state, action: PayloadAction<string>) {
-            state.title = action.payload;
+        setTitle(state, action: PayloadAction<string | null>) {
+            if(action.payload) {
+                state.title = action.payload;
+            }
         },
     },
 

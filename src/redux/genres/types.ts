@@ -2,7 +2,7 @@ import { Status } from '../songs/types.ts';
 import { PlaylistObj } from '../genre/types.ts';
 
 export type CategoryArray = {
-    value: string;
+    value?: string;
 };
 
 export type Genres = {

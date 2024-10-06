@@ -11,8 +11,6 @@ import BurgerMenu from './BurgerMenu.tsx';
 import Search from './Search.tsx';
 import { RiNeteaseCloudMusicLine } from "react-icons/ri";
 
-import {logo} from '../viteImages/images.ts';
-
 const Header = () => {
     const [menuActive, setMenuActive] = React.useState<boolean>(false);
     const [searchActive, setSearchActive] = React.useState<boolean>(false);

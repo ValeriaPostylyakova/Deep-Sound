@@ -7,12 +7,12 @@ import { setCategoryArray } from '../../redux/genres/slice.ts';
 import { setGenreId, setTitle } from '../../redux/genre/slice.ts';
 import { CategoryArray } from '../../redux/genres/types.ts';
 
-type GenresBlockProps = {
+export type GenresBlockProps = {
     id: number;
     title: string;
     imageUrl: string;
     linkUrl: string;
-    categoryArray: CategoryArray[];
+    categoryArray: CategoryArray[] | null;
 };
 
 const GenresBlock: React.FC<GenresBlockProps> = ({
@@ -24,7 +24,7 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
 }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const onClickPlaylist = ({ id, categoryArray, title }) => {
+    const onClickPlaylist = (id: number, categoryArray: CategoryArray[] | null, title: string | null) => {
         dispatch(setGenreId(id));
         dispatch(setTitle(title));
         dispatch(setCategoryArray(categoryArray));
@@ -34,7 +34,7 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
         <Link
             to={linkUrl}
             className="genres__container_link"
-            onClick={() => onClickPlaylist({ id, categoryArray, title })}
+            onClick={() => onClickPlaylist(id, categoryArray, title)}
         >
             <div className="genres__container_playlist">
                 <img src={imageUrl} alt="genre" />
