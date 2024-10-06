@@ -7,6 +7,7 @@ import { Status } from '../songs/types.ts';
 const initialState: GenreState = {
     genre: [],
     genreId: 0,
+    title: 'Поп',
     categoryId: 0,
     statusGenre: Status.LOADING,
 };
@@ -26,6 +27,10 @@ const genreSlice = createSlice({
         setGenre(state, action: PayloadAction<PlaylistObj>) {
             state.genre = action.payload;
         },
+
+        setTitle(state, action: PayloadAction<string>) {
+            state.title = action.payload;
+        },
     },
 
     extraReducers: (builder) => {
@@ -44,6 +49,7 @@ const genreSlice = createSlice({
     },
 });
 
-export const { setGenre, setGenreId, setCategoryId } = genreSlice.actions;
+export const { setGenre, setGenreId, setCategoryId, setTitle } =
+    genreSlice.actions;
 
 export default genreSlice.reducer;

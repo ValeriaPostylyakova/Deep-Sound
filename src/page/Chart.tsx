@@ -1,12 +1,22 @@
+import * as React from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store.ts';
 import { SongObj } from '../redux/songs/types.ts';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store.ts';
+import { fetchSongs } from '../redux/songs/asyncAction.ts';
 
 import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
 import GoBack from '../components/GoBack.tsx';
 
+
 const Chart = () => {
+    const dispatch: AppDispatch = useDispatch();
     const { songs } = useSelector((state: RootState) => state.songs);
+
+    React.useEffect(() => {
+        scrollTo(0, 0);
+        dispatch(fetchSongs())
+    }, [])
 
     return (
         <>

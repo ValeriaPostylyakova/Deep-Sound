@@ -13,7 +13,7 @@ const Sidebar = () => {
                     <ul>
                         <Link to="/">
                             <li>
-                                <IoHome style={{width: '20px', height: '20px', color: 'black'}}/>
+                                <IoHome style={{width: '20px', height: '20px', color: 'blue'}}/>
                                 <p>Главная</p>
                             </li>
                         </Link>

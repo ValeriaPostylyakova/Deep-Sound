@@ -4,9 +4,13 @@
   left: 0;
   z-index: 100;
   background-color: #fff;
-  min-height: 100px;
+  min-height: 80px;
   width: 100%;
   border-bottom: 1px solid #EEEEEE;
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.18);
+
 
   &__container {
     margin-left: 2rem;
@@ -24,7 +28,23 @@
   }
 
   &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
+
+    &_icon {
+      width: 37px;
+      height: 37px;
+      color: #172194;
+    }
+    
+    p {
+      color: #000000;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
   }
 
   &__left {
@@ -61,7 +81,7 @@
 
   &__search {
     width: 330px;
-    border-radius: 6px;
+    border-radius: 1rem;
     border: 1px solid #ACACAC;
     padding: 10px;
 

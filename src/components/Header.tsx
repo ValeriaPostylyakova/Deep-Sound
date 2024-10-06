@@ -9,6 +9,7 @@ import { IoClose } from "react-icons/io5";
 
 import BurgerMenu from './BurgerMenu.tsx';
 import Search from './Search.tsx';
+import { RiNeteaseCloudMusicLine } from "react-icons/ri";
 
 import {logo} from '../viteImages/images.ts';
 
@@ -22,7 +23,12 @@ const Header = () => {
                 <div className="header__right">
                     <Link to="/">
                         <div className="header__logo">
-                            <img src={logo} alt="logo" />
+                            {/*<img src={logo} alt="logo" />*/}
+                            <RiNeteaseCloudMusicLine className="header__logo_icon"/>
+                            <div>
+                                <p>DEEP</p>
+                                <p>SOUND</p>
+                            </div>
                         </div>
                     </Link>
                     <Search searchState={searchActive} />
