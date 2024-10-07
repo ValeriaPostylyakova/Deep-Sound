@@ -12,6 +12,7 @@ export interface SliderState {
     status: Status;
     activePlayerSlide: boolean;
     slideFilterData: SongObj[];
+    slideActive: DataObj[];
     isPlay: boolean;
     currentTime: ObjCurrentTime;
     trackWidth: number;

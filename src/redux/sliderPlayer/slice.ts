@@ -8,6 +8,7 @@ const initialState: SliderState = {
     dataSongs: [],
     status: Status.LOADING,
     activePlayerSlide: false,
+    slideActive: [],
     isPlay: false,
     slideFilterData: [],
     currentTime: { min: 0, sec: 0 },
@@ -28,6 +29,7 @@ const sliderSlice = createSlice({
 
             if (findSlideObj) {
                 state.slideFilterData = findSlideObj.sliderSongs;
+                state.slideActive = [{ ...findSlideObj }];
             }
         },
 

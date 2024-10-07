@@ -14,6 +14,7 @@ import PlayerSlider from './components/PlayerSlider.tsx';
 import Genre from './page/Genre.tsx';
 import PlayerPlaylist from './components/PlayerPlaylist.tsx';
 import Collection from './page/Collection.tsx';
+import CustomPlaylists from './page/CustomPlaylists.tsx';
 
 function App() {
     return (
@@ -57,6 +58,10 @@ function App() {
                             <Route
                                 path="/collections/children"
                                 element={<Collection />}
+                            />
+                            <Route
+                                path="/custom"
+                                element={<CustomPlaylists />}
                             />
                         </Routes>
                     </div>

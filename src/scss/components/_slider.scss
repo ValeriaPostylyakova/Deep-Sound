@@ -31,24 +31,19 @@
   &__container-bottom {
     width: 100%;
 
-    &-buttons {
+    .buttons_play, .buttons_pause {
       margin-left: 3px;
       width: 30px;
       height: 30px;
     }
 
-    .play {
+    &-buttons {
       width: 47px;
       height: 47px;
       border-radius: 100%;
       background-color: #fff;
       cursor: pointer;
-
-      img {
-        padding: 8px 7px 9px 9px;
-      }
     }
-
 
   }
 

@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store.ts';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store.ts';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IoPlay } from 'react-icons/io5';
-import { IoMdPause } from 'react-icons/io';
+// import { IoMdPause } from 'react-icons/io';
 import { Navigation, Autoplay } from 'swiper/modules';
 
 import { slides } from './json.ts';
@@ -24,7 +24,6 @@ import { fetchSlider } from '../../redux/sliderPlayer/asyncAction.ts';
 
 const SliderBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { isPlay } = useSelector((state: RootState) => state.player);
 
     React.useEffect(() => {
         dispatch(fetchSlider());
@@ -56,12 +55,9 @@ const SliderBlock: React.FC = () => {
                                 <h1>{slide.title}</h1>
                                 <p>{slide.subtitle}</p>
                                 <div className="slider__container-bottom">
-                                    <button className="play">
-                                        {isPlay ? (
-                                            <IoMdPause className="slider__container-bottom-buttons" />
-                                        ) : (
-                                            <IoPlay className="slider__container-bottom-buttons" />
-                                        )}
+                                    <button className="slider__container-bottom-buttons">
+                                        {/*<IoMdPause className="buttons_pause" />*/}
+                                        <IoPlay className="buttons_play" />
                                     </button>
                                 </div>
                             </div>

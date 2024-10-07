@@ -10,7 +10,7 @@ import Playlist from '../components/Playlist/Playlist.tsx';
 import PlaylistSkeleton from '../components/Playlist/PlaylistSkeleton.tsx';
 
 const Collection = () => {
-    const { title } = useSelector((state: RootState) => state.collections);
+    const title = useSelector((state: RootState) => state.collections.title);
     const { playlists, status, collectionId } = useSelector(
         (state: RootState) => state.collection
     );
