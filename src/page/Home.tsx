@@ -15,6 +15,7 @@ import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx'
 import { fetchGenres } from '../redux/genres/asyncAction.ts';
 import GenresBlockSkeleton from '../components/GenresBlock/GenresBlockSkeleton.tsx';
 import { Genres } from '../redux/genres/types.ts';
+import { fetchCollections } from '../redux/collections/asyncAction.ts';
 
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -23,10 +24,14 @@ const Home: React.FC = () => {
         (state: RootState) => state.genres
     );
     const { searchValue } = useSelector((state: RootState) => state.filter);
+    const { collections } = useSelector(
+        (state: RootState) => state.collections
+    );
 
     React.useEffect(() => {
         dispatch(fetchSongs());
         dispatch(fetchGenres());
+        dispatch(fetchCollections());
     }, []);
 
     return (
@@ -62,7 +67,12 @@ const Home: React.FC = () => {
                             statusGenres === 'loading' ? (
                                 <GenresBlockSkeleton key={index} />
                             ) : (
-                                <GenresBlock categoryArray={[]} title='' key={genre.id} {...genre}/>
+                                <GenresBlock
+                                    categoryArray={[]}
+                                    title=""
+                                    key={genre.id}
+                                    {...genre}
+                                />
                             )
                         )}
                 </div>
@@ -72,7 +82,9 @@ const Home: React.FC = () => {
             </Link>
             <section className="collections">
                 <div className="collections__container">
-                    <CollectionsBlock />
+                    {collections.map((collection) => (
+                        <CollectionsBlock key={collection.id} {...collection} />
+                    ))}
                 </div>
             </section>
         </>

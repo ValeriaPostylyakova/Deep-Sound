@@ -9,6 +9,7 @@ export type Genres = {
     id: number;
     imageUrl: string;
     linkUrl: string;
+    title?: string;
     playlists: PlaylistObj[];
 };
 

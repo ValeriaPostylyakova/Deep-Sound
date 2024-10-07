@@ -1,33 +1,41 @@
-import { coll1, coll2, coll3, coll4 } from '../viteImages/images.ts';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { AppDispatch } from '../redux/store.ts';
+import { useDispatch } from 'react-redux';
+import { setTitle } from '../redux/collections/slice.ts';
+import { setCollectionId } from '../redux/collection/slice.ts';
 
-const CollectionsBlock = () => {
+type CollectionBlockProps = {
+    id: number;
+    title?: string;
+    imageUrl: string;
+    linkUrl: string;
+};
+
+const CollectionsBlock: React.FC<CollectionBlockProps> = ({
+    id,
+    title,
+    imageUrl,
+    linkUrl,
+}) => {
+    const dispatch: AppDispatch = useDispatch();
+
+    const onClickCollectionsBlock = (id: number) => {
+        dispatch(setCollectionId(id));
+        dispatch(setTitle(title));
+    };
+
     return (
-        <>
-            <a className="genres__link" href="/">
-                <div className="collections__playlist">
-                    <p className="collections__title">Хиты</p>
-                    <img src={coll1} alt="col1" />
-                </div>
-            </a>
-            <a className="genres__link" href="/">
-                <div className="collections__playlist">
-                    <p className="collections__title">Новая музыка</p>
-                    <img src={coll2} alt="col2" />
-                </div>
-            </a>
-            <a className="genres__link" href="/">
-                <div className="collections__playlist">
-                    <p className="collections__title">Вечеринка</p>
-                    <img src={coll3} alt="col3" />
-                </div>
-            </a>
-            <a className="genres__link" href="/">
-                <div className="collections__playlist">
-                    <p className="collections__title">Для детей</p>
-                    <img src={coll4} alt="col4" />
-                </div>
-            </a>
-        </>
+        <Link
+            onClick={() => onClickCollectionsBlock(id)}
+            className="genres__link"
+            to={linkUrl}
+        >
+            <div className="collections__playlist">
+                <p className="collections__title">{title}</p>
+                <img src={imageUrl} alt="col1" />
+            </div>
+        </Link>
     );
 };
 

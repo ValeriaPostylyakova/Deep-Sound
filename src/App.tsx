@@ -13,6 +13,7 @@ import Player from './components/FullPlayer/Player.tsx';
 import PlayerSlider from './components/PlayerSlider.tsx';
 import Genre from './page/Genre.tsx';
 import PlayerPlaylist from './components/PlayerPlaylist.tsx';
+import Collection from './page/Collection.tsx';
 
 function App() {
     return (
@@ -41,13 +42,29 @@ function App() {
                             />
                             <Route path="/genres/dance" element={<Genre />} />
                             <Route path="/genres/rap" element={<Genre />} />
+                            <Route
+                                path="/collections/hits"
+                                element={<Collection />}
+                            />
+                            <Route
+                                path="/collections/new_music"
+                                element={<Collection />}
+                            />
+                            <Route
+                                path="/collections/party"
+                                element={<Collection />}
+                            />
+                            <Route
+                                path="/collections/children"
+                                element={<Collection />}
+                            />
                         </Routes>
                     </div>
                 </main>
             </div>
             <Player />
             <PlayerSlider />
-            <PlayerPlaylist/>
+            <PlayerPlaylist />
         </div>
     );
 }
