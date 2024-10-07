@@ -67,7 +67,7 @@
       }
     }
 
-    button {
+    &-create-button {
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -79,10 +79,6 @@
       font-size: 1.2rem;
       transition: 0.2s;
       font-weight: 700;
-
-      img {
-        width: 12px;
-      }
 
       &:hover {
         -webkit-box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2);

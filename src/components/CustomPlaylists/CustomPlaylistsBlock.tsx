@@ -1,6 +1,11 @@
 import { FaMusic } from 'react-icons/fa6';
+import * as React from 'react';
 
 const CustomPlaylistsBlock = () => {
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="custplaylist">
             <div className="custplaylist__container-2">

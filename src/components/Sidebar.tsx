@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { IoHome } from 'react-icons/io5';
 import { MdFavorite } from 'react-icons/md';
 import { MdPlaylistPlay } from 'react-icons/md';
-import { FaPlus } from 'react-icons/fa6';
+import CreatePlaylistButton from './CreatePlaylistButton.tsx';
 
 const Sidebar = () => {
     return (
@@ -46,10 +46,7 @@ const Sidebar = () => {
                             <p>Мои плейлисты</p>
                         </div>
                     </Link>
-                    <button>
-                        <FaPlus style={{ width: '16px', height: '16px' }} />
-                        <p>Создать плейлист</p>
-                    </button>
+                    <CreatePlaylistButton />
                 </div>
             </div>
         </aside>

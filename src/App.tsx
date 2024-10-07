@@ -15,6 +15,7 @@ import Genre from './page/Genre.tsx';
 import PlayerPlaylist from './components/PlayerPlaylist.tsx';
 import Collection from './page/Collection.tsx';
 import CustomPlaylists from './page/CustomPlaylists.tsx';
+import CreateCustomPlaylist from './page/CreateCustomPlaylist.tsx';
 
 function App() {
     return (
@@ -62,6 +63,10 @@ function App() {
                             <Route
                                 path="/custom"
                                 element={<CustomPlaylists />}
+                            />
+                            <Route
+                                path="/custom-playlist"
+                                element={<CreateCustomPlaylist />}
                             />
                         </Routes>
                     </div>
