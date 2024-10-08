@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { home, favorite0, plus, playlist } from '../viteImages/images.ts';
+import { IoHome } from 'react-icons/io5';
+import { MdFavorite, MdPlaylistPlay } from 'react-icons/md';
+import CreatePlaylistButton from './Sidebar/CreatePlaylistButton.tsx';
 
 type BurgerMenuProps = {
     menu: boolean;
@@ -17,13 +19,25 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
                         <ul>
                             <Link to="/">
                                 <li>
-                                    <img src={home} alt="home" />
+                                    <IoHome
+                                        style={{
+                                            width: '20px',
+                                            height: '20px',
+                                            color: 'blue',
+                                        }}
+                                    />
                                     <p>Главная</p>
                                 </li>
                             </Link>
                             <Link to="favorite">
                                 <li>
-                                    <img src={favorite0} alt="favorite" />
+                                    <MdFavorite
+                                        style={{
+                                            width: '21px',
+                                            height: '21px',
+                                            color: 'red',
+                                        }}
+                                    />
                                     <p>Закладки</p>
                                 </li>
                             </Link>
@@ -31,13 +45,13 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
                     </div>
                     <div className="sidebar__bottom">
                         <div>
-                            <img src={playlist} alt="playlist" />
+                            <MdPlaylistPlay
+                                style={{ width: '25px', height: '25px' }}
+                            />
                             <p>Мои плейлисты</p>
                         </div>
-                        <button>
-                            <img src={plus} alt="plus" />
-                            <p>Создать плейлист</p>
-                        </button>
+
+                        <CreatePlaylistButton />
                     </div>
                 </div>
             </div>

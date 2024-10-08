@@ -48,7 +48,7 @@
 }
 
 .custom {
-  width: 100%;
+  width: 99%;
   height: 200px;
   border-radius: 1rem;
   background-color: rgb(243, 243, 243);
@@ -82,7 +82,25 @@
     flex-direction: column;
     justify-content: space-between;
 
-    h1 {
+    &_edit {
+      display: flex;
+      align-items: center;
+
+      &-button {
+        background-color: inherit;
+        display: none;
+      }
+
+      &-icon {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        color: #747373;
+      }
+    }
+
+    input {
+      background-color: inherit;
       font-size: 30px;
       letter-spacing: 1px;
       font-weight: 700;
@@ -91,7 +109,7 @@
     &_bottom {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
     }
   }
 
@@ -103,6 +121,26 @@
       padding: 10px 12px;
       border-radius: 15px;
       background-color: #fff;
+
+      &_modal {
+        cursor: pointer;
+        position: absolute;
+        background-color: #ffffff;
+        padding: 15px 25px;
+        box-shadow: 4px 4px 8px rgba(135, 135, 135, 0.4);
+        border-radius: 12px;
+        margin-top: 10px;
+
+        .modal__container {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
     }
 
     &_container {
@@ -120,5 +158,9 @@
         text-transform: uppercase;
       }
     }
+  }
+
+  &-btn-modal-container {
+    position: absolute;
   }
 }

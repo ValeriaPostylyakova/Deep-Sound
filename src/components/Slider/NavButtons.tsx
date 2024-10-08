@@ -1,6 +1,6 @@
 import { useSwiper } from 'swiper/react';
-
-import { arrow } from '../../viteImages/images.ts';
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
 
 const NavButtons = () => {
     const swiper = useSwiper();
@@ -8,10 +8,10 @@ const NavButtons = () => {
     return (
         <div className="slider__right-container">
             <button onClick={() => swiper.slidePrev()} className="button">
-                <img src={arrow} alt="arrow" />
+                <IoIosArrowBack />
             </button>
             <button onClick={() => swiper.slideNext()} className="button_2">
-                <img src={arrow} alt="arrow" />
+                <IoIosArrowForward />
             </button>
         </div>
     );

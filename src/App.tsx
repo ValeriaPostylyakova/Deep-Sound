@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header.tsx';
-import Sidebar from './components/Sidebar.tsx';
+import Sidebar from './components/Sidebar/Sidebar.tsx';
 import Home from './page/Home.tsx';
 
 import './scss/app.scss';
@@ -65,7 +65,7 @@ function App() {
                                 element={<CustomPlaylists />}
                             />
                             <Route
-                                path="/custom-playlist"
+                                path="/custom-playlist/:id"
                                 element={<CreateCustomPlaylist />}
                             />
                         </Routes>

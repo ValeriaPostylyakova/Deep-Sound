@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 const CreatePlaylistButton = () => {
     const navigate = useNavigate();
-    const onClickCreatePlaylist = () => {
-        const obj = { title: 'Новый плейлист', songs: [] };
-        axios.post('https://985cc4acb156d262.mokky.dev/createPlaylist', obj);
-        navigate('/custom-playlist');
+    const onClickCreatePlaylist = async () => {
+        const secureID = crypto.randomUUID();
+        const obj = { parentId: secureID, title: 'Новый плейлист', songs: [] };
+        await axios.post(
+            'https://985cc4acb156d262.mokky.dev/createPlaylist',
+            obj
+        );
+        navigate(`/custom-playlist/${secureID}`);
     };
 
     return (

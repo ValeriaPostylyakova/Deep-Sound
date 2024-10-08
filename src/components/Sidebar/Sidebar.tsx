@@ -4,6 +4,7 @@ import { IoHome } from 'react-icons/io5';
 import { MdFavorite } from 'react-icons/md';
 import { MdPlaylistPlay } from 'react-icons/md';
 import CreatePlaylistButton from './CreatePlaylistButton.tsx';
+import PlaylistBlock from './PlaylistBlock.tsx';
 
 const Sidebar = () => {
     return (
@@ -39,7 +40,7 @@ const Sidebar = () => {
                 </div>
                 <div className="sidebar__bottom">
                     <Link to="custom">
-                        <div>
+                        <div className="sidebar__bottom-container">
                             <MdPlaylistPlay
                                 style={{ width: '25px', height: '25px' }}
                             />
@@ -47,6 +48,7 @@ const Sidebar = () => {
                         </div>
                     </Link>
                     <CreatePlaylistButton />
+                    <PlaylistBlock />
                 </div>
             </div>
         </aside>
