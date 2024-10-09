@@ -48,7 +48,9 @@ const Sidebar = () => {
                         </div>
                     </Link>
                     <CreatePlaylistButton />
-                    <PlaylistBlock />
+                    <div className="sidebar__playlists">
+                        <PlaylistBlock />
+                    </div>
                 </div>
             </div>
         </aside>

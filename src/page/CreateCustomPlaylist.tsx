@@ -3,7 +3,6 @@ import { FaPlay } from 'react-icons/fa6';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { MdOutlineModeEdit } from 'react-icons/md';
 import * as React from 'react';
-import { ChangeEvent } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { AppDispatch, RootState } from '../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,13 +13,13 @@ import {
 
 const CreateCustomPlaylist = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { inputValue, actionBarActive } = useSelector(
+    const { inputValue, actionBarActive, customPlaylists } = useSelector(
         (state: RootState) => state.createPlaylist
     );
     const inputRef = React.useRef<HTMLInputElement | null>(null);
     const buttonEditRef = React.useRef<HTMLButtonElement | null>(null);
 
-    const HandleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const HandleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setInputValue(event.target.value));
     };
 
@@ -36,13 +35,11 @@ const CreateCustomPlaylist = () => {
         }
     };
 
-    const onClickEdit = () => {
-        inputRef.current?.focus();
-    };
-
-    const onClickDelete = () => {
+    const onClickActionBar = () => {
         dispatch(setActionBarActive(!actionBarActive));
     };
+
+    const onClickDeletePlaylist = () => {};
 
     return (
         <div className="custom">
@@ -53,6 +50,7 @@ const CreateCustomPlaylist = () => {
                 <div className="custom__container-2">
                     <div className="custom__container-2_edit">
                         <input
+                            className="enter"
                             ref={inputRef}
                             onChange={HandleChangeInput}
                             type="text"
@@ -62,7 +60,6 @@ const CreateCustomPlaylist = () => {
                         />
                         <button
                             ref={buttonEditRef}
-                            onClick={onClickEdit}
                             className="custom__container-2_edit-button"
                         >
                             <MdOutlineModeEdit className="custom__container-2_edit-icon" />
@@ -78,13 +75,16 @@ const CreateCustomPlaylist = () => {
                         </button>
                         <div className="custom__btn-modal-container">
                             <button
-                                onClick={onClickDelete}
+                                onClick={onClickActionBar}
                                 className="custom__button-del"
                             >
                                 <HiOutlineDotsHorizontal className="custom__button_container-icon" />
                             </button>
                             {actionBarActive && (
-                                <div className="custom__button-del_modal">
+                                <div
+                                    onClick={onClickDeletePlaylist}
+                                    className="custom__button-del_modal"
+                                >
                                     <div className="modal__container">
                                         <MdDeleteOutline
                                             style={{
