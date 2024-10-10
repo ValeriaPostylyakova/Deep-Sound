@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { AppDispatch } from '../redux/store.ts';
 import { useDispatch } from 'react-redux';
-import { setTitle } from '../redux/collections/slice.ts';
-import { setCollectionId } from '../redux/collection/slice.ts';
+import { collectionsAction } from '../redux/collections/slice.ts';
+import { collectionAction } from '../redux/collection/slice.ts';
 
 type CollectionBlockProps = {
     id: number;
@@ -21,8 +21,8 @@ const CollectionsBlock: React.FC<CollectionBlockProps> = ({
     const dispatch: AppDispatch = useDispatch();
 
     const onClickCollectionsBlock = (id: number) => {
-        dispatch(setCollectionId(id));
-        dispatch(setTitle(title));
+        dispatch(collectionAction.setCollectionId(id));
+        dispatch(collectionsAction.setTitle(title));
     };
 
     return (

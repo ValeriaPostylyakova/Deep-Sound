@@ -10,10 +10,10 @@ import CustomPlaylistsSkeleton from '../components/CustomPlaylists/CustomPlaylis
 const CustomPlaylists = () => {
     const dispatch: AppDispatch = useDispatch();
     const customPlaylists = useSelector(
-        (state: RootState) => state.createPlaylist.customPlaylists
+        (state: RootState) => state.createPlaylistReducer.customPlaylists
     );
     const status = useSelector(
-        (state: RootState) => state.createPlaylist.status
+        (state: RootState) => state.createPlaylistReducer.status
     );
     React.useEffect(() => {
         dispatch(fetchCustomPlaylists());

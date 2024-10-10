@@ -12,7 +12,7 @@ import { fetchFavorite } from '../redux/favorite/AsyncAction.ts';
 const Favorite = () => {
     const dispatch: AppDispatch = useDispatch();
     const { blockFavorite, status } = useSelector(
-        (state: RootState) => state.favorite
+        (state: RootState) => state.favoriteReducer
     );
 
     React.useEffect(() => {

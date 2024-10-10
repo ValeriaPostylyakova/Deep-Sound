@@ -5,7 +5,7 @@ import GoBack from '../components/GoBack.tsx';
 import GenresBlock from '../components/GenresBlock/GenresBlock.tsx';
 
 const Genres = () => {
-    const { genres } = useSelector((state: RootState) => state.genres);
+    const { genres } = useSelector((state: RootState) => state.genresReducer);
 
     return (
         <>

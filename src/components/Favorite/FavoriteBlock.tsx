@@ -1,14 +1,15 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { removeItem } from '../../redux/favorite/slice.ts';
 import { SongObj } from '../../redux/songs/types.ts';
 import { AppDispatch } from '../../redux/store.ts';
 import { useDispatch } from 'react-redux';
 import { FaHeart } from 'react-icons/fa6';
-import { setActivePlayerSlide } from '../../redux/sliderPlayer/slice.ts';
-import { setClickPlay } from '../../redux/songs/slice.ts';
-import { setPlay, setSong } from '../../redux/player/slice.ts';
+import { songsAction } from '../../redux/songs/slice.ts';
+
+import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
+import { playerAction } from '../../redux/player/slice.ts';
+import { favoriteAction } from '../../redux/favorite/slice.ts';
 
 const FavoriteBlock: React.FC<SongObj> = ({
     id,
@@ -21,15 +22,15 @@ const FavoriteBlock: React.FC<SongObj> = ({
     const dispatch: AppDispatch = useDispatch();
 
     const onClickSoundPlay = () => {
-        dispatch(setActivePlayerSlide(false));
-        dispatch(setPlay(false));
-        dispatch(setSong({ id: currentId }));
-        dispatch(setClickPlay(true));
+        dispatch(sliderAction.setActivePlayerSlide(false));
+        dispatch(playerAction.setPlay(false));
+        dispatch(playerAction.setSong({ id: currentId }));
+        dispatch(songsAction.setClickPlay(true));
     };
 
-    const onClickRemoveFavorite = () => {
-        axios.delete(`https://985cc4acb156d262.mokky.dev/favorite/${id}`);
-        dispatch(removeItem({ id }));
+    const onClickRemoveFavorite = async () => {
+        await axios.delete(`https://985cc4acb156d262.mokky.dev/favorite/${id}`);
+        dispatch(favoriteAction.removeItem({ id }));
     };
 
     return (

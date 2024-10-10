@@ -1,14 +1,14 @@
 import { RiRepeat2Line, RiRepeatOneLine } from 'react-icons/ri';
-import { setLoop } from '../../redux/player/slice.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
+import { playerAction } from '../../redux/player/slice.ts';
 
 const ButtonRepeat = () => {
     const dispatch: AppDispatch = useDispatch();
 
-    const { loop } = useSelector((state: RootState) => state.player);
+    const { loop } = useSelector((state: RootState) => state.playerReducer);
     const onClickRepeat = () => {
-        dispatch(setLoop(!loop));
+        dispatch(playerAction.setLoop(!loop));
     };
 
     return (
@@ -19,7 +19,7 @@ const ButtonRepeat = () => {
                 <RiRepeat2Line className="button" />
             )}
         </button>
-    )
-}
+    );
+};
 
-export default ButtonRepeat
+export default ButtonRepeat;

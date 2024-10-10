@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
-import { setCategoryArray } from '../../redux/genres/slice.ts';
-import { setGenreId, setTitle } from '../../redux/genre/slice.ts';
+
 import { CategoryArray } from '../../redux/genres/types.ts';
+import { genresAction } from '../../redux/genres/slice.ts';
+import { genreAction } from '../../redux/genre/slice.ts';
 
 export type GenresBlockProps = {
     id: number;
@@ -29,9 +30,9 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
         categoryArray: CategoryArray[] | undefined,
         title: string | undefined
     ) => {
-        dispatch(setGenreId(id));
-        dispatch(setTitle(title));
-        dispatch(setCategoryArray(categoryArray));
+        dispatch(genreAction.setGenreId(id));
+        dispatch(genreAction.setTitle(title));
+        dispatch(genresAction.setCategoryArray(categoryArray));
     };
 
     return (

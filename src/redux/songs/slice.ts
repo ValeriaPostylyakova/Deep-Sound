@@ -33,5 +33,5 @@ const songsSlice = createSlice({
     },
 });
 
-export const { setClickPlay } = songsSlice.actions;
-export default songsSlice.reducer;
+export const { reducer: songsReducer, actions: songsAction } = songsSlice;
+// export default songsSlice.reducer;

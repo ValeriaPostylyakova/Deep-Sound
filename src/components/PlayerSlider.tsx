@@ -5,13 +5,13 @@ import PlayerArray from './PlayerArray.tsx';
 
 const PlayerSlider = () => {
     const { activePlayerSlide, slideFilterData } = useSelector(
-        (state: RootState) => state.slider
+        (state: RootState) => state.sliderReducer
     );
 
     return (
         activePlayerSlide && (
             <div className="player">
-                <PlayerArray sliceArray={slideFilterData}/>
+                <PlayerArray sliceArray={slideFilterData} />
             </div>
         )
     );

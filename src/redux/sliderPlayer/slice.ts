@@ -62,6 +62,4 @@ const sliderSlice = createSlice({
     },
 });
 
-export const { setDataSongs, setSliderId, setActivePlayerSlide } =
-    sliderSlice.actions;
-export default sliderSlice.reducer;
+export const { reducer: sliderReducer, actions: sliderAction } = sliderSlice;

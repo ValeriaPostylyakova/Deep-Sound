@@ -3,10 +3,10 @@ import { MutableRefObject } from 'react';
 
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPlay } from '../../redux/player/slice.ts';
 
 import { IoPlay } from 'react-icons/io5';
 import { IoMdPause } from 'react-icons/io';
+import { playerAction } from '../../redux/player/slice.ts';
 
 type PlayPauseProps = {
     audioRef: MutableRefObject<HTMLAudioElement | null>;
@@ -15,10 +15,10 @@ type PlayPauseProps = {
 const ButtonPlayPause: React.FC<PlayPauseProps> = ({ audioRef }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const { isPlay } = useSelector((state: RootState) => state.player);
+    const { isPlay } = useSelector((state: RootState) => state.playerReducer);
 
     const onClickPlayPause = () => {
-        dispatch(setPlay(!isPlay));
+        dispatch(playerAction.setPlay(!isPlay));
 
         if (!isPlay) {
             audioRef.current?.pause();

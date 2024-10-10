@@ -43,6 +43,4 @@ const genresSlice = createSlice({
     },
 });
 
-export const { setCategoryArray } = genresSlice.actions;
-
-export default genresSlice.reducer;
+export const { reducer: genresReducer, actions: genresAction } = genresSlice;

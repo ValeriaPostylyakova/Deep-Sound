@@ -12,7 +12,7 @@ import GoBackNavigate from '../components/GoBackNavigate.tsx';
 const Genre = () => {
     const dispatch: AppDispatch = useDispatch();
     const { genre, genreId, categoryId, title, statusGenre } = useSelector(
-        (state: RootState) => state.genre
+        (state: RootState) => state.genreReducer
     );
 
     React.useEffect(() => {

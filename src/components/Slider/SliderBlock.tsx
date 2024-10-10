@@ -12,15 +12,14 @@ import { slides } from './json.ts';
 import NavButtons from './NavButtons.tsx';
 
 import 'swiper/scss';
-import {
-    setSliderId,
-    setActivePlayerSlide,
-} from '../../redux/sliderPlayer/slice.ts';
-import { setClickPlay } from '../../redux/songs/slice.ts';
+
+import { songsAction } from '../../redux/songs/slice.ts';
 
 import { DataObj } from '../../redux/sliderPlayer/types.ts';
-import { setPlayerActive } from '../../redux/playlistPlayer/slice.ts';
+
 import { fetchSlider } from '../../redux/sliderPlayer/asyncAction.ts';
+import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
+import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 
 const SliderBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -30,10 +29,10 @@ const SliderBlock: React.FC = () => {
     }, []);
 
     const onClickSlide = (id: number) => {
-        dispatch(setSliderId({ id } as DataObj));
-        dispatch(setClickPlay(false));
-        dispatch(setPlayerActive(false));
-        dispatch(setActivePlayerSlide(true));
+        dispatch(sliderAction.setSliderId({ id } as DataObj));
+        dispatch(songsAction.setClickPlay(false));
+        dispatch(playlistAction.setPlayerActive(false));
+        dispatch(sliderAction.setActivePlayerSlide(true));
     };
 
     return (

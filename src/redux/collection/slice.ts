@@ -33,6 +33,5 @@ const collectionSlice = createSlice({
     },
 });
 
-export const { setCollectionId } = collectionSlice.actions;
-
-export default collectionSlice.reducer;
+export const { reducer: collectionReducer, actions: collectionAction } =
+    collectionSlice;

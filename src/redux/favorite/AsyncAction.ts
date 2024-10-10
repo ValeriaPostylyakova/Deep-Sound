@@ -11,3 +11,29 @@ export const fetchFavorite = createAsyncThunk<SongObj[]>(
         return data;
     }
 );
+
+export const fetchDeleteFavorite = async (findObj: SongObj) => {
+    try {
+        await axios.delete(
+            `https://985cc4acb156d262.mokky.dev/favorite/${findObj.currentId}`
+        );
+    } catch (err) {
+        console.error(err);
+        alert('Ошибка при удалении закладки');
+    }
+};
+
+export const fetchPostFavorite = async (objFavorite?: SongObj) => {
+    try {
+        const { data } = await axios.post(
+            `https://985cc4acb156d262.mokky.dev/favorite`,
+            {
+                ...objFavorite,
+            }
+        );
+        return { ...data };
+    } catch (err) {
+        console.error(err);
+        alert('Ошибка при добавлении закладки');
+    }
+};

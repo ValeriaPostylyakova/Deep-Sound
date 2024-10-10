@@ -9,11 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 const PlaylistBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const customPlaylists = useSelector(
-        (state: RootState) => state.createPlaylist.customPlaylists
+        (state: RootState) => state.createPlaylistReducer.customPlaylists
     );
+    const playlists = useSelector(
+        (state: RootState) => state.createPlaylistReducer.playlists
+    );
+
     React.useEffect(() => {
         dispatch(fetchCustomPlaylists());
-    }, []);
+    }, [playlists]);
 
     return customPlaylists.map((playlist: CustomPlaylistObj) => (
         <Link key={playlist.id} to={`/custom-playlist/${playlist.parentId}`}>

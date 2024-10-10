@@ -10,9 +10,11 @@ import Playlist from '../components/Playlist/Playlist.tsx';
 import PlaylistSkeleton from '../components/Playlist/PlaylistSkeleton.tsx';
 
 const Collection = () => {
-    const title = useSelector((state: RootState) => state.collections.title);
+    const title = useSelector(
+        (state: RootState) => state.collectionsReducer.title
+    );
     const { playlists, status, collectionId } = useSelector(
-        (state: RootState) => state.collection
+        (state: RootState) => state.collectionReducer
     );
 
     const dispatch: AppDispatch = useDispatch();

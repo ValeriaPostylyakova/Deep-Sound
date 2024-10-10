@@ -8,7 +8,7 @@ import { fetchCollections } from '../redux/collections/asyncAction.ts';
 const Collections = () => {
     const dispatch: AppDispatch = useDispatch();
     const { collections } = useSelector(
-        (state: RootState) => state.collections
+        (state: RootState) => state.collectionsReducer
     );
     React.useEffect(() => {
         dispatch(fetchCollections());

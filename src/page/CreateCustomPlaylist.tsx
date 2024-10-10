@@ -6,21 +6,27 @@ import * as React from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { AppDispatch, RootState } from '../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    setActionBarActive,
-    setInputValue,
-} from '../redux/createPlaylist/slice.ts';
+
+import axios from 'axios';
+import { createPlaylistAction } from '../redux/createPlaylist/slice.ts';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCustomPlaylist = () => {
     const dispatch: AppDispatch = useDispatch();
     const { inputValue, actionBarActive, customPlaylists } = useSelector(
-        (state: RootState) => state.createPlaylist
+        (state: RootState) => state.createPlaylistReducer
     );
+    const playlists = useSelector(
+        (state: RootState) => state.createPlaylistReducer.playlists
+    );
+
+    const navigate = useNavigate();
+
     const inputRef = React.useRef<HTMLInputElement | null>(null);
     const buttonEditRef = React.useRef<HTMLButtonElement | null>(null);
 
     const HandleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setInputValue(event.target.value));
+        dispatch(createPlaylistAction.setInputValue(event.target.value));
     };
 
     const HandleMouseEnter = () => {
@@ -36,10 +42,25 @@ const CreateCustomPlaylist = () => {
     };
 
     const onClickActionBar = () => {
-        dispatch(setActionBarActive(!actionBarActive));
+        dispatch(createPlaylistAction.setActionBarActive(!actionBarActive));
     };
 
-    const onClickDeletePlaylist = () => {};
+    const onClickDeletePlaylist = async () => {
+        try {
+            const id = window.location.pathname.slice(17);
+            const findObj = customPlaylists.find((obj) => obj.parentId === id);
+            await axios.delete(
+                `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
+            );
+        } catch (err) {
+            console.error(err);
+            alert(
+                'Ошибка при удалении плейлиста. Пожалуйста, перезагрузите страницу и попробуйте ещё раз'
+            );
+        }
+        navigate('/');
+        dispatch(createPlaylistAction.setActionBarActive(false));
+    };
 
     return (
         <div className="custom">
@@ -67,7 +88,10 @@ const CreateCustomPlaylist = () => {
                     </div>
 
                     <div className="custom__container-2_bottom">
-                        <button className="custom__button">
+                        <button
+                            disabled={playlists.length === 0}
+                            className="custom__button"
+                        >
                             <div className="custom__button_container">
                                 <FaPlay className="custom__button_container-icon" />
                                 <p>Слушать</p>

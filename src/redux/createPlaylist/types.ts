@@ -2,6 +2,7 @@ import { SongObj, Status } from '../songs/types.ts';
 
 export interface CreatePlaylistState {
     customPlaylists: CustomPlaylistObj[];
+    playlists: CustomPlaylistObj[];
     status: Status;
     inputValue: string;
     actionBarActive: boolean;

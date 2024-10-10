@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
-import { setSearchValue } from '../redux/filter/slice.ts';
+
 import { CiSearch } from 'react-icons/ci';
+import { filterAction } from '../redux/filter/slice.ts';
 
 type SearchProps = {
     searchState: boolean;
@@ -15,7 +16,7 @@ const Search: React.FC<SearchProps> = ({ searchState }) => {
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
-        dispatch(setSearchValue(event.target.value));
+        dispatch(filterAction.setSearchValue(event.target.value));
     };
 
     return (

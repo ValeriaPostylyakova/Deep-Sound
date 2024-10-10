@@ -6,8 +6,8 @@ import { fetchCustomPlaylists } from './asyncAction.ts';
 const initialState: CreatePlaylistState = {
     inputValue: 'Новый плейлист',
     actionBarActive: false,
+    playlists: [],
     customPlaylists: [],
-
     status: Status.LOADING,
 };
 
@@ -20,6 +20,9 @@ const createPlaylist = createSlice({
         },
         setActionBarActive(state, action: PayloadAction<boolean>) {
             state.actionBarActive = action.payload;
+        },
+        setPlaylists(state, action) {
+            state.playlists.push({ ...action.payload });
         },
     },
 
@@ -39,6 +42,5 @@ const createPlaylist = createSlice({
     },
 });
 
-export const { setInputValue, setActionBarActive } = createPlaylist.actions;
-
-export default createPlaylist.reducer;
+export const { reducer: createPlaylistReducer, actions: createPlaylistAction } =
+    createPlaylist;

@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchFavorite } from './AsyncAction.ts';
+import {
+    fetchDeleteFavorite,
+    fetchFavorite,
+    fetchPostFavorite,
+} from './AsyncAction.ts';
 import { FavoriteState } from './types.ts';
 import { SongObj, Status } from '../songs/types.ts';
 
@@ -15,7 +19,16 @@ const favoriteSlice = createSlice({
     initialState,
     reducers: {
         setFavorite(state, action: PayloadAction<SongObj>) {
-            state.favorite.push(action.payload);
+            const findFavorite = state.favorite.find(
+                (obj) => obj.currentId === action.payload.id
+            );
+            if (findFavorite) {
+                state.favorite.filter((obj) => obj.id !== findFavorite.id);
+                fetchDeleteFavorite(findFavorite);
+            } else {
+                state.favorite.push(action.payload);
+                fetchPostFavorite(action.payload);
+            }
         },
 
         setBlockFavorite(state, action) {
@@ -53,7 +66,5 @@ const favoriteSlice = createSlice({
     },
 });
 
-export const { setFavorite, setBlockFavorite, setFavoriteActive, removeItem } =
-    favoriteSlice.actions;
-
-export default favoriteSlice.reducer;
+export const { reducer: favoriteReducer, actions: favoriteAction } =
+    favoriteSlice;

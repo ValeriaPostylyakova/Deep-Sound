@@ -16,10 +16,6 @@
     flex-direction: column;
     gap: 0.8rem;
 
-    h2 {
-      font-size: 17px;
-      font-weight: 700;
-    }
     p {
       font-weight: 400;
     }
@@ -29,6 +25,17 @@
     padding: 10px;
     border: 1px solid rgb(243, 243, 243);
     border-radius: 20px;
+  }
+
+  &__title {
+    color: #000000;
+    font-size: 17px;
+    font-weight: 700;
+    transition: 0.2s;
+
+    &:hover {
+      color: #172194;
+    }
   }
   
   &__images {
@@ -48,7 +55,8 @@
 }
 
 .custom {
-  width: 99%;
+  width: inherit;
+  margin: 0 auto;
   height: 200px;
   border-radius: 1rem;
   background-color: rgb(243, 243, 243);

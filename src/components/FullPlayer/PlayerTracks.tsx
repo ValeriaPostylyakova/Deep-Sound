@@ -4,7 +4,7 @@ import { MutableRefObject } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { SongObj } from '../../redux/songs/types.ts';
-import { setCurrentTime, setTrackWidth } from '../../redux/player/slice.ts';
+import { playerAction } from '../../redux/player/slice.ts';
 
 type PlayerTracksProps = {
     audioRef: MutableRefObject<HTMLAudioElement | null>;
@@ -17,12 +17,12 @@ const PlayerTracks: React.FC<PlayerTracksProps> = ({
     audioRef,
     trackRef,
     obj,
-    getAutoNextSong
+    getAutoNextSong,
 }) => {
     const dispatch: AppDispatch = useDispatch();
 
     const { loop, currentTime, trackWidth } = useSelector(
-        (state: RootState) => state.player
+        (state: RootState) => state.playerReducer
     );
 
     const getCurrentTime = () => {
@@ -37,8 +37,10 @@ const PlayerTracks: React.FC<PlayerTracksProps> = ({
                 (time / audioRef.current.duration) * 100
             );
 
-            dispatch(setTrackWidth(trackWidthSong));
-            dispatch(setCurrentTime({ min: minutes, sec: seconds }));
+            dispatch(playerAction.setTrackWidth(trackWidthSong));
+            dispatch(
+                playerAction.setCurrentTime({ min: minutes, sec: seconds })
+            );
         }
     };
 

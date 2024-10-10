@@ -2,11 +2,11 @@ import * as React from 'react';
 import { SongObj } from '../../redux/songs/types.ts';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
-import { setClickPlay } from '../../redux/songs/slice.ts';
-import { setActivePlayerSlide } from '../../redux/sliderPlayer/slice.ts';
-import { setSong } from '../../redux/player/slice.ts';
-import { setPlay } from '../../redux/player/slice.ts';
-import { setPlayerActive } from '../../redux/playlistPlayer/slice.ts';
+import { songsAction } from '../../redux/songs/slice.ts';
+
+import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
+import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
+import { playerAction } from '../../redux/player/slice.ts';
 
 const SoundBlock: React.FC<SongObj> = ({
     id,
@@ -19,11 +19,11 @@ const SoundBlock: React.FC<SongObj> = ({
     const dispatch: AppDispatch = useDispatch();
 
     const onClickSoundPlay = () => {
-        dispatch(setActivePlayerSlide(false));
-        dispatch(setPlayerActive(false));
-        dispatch(setClickPlay(true));
-        dispatch(setPlay(false));
-        dispatch(setSong({ id }));
+        dispatch(sliderAction.setActivePlayerSlide(false));
+        dispatch(playlistAction.setPlayerActive(false));
+        dispatch(songsAction.setClickPlay(true));
+        dispatch(playerAction.setPlay(false));
+        dispatch(playerAction.setSong({ id }));
     };
 
     return (

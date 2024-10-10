@@ -3,12 +3,10 @@ import * as React from 'react';
 import { SongObj } from '../../redux/songs/types.ts';
 import { AppDispatch } from '../../redux/store.ts';
 import { useDispatch } from 'react-redux';
-import {
-    setPlayerActive,
-    setPlaylist,
-} from '../../redux/playlistPlayer/slice.ts';
-import { setClickPlay } from '../../redux/songs/slice.ts';
-import { setActivePlayerSlide } from '../../redux/sliderPlayer/slice.ts';
+
+import { songsAction } from '../../redux/songs/slice.ts';
+import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
+import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 
 type PlaylistProps = {
     imageUrl: string;
@@ -21,10 +19,10 @@ const Playlist: React.FC<PlaylistProps> = ({ imageUrl, title, songs }) => {
     const dispatch: AppDispatch = useDispatch();
 
     const onClickPlaylist = () => {
-        dispatch(setPlayerActive(true));
-        dispatch(setPlaylist(songs));
-        dispatch(setClickPlay(false));
-        dispatch(setActivePlayerSlide(false));
+        dispatch(playlistAction.setPlayerActive(true));
+        dispatch(playlistAction.setPlaylist(songs));
+        dispatch(songsAction.setClickPlay(false));
+        dispatch(sliderAction.setActivePlayerSlide(false));
     };
 
     return (

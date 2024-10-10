@@ -10,6 +10,7 @@ export type PlayerState = {
     currentTime: ObjCurrentTime;
     trackWidth: number;
     volume: number;
+    addedSong: boolean;
 };
 
 export type SongId = {

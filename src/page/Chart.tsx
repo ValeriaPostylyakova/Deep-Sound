@@ -8,15 +8,14 @@ import { fetchSongs } from '../redux/songs/asyncAction.ts';
 import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
 import GoBack from '../components/GoBack.tsx';
 
-
 const Chart = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { songs } = useSelector((state: RootState) => state.songs);
+    const { songs } = useSelector((state: RootState) => state.songsReducer);
 
     React.useEffect(() => {
         scrollTo(0, 0);
-        dispatch(fetchSongs())
-    }, [])
+        dispatch(fetchSongs());
+    }, []);
 
     return (
         <>

@@ -19,13 +19,17 @@ import { fetchCollections } from '../redux/collections/asyncAction.ts';
 
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { status, songs } = useSelector((state: RootState) => state.songs);
-    const { statusGenres, genres } = useSelector(
-        (state: RootState) => state.genres
+    const { status, songs } = useSelector(
+        (state: RootState) => state.songsReducer
     );
-    const { searchValue } = useSelector((state: RootState) => state.filter);
+    const { statusGenres, genres } = useSelector(
+        (state: RootState) => state.genresReducer
+    );
+    const searchValue = useSelector(
+        (state: RootState) => state.filterReducer.searchValue
+    );
     const { collections } = useSelector(
-        (state: RootState) => state.collections
+        (state: RootState) => state.collectionsReducer
     );
 
     React.useEffect(() => {

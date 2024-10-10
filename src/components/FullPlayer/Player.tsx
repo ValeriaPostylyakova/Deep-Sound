@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
-import { setPlay, setSong } from '../../redux/player/slice.ts';
 import { SongObj } from '../../redux/songs/types.ts';
 
 import { IoPlaySkipForward } from 'react-icons/io5';
@@ -13,16 +12,18 @@ import PlayerVolume from './PlayerVolume.tsx';
 import ButtonsFavorite from './ButtonsFavorite.tsx';
 import ButtonOfsetTime from './ButtonOfsetTime.tsx';
 import ButtonRepeat from './ButtonRepeat.tsx';
+import { playerAction } from '../../redux/player/slice.ts';
 
 const Player: React.FC = () => {
     const audioRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
     const dispatch: AppDispatch = useDispatch();
-    const { activePlayer, songs } = useSelector(
-        (state: RootState) => state.songs
+    const activePlayer = useSelector(
+        (state: RootState) => state.songsReducer.activePlayer
     );
-    const { song } = useSelector((state: RootState) => state.player);
+    const songs = useSelector((state: RootState) => state.songsReducer.songs);
+    const song = useSelector((state: RootState) => state.playerReducer.song);
 
     const objSong = songs.find((obj: SongObj) => obj.id === song.id);
 
@@ -30,17 +31,17 @@ const Player: React.FC = () => {
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         const classBtn: string = event.currentTarget.className;
-        dispatch(setPlay(false));
+        dispatch(playerAction.setPlay(false));
         if (classBtn === 'next') {
-            dispatch(setSong({ id: Number(song.id + 1) }));
+            dispatch(playerAction.setSong({ id: Number(song.id + 1) }));
         } else {
-            dispatch(setSong({ id: Number(song.id - 1) }));
+            dispatch(playerAction.setSong({ id: Number(song.id - 1) }));
         }
     };
 
     const getAutoNextSong = () => {
-        dispatch(setSong({ id: Number(song.id + 1) }));
-    }
+        dispatch(playerAction.setSong({ id: Number(song.id + 1) }));
+    };
 
     return (
         activePlayer && (
@@ -59,7 +60,7 @@ const Player: React.FC = () => {
                     </div>
                     <div className="player__center">
                         <div className="player__center_icon">
-                           <ButtonOfsetTime audioRef={audioRef}/>
+                            <ButtonOfsetTime audioRef={audioRef} />
                             <button
                                 className="prev"
                                 onClick={(e) => onClickNextPrev(e)}
@@ -74,7 +75,7 @@ const Player: React.FC = () => {
                             >
                                 <IoPlaySkipForward className="button next" />
                             </button>
-                            <ButtonRepeat/>
+                            <ButtonRepeat />
                         </div>
                         <PlayerTracks
                             audioRef={audioRef}

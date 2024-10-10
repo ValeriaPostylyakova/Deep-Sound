@@ -5,7 +5,7 @@ import PlayerArray from './PlayerArray.tsx';
 
 const PlayerPlaylist = () => {
     const { playerActive, playlist } = useSelector(
-        (state: RootState) => state.playlist
+        (state: RootState) => state.playlistReducer
     );
 
     return (
