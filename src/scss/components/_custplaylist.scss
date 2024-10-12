@@ -53,13 +53,22 @@
     }
   }
 }
+.custom__wrapper {
+
+}
 
 .custom {
   width: inherit;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   height: 200px;
   border-radius: 1rem;
   background-color: rgb(243, 243, 243);
+
+  &__title {
+    padding: 2rem 2rem 4rem 2rem;
+    font-size: 26px;
+    font-weight: 700;
+  }
 
   &__container {
     display: flex;
@@ -67,6 +76,12 @@
     height: 100%;
     gap: 3rem;
     padding: 2rem;
+
+    &-songs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   &__images {
@@ -121,6 +136,53 @@
     }
   }
 
+  &__block {
+    width: 98%;
+    margin: 0 auto;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 1rem;
+
+    &_container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &_info {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      &-container {
+        h2 {
+          font-weight: 600;
+          font-size: 16px;
+          margin-bottom: 0.4rem;
+          color: #000000;
+        }
+
+        h4 {
+          font-weight: 400;
+          color: #5C5A5A;
+        }
+      }
+    }
+
+    &_images {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    &_time {
+      p {
+        font-weight: 500;
+        font-size: 16px;
+      }
+    }
+  }
+
   &__button {
     padding: 12px 22px;
     border-radius: 15px;
@@ -171,4 +233,13 @@
   &-btn-modal-container {
     position: absolute;
   }
+}
+
+.bottom {
+  width: inherit;
+  min-height: 200px;
+  border-radius: 1rem;
+  margin: 0 auto;
+  background-color: rgb(243, 243, 243);
+  //margin-top: 2rem;
 }

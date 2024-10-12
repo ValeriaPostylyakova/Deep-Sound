@@ -23,7 +23,7 @@ export const fetchDeleteFavorite = async (findObj: SongObj) => {
     }
 };
 
-export const fetchPostFavorite = async (objFavorite?: SongObj) => {
+export async function fetchPostFavorite(objFavorite?: SongObj) {
     try {
         const { data } = await axios.post(
             `https://985cc4acb156d262.mokky.dev/favorite`,
@@ -31,9 +31,9 @@ export const fetchPostFavorite = async (objFavorite?: SongObj) => {
                 ...objFavorite,
             }
         );
-        return { ...data };
+        return data;
     } catch (err) {
         console.error(err);
         alert('Ошибка при добавлении закладки');
     }
-};
+}

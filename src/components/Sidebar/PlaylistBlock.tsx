@@ -15,6 +15,10 @@ const PlaylistBlock: React.FC = () => {
         (state: RootState) => state.createPlaylistReducer.playlists
     );
 
+    const playlistTracks = useSelector(
+        (state: RootState) => state.playlistTracksReducer.playlistTracks
+    );
+
     React.useEffect(() => {
         dispatch(fetchCustomPlaylists());
     }, [playlists]);
@@ -29,9 +33,9 @@ const PlaylistBlock: React.FC = () => {
                     <div className="sidebar__playlist_info">
                         <h3>{playlist.title}</h3>
                         <h4>
-                            {playlist.songs.length <= 4
-                                ? playlist.songs.length + ' трека'
-                                : playlist.songs.length + ' треков'}
+                            {playlistTracks.length <= 4
+                                ? playlistTracks.length + ' трека'
+                                : playlistTracks.length + ' треков'}
                         </h4>
                     </div>
                 </div>

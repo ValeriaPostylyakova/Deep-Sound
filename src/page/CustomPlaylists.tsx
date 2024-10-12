@@ -17,7 +17,7 @@ const CustomPlaylists = () => {
     );
     React.useEffect(() => {
         dispatch(fetchCustomPlaylists());
-    }, []);
+    }, [dispatch]);
 
     return (
         <section className="favorite">

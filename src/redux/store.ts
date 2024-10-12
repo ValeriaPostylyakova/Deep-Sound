@@ -10,6 +10,7 @@ import { playlistReducer } from './playlistPlayer/slice.ts';
 import { collectionsReducer } from './collections/slice.ts';
 import { collectionReducer } from './collection/slice.ts';
 import { createPlaylistReducer } from './createPlaylist/slice.ts';
+import { playlistTracksReducer } from './createPlaylistTracks/slice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
         collectionsReducer,
         collectionReducer,
         createPlaylistReducer,
+        playlistTracksReducer,
     },
 });
 

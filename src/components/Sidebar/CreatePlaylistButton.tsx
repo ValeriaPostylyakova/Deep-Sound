@@ -15,7 +15,6 @@ const CreatePlaylistButton = () => {
         const obj = {
             parentId: secureID,
             title: 'Новый плейлист',
-            songs: [],
         };
         await axios.post(
             'https://985cc4acb156d262.mokky.dev/createPlaylist',

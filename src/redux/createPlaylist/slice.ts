@@ -8,6 +8,7 @@ const initialState: CreatePlaylistState = {
     actionBarActive: false,
     playlists: [],
     customPlaylists: [],
+    parentId: '',
     status: Status.LOADING,
 };
 
@@ -23,6 +24,9 @@ const createPlaylist = createSlice({
         },
         setPlaylists(state, action) {
             state.playlists.push({ ...action.payload });
+        },
+        setParentId(state, action: PayloadAction<string>) {
+            state.parentId = action.payload;
         },
     },
 

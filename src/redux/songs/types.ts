@@ -21,4 +21,5 @@ export type SongObj = {
     time: string;
     favorite?: boolean;
     key?: number;
+    parentId?: string;
 };

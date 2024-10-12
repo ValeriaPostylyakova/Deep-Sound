@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { SongObj } from '../../redux/songs/types.ts';
-import { AppDispatch } from '../../redux/store.ts';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store.ts';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { songsAction } from '../../redux/songs/slice.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
@@ -17,6 +17,9 @@ type PlaylistProps = {
 
 const Playlist: React.FC<PlaylistProps> = ({ imageUrl, title, songs }) => {
     const dispatch: AppDispatch = useDispatch();
+    const playlistTracks = useSelector(
+        (state: RootState) => state.playlistTracksReducer.playlistTracks
+    );
 
     const onClickPlaylist = () => {
         dispatch(playlistAction.setPlayerActive(true));
@@ -36,9 +39,9 @@ const Playlist: React.FC<PlaylistProps> = ({ imageUrl, title, songs }) => {
                 <h3 className="playlist__title">{title}</h3>
             </div>
             <h4 className="playlist__collection">
-                {songs.length <= 4
-                    ? songs.length + ' трека'
-                    : songs.length + ' треков'}
+                {playlistTracks.length <= 4
+                    ? playlistTracks.length + ' трека'
+                    : playlistTracks.length + ' треков'}
             </h4>
         </div>
     );

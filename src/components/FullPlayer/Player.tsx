@@ -9,7 +9,7 @@ import { IoPlaySkipForward } from 'react-icons/io5';
 import ButtonPlayPause from './ButtonPlayPause.tsx';
 import PlayerTracks from './PlayerTracks.tsx';
 import PlayerVolume from './PlayerVolume.tsx';
-import ButtonsFavorite from './ButtonsFavorite.tsx';
+import ButtonsFavoritePlus from './ButtonsFavoritePlus.tsx';
 import ButtonOfsetTime from './ButtonOfsetTime.tsx';
 import ButtonRepeat from './ButtonRepeat.tsx';
 import { playerAction } from '../../redux/player/slice.ts';
@@ -56,7 +56,7 @@ const Player: React.FC = () => {
                                 <p>{objSong?.author}</p>
                             </div>
                         </div>
-                        <ButtonsFavorite objFavorite={objSong} />
+                        <ButtonsFavoritePlus objFavorite={objSong} />
                     </div>
                     <div className="player__center">
                         <div className="player__center_icon">

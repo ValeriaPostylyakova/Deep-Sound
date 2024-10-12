@@ -4,6 +4,7 @@ export interface CreatePlaylistState {
     customPlaylists: CustomPlaylistObj[];
     playlists: CustomPlaylistObj[];
     status: Status;
+    parentId: string;
     inputValue: string;
     actionBarActive: boolean;
 }
