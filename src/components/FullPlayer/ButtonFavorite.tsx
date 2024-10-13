@@ -1,4 +1,3 @@
-import { FaHeart } from 'react-icons/fa6';
 import { GrFavorite } from 'react-icons/gr';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,17 +10,17 @@ import { ButtonsFavoriteProps } from './ButtonsFavoritePlus.tsx';
 const ButtonFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const favoriteActive = useSelector(
-        (state: RootState) => state.favoriteReducer.favoriteActive
-    );
-
     const favorite = useSelector(
         (state: RootState) => state.favoriteReducer.favorite
     );
 
+    const onClickModal = () => {
+        dispatch(favoriteAction.setFavoriteAdded({ title: '', added: false }));
+    };
+
     const onClickAddFavorite = async () => {
         const findObj = favorite.find(
-            (obj) => obj.currentId === objFavorite.id
+            (obj) => obj.currentId === objFavorite?.id
         );
 
         try {
@@ -30,12 +29,26 @@ const ButtonFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
                 await axios.delete(
                     `https://985cc4acb156d262.mokky.dev/favorite/${findObj.id}`
                 );
+
+                dispatch(
+                    favoriteAction.setFavoriteAdded({
+                        title: 'Трек удален из избранных',
+                        added: true,
+                    })
+                );
             } else {
                 const { data } = await axios.post(
                     `https://985cc4acb156d262.mokky.dev/favorite`,
                     { ...objFavorite }
                 );
                 dispatch(favoriteAction.setFavorite(data));
+
+                dispatch(
+                    favoriteAction.setFavoriteAdded({
+                        title: 'Трек добавлен в избранное',
+                        added: true,
+                    })
+                );
             }
         } catch (e) {
             console.error(e);
@@ -43,15 +56,13 @@ const ButtonFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
                 'Ошибка при получении или удалении закладки. Обновите страницу и попробуйте ещё раз'
             );
         }
+
+        setTimeout(onClickModal, 4000);
     };
 
     return (
         <button onClick={onClickAddFavorite}>
-            {favoriteActive ? (
-                <FaHeart className="player__left-button-red" />
-            ) : (
-                <GrFavorite className="player__left-button" />
-            )}
+            <GrFavorite className="player__left-button" />
         </button>
     );
 };

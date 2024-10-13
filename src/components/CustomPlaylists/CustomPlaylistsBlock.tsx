@@ -9,13 +9,13 @@ const CustomPlaylistsBlock: React.FC<CustomPlaylistObj> = ({
     title,
     parentId,
 }) => {
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     const playlistTracks = useSelector(
         (state: RootState) => state.playlistTracksReducer.playlistTracks
     );
+
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="custplaylist">

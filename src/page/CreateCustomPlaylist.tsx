@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store.ts';
 
 import CreatePlaylist from '../components/createCustomBlocks/CreatePlaylist.tsx';
+import DeletePlaylistModal from '../components/createCustomBlocks/DeletePlaylistModal.tsx';
 
 const CreateCustomPlaylist = () => {
     const customPlaylists = useSelector(
@@ -29,6 +30,7 @@ const CreateCustomPlaylist = () => {
                     </div>
                 </div>
             )}
+            <DeletePlaylistModal />
         </div>
     );
 };

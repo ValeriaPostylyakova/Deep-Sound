@@ -1,3 +1,8 @@
+html {
+  scrollbar-width: thin;
+}
+
+
 .sidebar {
   position: fixed;
   top: 81px;
@@ -90,7 +95,22 @@
   }
 
   &__playlists {
+    height: 60vh;
+    overflow: auto;
     margin-bottom: 1rem;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #9E9E9E;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bfbfbf;
+      border-radius: 20px;
+    }
   }
 
   &__playlist {

@@ -9,6 +9,7 @@ const initialState: CreatePlaylistState = {
     playlists: [],
     customPlaylists: [],
     parentId: '',
+    deletePlaylist: false,
     status: Status.LOADING,
 };
 
@@ -27,6 +28,9 @@ const createPlaylist = createSlice({
         },
         setParentId(state, action: PayloadAction<string>) {
             state.parentId = action.payload;
+        },
+        setDeletePlaylist(state, action: PayloadAction<boolean>) {
+            state.deletePlaylist = action.payload;
         },
     },
 

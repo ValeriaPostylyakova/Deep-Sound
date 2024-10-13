@@ -1,3 +1,7 @@
+html {
+    scrollbar-width: thin;
+}
+
 .player {
     position: fixed;
     bottom: 0;
@@ -50,6 +54,7 @@
         }
 
         &_buttons {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 2rem;
@@ -194,17 +199,30 @@ input[type="range"]::-webkit-slider-thumb {
 .addedModal {
     position: absolute;
     z-index: 100;
-    -webkit-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.19);
-    -moz-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.19);
-    box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.19);
-
     bottom: 3rem;
     right: -115px;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    max-height: 300px;
     background-color: #fff;
-    border-radius: 1rem;
+    border-radius: 1.3rem;
     padding: 20px;
+    -webkit-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
+    -moz-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
+    box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #ffffff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #bfbfbf;
+        border-radius: 15px;
+    }
 
     &__list {
         display: flex;
@@ -228,3 +246,23 @@ input[type="range"]::-webkit-slider-thumb {
     }
 }
 
+.addFavorite-modal {
+    width: 200px;
+    bottom: 0;
+    visibility: hidden;
+    left: -100px;
+    position: absolute;
+    z-index: 110;
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: bottom ease 0.2s;
+    background-color: #fff;
+    -webkit-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
+    -moz-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
+    box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
+
+    &.active {
+        visibility: visible;
+        bottom: 70px;
+    }
+}

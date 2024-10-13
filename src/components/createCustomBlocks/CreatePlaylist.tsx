@@ -59,6 +59,11 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         dispatch(createPlaylistAction.setActionBarActive(!actionBarActive));
     };
 
+    const handleModal = () => {
+        dispatch(createPlaylistAction.setDeletePlaylist(false));
+        navigate('/');
+    };
+
     const onClickDeletePlaylist = async () => {
         try {
             await axios.delete(
@@ -70,7 +75,8 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
                 'Ошибка при удалении плейлиста. Пожалуйста, перезагрузите страницу и попробуйте ещё раз'
             );
         }
-        navigate('/');
+        dispatch(createPlaylistAction.setDeletePlaylist(true));
+        setTimeout(handleModal, 4000);
         dispatch(createPlaylistAction.setActionBarActive(false));
     };
 

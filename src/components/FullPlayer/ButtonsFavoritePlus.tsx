@@ -9,6 +9,7 @@ import AddedPlaylistModal from './AddedPlaylistModal.tsx';
 
 import ButtonFavorite from './ButtonFavorite.tsx';
 import ButtonPlus from './ButtonPlus.tsx';
+import FavoriteModal from './FavoriteModal.tsx';
 
 export type ButtonsFavoriteProps = {
     objFavorite: SongObj | undefined;
@@ -24,6 +25,7 @@ const ButtonsFavoritePlus: React.FC<ButtonsFavoriteProps> = ({
     return (
         <div className="player__left_buttons">
             <ButtonFavorite objFavorite={objFavorite} />
+            <FavoriteModal />
             <div className="added__container">
                 <ButtonPlus />
                 {addedSong && <AddedPlaylistModal obj={objFavorite} />}
