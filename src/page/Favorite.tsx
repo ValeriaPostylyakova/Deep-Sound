@@ -18,7 +18,7 @@ const Favorite = () => {
     React.useEffect(() => {
         window.scrollTo(0, 0);
         dispatch(fetchFavorite());
-    }, []);
+    }, [dispatch]);
 
     return (
         <section className="favorite">

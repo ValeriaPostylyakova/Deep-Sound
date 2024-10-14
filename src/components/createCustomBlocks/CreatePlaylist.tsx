@@ -10,6 +10,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
 import { fetchPlaylistTracks } from '../../redux/createPlaylistTracks/asyncAction.ts';
+import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
+import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
+import { songsAction } from '../../redux/songs/slice.ts';
+import { playerAction } from '../../redux/player/slice.ts';
 
 type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
@@ -80,6 +84,15 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         dispatch(createPlaylistAction.setActionBarActive(false));
     };
 
+    const onClickPlay = () => {
+        const currentId = playlistTracks[0].currentId;
+        dispatch(sliderAction.setActivePlayerSlide(false));
+        dispatch(playlistAction.setPlayerActive(false));
+        dispatch(songsAction.setClickPlay(true));
+        dispatch(playerAction.setPlay(false));
+        dispatch(playerAction.setSong({ id: currentId }));
+    };
+
     return (
         <div className="custom">
             <div className="custom__container">
@@ -107,6 +120,7 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
 
                     <div className="custom__container-2_bottom">
                         <button
+                            onClick={onClickPlay}
                             disabled={playlistTracks.length === 0}
                             className="custom__button"
                         >

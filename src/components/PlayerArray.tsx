@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { SongObj } from '../redux/songs/types.ts';
 
-import { GrFavorite } from 'react-icons/gr';
-import { FiPlus } from 'react-icons/fi';
 import { IoPlaySkipForward } from 'react-icons/io5';
 import ButtonPlayPause from './FullPlayer/ButtonPlayPause.tsx';
 import PlayerTracks from './FullPlayer/PlayerTracks.tsx';
 import PlayerVolume from './FullPlayer/PlayerVolume.tsx';
 import ButtonOfsetTime from './FullPlayer/ButtonOfsetTime.tsx';
 import ButtonRepeat from './FullPlayer/ButtonRepeat.tsx';
+import ButtonsFavoritePlus from './FullPlayer/ButtonsFavoritePlus.tsx';
 
 type PlayerProps = {
     sliceArray: SongObj[];
@@ -50,18 +49,13 @@ const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
                         <p>{song?.author}</p>
                     </div>
                     <div className="player__left_buttons">
-                        <button>
-                            <GrFavorite className="player__left-button" />
-                        </button>
-                        <button>
-                            <FiPlus className="player__left-button" />
-                        </button>
+                        <ButtonsFavoritePlus objFavorite={song} />
                     </div>
                 </div>
             </div>
             <div className="player__center">
                 <div className="player__center_icon_slider">
-                    <ButtonOfsetTime audioRef={audioSliderRef}/>
+                    <ButtonOfsetTime audioRef={audioSliderRef} />
                     <button
                         disabled={index === 0}
                         className="prev"
@@ -78,7 +72,7 @@ const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
                     >
                         <IoPlaySkipForward className="button next" />
                     </button>
-                    <ButtonRepeat/>
+                    <ButtonRepeat />
                 </div>
                 <PlayerTracks
                     audioRef={audioSliderRef}

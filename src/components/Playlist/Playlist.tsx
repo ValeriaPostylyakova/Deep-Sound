@@ -9,6 +9,7 @@ import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 
 type PlaylistProps = {
+    parentId: number;
     imageUrl: string;
     title: string;
     songs: SongObj[];

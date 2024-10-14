@@ -21,9 +21,11 @@ const Chart = () => {
         <>
             <GoBack />
             <div className="chart__container">
-                {songs.map((song: SongObj) => (
-                    <SoundBlock key={song.id} {...song} />
-                ))}
+                {songs
+                    .filter((obj) => obj.place)
+                    .map((song: SongObj) => (
+                        <SoundBlock key={song.id} {...song} />
+                    ))}
             </div>
         </>
     );

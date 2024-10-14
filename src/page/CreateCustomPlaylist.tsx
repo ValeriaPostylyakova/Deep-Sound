@@ -14,7 +14,6 @@ const CreateCustomPlaylist = () => {
         (state: RootState) => state.playlistTracksReducer.playlistTracks
     );
     const id = window.location.pathname.slice(17);
-
     const findObj = customPlaylists.find((obj) => obj.parentId === id);
 
     return (

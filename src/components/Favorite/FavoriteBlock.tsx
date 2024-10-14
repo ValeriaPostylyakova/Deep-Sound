@@ -35,8 +35,8 @@ const FavoriteBlock: React.FC<SongObj> = ({
 
     return (
         <div className="sound__block">
-            <div>
-                <div onClick={onClickSoundPlay} className="sound__left">
+            <div className="sound__block_container" onClick={onClickSoundPlay}>
+                <div className="sound__left">
                     <div className="sound__container-block">
                         <img
                             className="sound__image-author-favorite"

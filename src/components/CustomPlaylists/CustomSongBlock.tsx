@@ -20,7 +20,6 @@ const CustomSongBlock: React.FC<SongObj> = ({
         dispatch(playlistAction.setPlayerActive(false));
         dispatch(songsAction.setClickPlay(true));
         dispatch(playerAction.setPlay(false));
-        console.log(currentId);
         dispatch(playerAction.setSong({ id: currentId }));
     };
     return (
