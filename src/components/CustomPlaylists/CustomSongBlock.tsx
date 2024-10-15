@@ -15,6 +15,7 @@ const CustomSongBlock: React.FC<SongObj> = ({
     time,
 }) => {
     const dispatch: AppDispatch = useDispatch();
+
     const onClickTrack = () => {
         dispatch(sliderAction.setActivePlayerSlide(false));
         dispatch(playlistAction.setPlayerActive(false));
@@ -22,6 +23,7 @@ const CustomSongBlock: React.FC<SongObj> = ({
         dispatch(playerAction.setPlay(false));
         dispatch(playerAction.setSong({ id: currentId }));
     };
+
     return (
         <div onClick={onClickTrack} className="custom__block">
             <div className="custom__block_container">

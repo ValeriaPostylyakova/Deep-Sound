@@ -1,10 +1,16 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store.ts';
+import { createPlaylistAction } from '../../redux/createPlaylist/slice.ts';
 
 const DeletePlaylistModal = () => {
+    const dispatch: AppDispatch = useDispatch();
     const deletePlaylist = useSelector(
         (state: RootState) => state.createPlaylistReducer.deletePlaylist
     );
+
+    const onClickRestore = () => {
+        dispatch(createPlaylistAction.setRestorePlaylist(true));
+    };
 
     return (
         <div
@@ -15,7 +21,7 @@ const DeletePlaylistModal = () => {
             <div className="custom__modal-container">
                 <p>Плейлист удалён</p>
                 <div className="custom__modal-line"></div>
-                <button>Отменить</button>
+                <button onClick={onClickRestore}>Отменить</button>
             </div>
         </div>
     );

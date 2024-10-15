@@ -7,6 +7,7 @@ export interface CreatePlaylistState {
     parentId: string;
     inputValue: string;
     deletePlaylist: boolean;
+    restorePlaylist: boolean;
     actionBarActive: boolean;
 }
 

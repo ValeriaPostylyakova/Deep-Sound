@@ -1,7 +1,7 @@
 import { RiPlayListLine } from 'react-icons/ri';
-import { MdDeleteOutline, MdOutlineModeEdit } from 'react-icons/md';
+import { MdOutlineModeEdit } from 'react-icons/md';
 import { FaPlay } from 'react-icons/fa6';
-import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
@@ -14,6 +14,7 @@ import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { songsAction } from '../../redux/songs/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
+import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
 
 type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
@@ -22,21 +23,26 @@ type CreatePlaylistProps = {
 const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const id = window.location.pathname.slice(17);
-
-    React.useEffect(() => {
-        dispatch(fetchPlaylistTracks(id));
-    }, [dispatch, id]);
-
-    const actionBarActive = useSelector(
-        (state: RootState) => state.createPlaylistReducer.actionBarActive
-    );
     const inputValue = useSelector(
         (state: RootState) => state.createPlaylistReducer.inputValue
     );
     const playlistTracks = useSelector(
         (state: RootState) => state.playlistTracksReducer.playlistTracks
     );
+
+    const actionBarActive = useSelector(
+        (state: RootState) => state.createPlaylistReducer.actionBarActive
+    );
+
+    const restorePlaylist = useSelector(
+        (state: RootState) => state.createPlaylistReducer.restorePlaylist
+    );
+
+    const id = window.location.pathname.slice(17);
+
+    React.useEffect(() => {
+        dispatch(fetchPlaylistTracks(id));
+    }, [dispatch, id]);
 
     const inputRef = React.useRef<HTMLInputElement | null>(null);
     const buttonEditRef = React.useRef<HTMLButtonElement | null>(null);
@@ -59,28 +65,30 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         }
     };
 
-    const onClickActionBar = () => {
-        dispatch(createPlaylistAction.setActionBarActive(!actionBarActive));
-    };
-
     const handleModal = () => {
         dispatch(createPlaylistAction.setDeletePlaylist(false));
         navigate('/');
+        window.location.reload();
     };
 
     const onClickDeletePlaylist = async () => {
+        dispatch(createPlaylistAction.setDeletePlaylist(true));
         try {
-            await axios.delete(
-                `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
-            );
+            if (restorePlaylist) {
+                dispatch(createPlaylistAction.setDeletePlaylist(false));
+                return;
+            } else {
+                await axios.delete(
+                    `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
+                );
+                setTimeout(handleModal, 4000);
+            }
         } catch (err) {
             console.error(err);
             alert(
                 'Ошибка при удалении плейлиста. Пожалуйста, перезагрузите страницу и попробуйте ещё раз'
             );
         }
-        dispatch(createPlaylistAction.setDeletePlaylist(true));
-        setTimeout(handleModal, 4000);
         dispatch(createPlaylistAction.setActionBarActive(false));
     };
 
@@ -129,30 +137,12 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
                                 <p>Слушать</p>
                             </div>
                         </button>
-                        <div className="custom__btn-modal-container">
-                            <button
-                                onClick={onClickActionBar}
-                                className="custom__button-del"
-                            >
-                                <HiOutlineDotsHorizontal className="custom__button_container-icon" />
-                            </button>
-                            {actionBarActive && (
-                                <div
-                                    onClick={onClickDeletePlaylist}
-                                    className="custom__button-del_modal"
-                                >
-                                    <div className="modal__container">
-                                        <MdDeleteOutline
-                                            style={{
-                                                width: '20px',
-                                                height: '20px',
-                                            }}
-                                        />
-                                        <p>Удалить плейлист</p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                        <ActiveBarPlaylist
+                            setAction={createPlaylistAction.setActionBarActive}
+                            activeBar={actionBarActive}
+                            onClickDelete={onClickDeletePlaylist}
+                            title="Удалить плейлист"
+                        />
                     </div>
                 </div>
             </div>

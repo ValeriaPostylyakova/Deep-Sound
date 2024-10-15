@@ -5,13 +5,18 @@ import { PlaylistTracksState } from './types.ts';
 
 const initialState: PlaylistTracksState = {
     playlistTracks: [],
+    activeBar: false,
     status: Status.LOADING,
 };
 
 const playlistTracks = createSlice({
     name: 'customPlaylistTracks',
     initialState,
-    reducers: {},
+    reducers: {
+        setActiveBar(state, action) {
+            state.activeBar = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchPlaylistTracks.pending, (state) => {
             state.status = Status.LOADING;
@@ -28,4 +33,7 @@ const playlistTracks = createSlice({
     },
 });
 
-export const { reducer: playlistTracksReducer } = playlistTracks;
+export const {
+    reducer: playlistTracksReducer,
+    actions: playlistTracksActions,
+} = playlistTracks;

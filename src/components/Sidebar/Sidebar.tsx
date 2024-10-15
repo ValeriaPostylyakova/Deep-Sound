@@ -21,7 +21,7 @@ const Sidebar = () => {
                                         color: 'blue',
                                     }}
                                 />
-                                <p>Главная</p>
+                                <h2>Главная</h2>
                             </li>
                         </Link>
                         <Link to="favorite">
@@ -33,19 +33,19 @@ const Sidebar = () => {
                                         color: 'red',
                                     }}
                                 />
-                                <p>Избранное</p>
+                                <h2>Избранное</h2>
                             </li>
                         </Link>
                     </ul>
                 </div>
                 <div className="sidebar__bottom">
                     <Link to="custom">
-                        <div className="sidebar__bottom-container">
+                        <li className="sidebar__bottom-container">
                             <MdPlaylistPlay
                                 style={{ width: '25px', height: '25px' }}
                             />
-                            <p>Мои плейлисты</p>
-                        </div>
+                            <h2>Мои плейлисты</h2>
+                        </li>
                     </Link>
                     <CreatePlaylistButton />
                     <div className="sidebar__playlists">
