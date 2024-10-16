@@ -14,7 +14,7 @@ const ButtonFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
         (state: RootState) => state.favoriteReducer.favorite
     );
 
-    const onClickModal = () => {
+    const handleModal = () => {
         dispatch(favoriteAction.setFavoriteAdded({ title: '', added: false }));
     };
 
@@ -57,7 +57,7 @@ const ButtonFavorite: React.FC<ButtonsFavoriteProps> = ({ objFavorite }) => {
             );
         }
 
-        setTimeout(onClickModal, 4000);
+        setTimeout(handleModal, 4000);
     };
 
     return (

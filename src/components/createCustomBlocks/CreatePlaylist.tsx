@@ -81,7 +81,7 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
                 await axios.delete(
                     `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
                 );
-                setTimeout(handleModal, 4000);
+                setTimeout(handleModal, 2000);
             }
         } catch (err) {
             console.error(err);

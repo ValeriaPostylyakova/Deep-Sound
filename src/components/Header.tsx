@@ -6,16 +6,28 @@ import Search from './Search.tsx';
 
 import { FaRegUserCircle } from 'react-icons/fa';
 import { MdOutlineWbSunny } from 'react-icons/md';
-// import { FiMoon } from "react-icons/fi";
+import { FaRegMoon } from 'react-icons/fa';
 import { CiSearch } from 'react-icons/ci';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { IoClose } from 'react-icons/io5';
 import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
 
-const Header = () => {
+type HeaderProps = {
+    theme: string;
+    setTheme: (value: string) => void;
+};
+
+const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
     const [menuActive, setMenuActive] = React.useState<boolean>(false);
     const [searchActive, setSearchActive] = React.useState<boolean>(false);
 
+    const onClickTheme = () => {
+        if (theme === 'light') {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    };
     return (
         <header className="header">
             <div className="header__container">
@@ -43,8 +55,15 @@ const Header = () => {
                     <button>
                         <FaRegUserCircle className="header__user" />
                     </button>
-                    <button>
-                        <MdOutlineWbSunny className="header__sun" />
+                    <button onClick={onClickTheme}>
+                        {theme === 'light' ? (
+                            <MdOutlineWbSunny className="header__sun" />
+                        ) : (
+                            <FaRegMoon
+                                className="header__moon"
+                                style={{ width: '30px', height: '30px' }}
+                            />
+                        )}
                     </button>
                     <button
                         className="burger-menu__button"

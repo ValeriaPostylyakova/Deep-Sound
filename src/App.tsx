@@ -17,10 +17,13 @@ import Collection from './page/Collection.tsx';
 import CustomPlaylists from './page/CustomPlaylists.tsx';
 import CreateCustomPlaylist from './page/CreateCustomPlaylist.tsx';
 
+import { useTheme } from './hooks/theme.ts';
+
 function App() {
+    const { theme, setTheme } = useTheme();
     return (
         <div className="wrapper">
-            <Header />
+            <Header theme={theme} setTheme={setTheme} />
             <div className="content">
                 <Sidebar />
 

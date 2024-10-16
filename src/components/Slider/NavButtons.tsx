@@ -8,10 +8,10 @@ const NavButtons = () => {
     return (
         <div className="slider__right-container">
             <button onClick={() => swiper.slidePrev()} className="button">
-                <IoIosArrowBack />
+                <IoIosArrowBack style={{ color: '#000000' }} />
             </button>
             <button onClick={() => swiper.slideNext()} className="button_2">
-                <IoIosArrowForward />
+                <IoIosArrowForward style={{ color: '#000000' }} />
             </button>
         </div>
     );

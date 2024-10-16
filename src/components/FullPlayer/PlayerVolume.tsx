@@ -4,8 +4,9 @@ import { MutableRefObject } from 'react';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { _volumeImg, volume_mute } from '../../viteImages/images.ts';
 import { playerAction } from '../../redux/player/slice.ts';
+import { IoVolumeMediumSharp } from 'react-icons/io5';
+import { IoMdVolumeOff } from 'react-icons/io';
 
 type PlayerVolumeProps = {
     audioRef: MutableRefObject<HTMLAudioElement | null>;
@@ -33,9 +34,9 @@ const PlayerVolume: React.FC<PlayerVolumeProps> = ({ audioRef }) => {
     return (
         <div className="player__volume">
             {volumeState > 0 ? (
-                <img className="button" src={_volumeImg} alt="volume" />
+                <IoVolumeMediumSharp className="button-volume" />
             ) : (
-                <img className="button" src={volume_mute} alt="volume-mute" />
+                <IoMdVolumeOff className="button-volume" />
             )}
             <input
                 min={0}
