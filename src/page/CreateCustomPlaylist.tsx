@@ -21,11 +21,15 @@ const CreateCustomPlaylist = () => {
             <CreatePlaylist findObj={findObj} />
             {playlistTracks.length > 0 && (
                 <div className="bottom">
-                    <h1 className="custom__title">Треки</h1>
-                    <div className="custom__container-songs">
-                        {playlistTracks.map((song: SongObj, index: number) => (
-                            <CustomSongBlock {...song} key={index} />
-                        ))}
+                    <div className="bottom__container">
+                        <h1 className="custom__title">Треки</h1>
+                        <div className="custom__container-songs">
+                            {playlistTracks.map(
+                                (song: SongObj, index: number) => (
+                                    <CustomSongBlock {...song} key={index} />
+                                )
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

@@ -7,10 +7,19 @@ html {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #fff;
-    z-index: 30;
+    background: var(--player-background);
+    z-index: 100;
     border-radius: 10px;
-    border-top: 1px solid #eeeded;
+    border-top: var(--border);
+
+    button {
+        background-color: var(--player-background-icon);
+        color: var(--header-title);
+    }
+
+    .player__button-play {
+        background-color: rgb(56, 103, 163);
+    }
 
     &__container {
         padding: 0.8rem 1.5rem;
@@ -47,6 +56,7 @@ html {
                     font-weight: 400;
                     margin-bottom: 3px;
                 }
+
                 p {
                     font-weight: 300;
                 }
@@ -97,6 +107,7 @@ html {
             gap: 1rem;
 
             &_text {
+                color: var(--header-title);
                 font-weight: 400;
                 font-size: 12px;
             }
@@ -108,7 +119,7 @@ html {
         height: 40px;
         text-align: center;
         background-color: rgb(56, 103, 163);
-        box-shadow: 0px 3px 10px 5px rgba(56, 103, 163, 0.5);
+        box-shadow: 0 3px 10px 5px rgba(56, 103, 163, 0.5);
         border-radius: 100%;
     }
 
@@ -164,6 +175,7 @@ html {
 }
 
 .button-volume {
+    color: var(--header-title);
     width: 30px;
     height: 30px;
 }
@@ -208,7 +220,7 @@ input[type="range"]::-webkit-slider-thumb {
     right: -115px;
     width: 250px;
     max-height: 300px;
-    background-color: #fff;
+    background-color: var(--modal-background);
     border-radius: 1.3rem;
     padding: 20px;
     -webkit-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
@@ -235,13 +247,13 @@ input[type="range"]::-webkit-slider-thumb {
         gap: 2rem;
 
         &_item {
-            color: #6d6d6d;
+            color: var(--modal-color);
         }
 
         li {
             cursor: pointer;
             font-size: 16px;
-            color: #5C5A5A;
+            color: var(--header-title);
             transition: 0.2s;
 
             &:hover {
@@ -261,7 +273,8 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 10px;
     padding: 10px 20px;
     transition: bottom ease 0.2s;
-    background-color: #fff;
+    background-color: var(--modal-background);
+    color: var(--header-title);
     -webkit-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
     -moz-box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);
     box-shadow: 3px 3px 8px 0 rgba(4, 4, 4, 0.4);

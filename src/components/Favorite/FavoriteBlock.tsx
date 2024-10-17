@@ -46,7 +46,7 @@ const FavoriteBlock: React.FC<SongObj> = ({
                     </div>
                     <div className="sound__name-favorite">
                         <h3>{title}</h3>
-                        <p>{author}</p>
+                        <h4>{author}</h4>
                     </div>
                 </div>
             </div>

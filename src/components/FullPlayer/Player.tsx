@@ -53,7 +53,7 @@ const Player: React.FC = () => {
                             <img src={objSong?.imageUrl} alt="macan" />
                             <div className="player__left_container_info">
                                 <h2>{objSong?.title}</h2>
-                                <p>{objSong?.author}</p>
+                                <h3>{objSong?.author}</h3>
                             </div>
                         </div>
                         <ButtonsFavoritePlus objFavorite={objSong} />

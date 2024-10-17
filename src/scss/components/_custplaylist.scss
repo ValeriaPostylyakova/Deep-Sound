@@ -28,7 +28,7 @@
   }
 
   &__title {
-    color: #000000;
+    color: var(--header-title);
     font-size: 17px;
     font-weight: 700;
     transition: 0.2s;
@@ -55,24 +55,26 @@
 }
 
 .custom {
-  width: 98%;
-  margin: 0 auto 2rem auto;
+  width: 100%;
+  margin-bottom: 2rem;
   height: 200px;
   border-radius: 1rem;
-  background-color: rgb(243, 243, 243);
+  background-color: var(--wrapper-background);
+  border: var(--custom-blocks-border);
 
   &__title {
-    padding: 2rem 2rem 4rem 2rem;
+    margin-bottom: 3rem;
     font-size: 26px;
     font-weight: 700;
   }
 
   &__container {
     display: flex;
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 95%;
     gap: 3rem;
-    padding: 2rem;
+    padding-top: 2rem;
+    margin: 0 auto;
 
     &-songs {
       display: flex;
@@ -106,6 +108,10 @@
       display: flex;
       align-items: center;
 
+      .enter {
+        color: var(--header-title);
+      }
+
       &-button {
         background-color: inherit;
         display: none;
@@ -136,7 +142,8 @@
   &__modal {
     position: absolute;
     z-index: 120;
-    background-color: #fff;
+    background-color: var(--modal-background);
+    color: var(--header-title);
     border-radius: 10px;
     visibility: hidden;
     left: 10px;
@@ -162,6 +169,8 @@
         font-weight: 700;
         border-left: 2px solid #9E9E9E;
         width: 40%;
+        background-color: var(--button-background);
+        color: var(--header-title);
         font-size: 16px;
         height: 100%;
       }
@@ -174,8 +183,7 @@
   }
 
   &__block {
-    width: 98%;
-    margin: 0 auto;
+    width: 100%;
     cursor: pointer;
     padding: 10px;
     border-radius: 1rem;
@@ -193,15 +201,15 @@
 
       &-container {
         h2 {
+          color: var(--header-title);
           font-weight: 600;
           font-size: 16px;
           margin-bottom: 0.4rem;
-          color: #000000;
         }
 
         h4 {
+          color: var(--header-title);
           font-weight: 400;
-          color: #5C5A5A;
         }
       }
     }
@@ -214,6 +222,7 @@
 
     &_time {
       p {
+        color: var(--header-title);
         font-weight: 500;
         font-size: 16px;
       }
@@ -232,7 +241,8 @@
       &_modal {
         cursor: pointer;
         position: absolute;
-        background-color: #ffffff;
+        color: var(--header-title);
+        background-color: var(--modal-background);
         padding: 15px 25px;
         box-shadow: 4px 4px 8px rgba(135, 135, 135, 0.4);
         border-radius: 12px;
@@ -246,6 +256,7 @@
 
         p {
           font-size: 16px;
+          color: var(--header-title);
         }
       }
     }
@@ -273,9 +284,16 @@
 }
 
 .bottom {
-  width: 98%;
+  width: 100%;
   min-height: 200px;
   border-radius: 1rem;
-  margin: 0 auto;
-  background-color: rgb(243, 243, 243);
+  background-color: var(--wrapper-background);
+  border: var(--custom-blocks-border);
+
+  &__container {
+    width: 95%;
+    height: 95%;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
 }

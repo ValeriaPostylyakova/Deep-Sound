@@ -1,143 +1,64 @@
 html[data-theme="light"] {
-  --background-color: #ffffff;
+  --background-color: #ffff;
+  --header-background: #ffff;
+  --header-title: #000000;
   --text-color: #353535;
+  --input-background: inherit;
+  --input-color: #3c3c3c;
+  --header-icon-color: #3c3c3c;
+  --header-icon-background: #ffff;
+  --sidebar-background: #f2f3f7;
+  --sidebar-title-color: #5C5A5A;
+  --sidebar-item-background: #ffff;
+  --sidebar-title-color-hover: #000000;
+  --button-background: #fff;
+  --wrapper-background: rgb(243, 243, 243);
+  --wraper-playlists: #ffff;
+  --button-category-color: #000000;
+  --button-category-background: #f8f8f8;
+  --button-category-active: #7399e2;
+  --player-background: #ffff;
+  --player-background-icon: #ffff;
+  --border: 1px solid #eeeded;
+  --custom-blocks-border: none;
+  --modal-background: #ffff;
+  --modal-color: #6d6d6d;
 }
 
 html[data-theme="dark"] {
   --background-color: #3c3c3c;
+  --header-background: #3c3c3c;
+  --header-title: #ffff;
   --text-color: #ffff;
-  transition: background-color 0.3s;
+  --input-background: inherit;
+  --input-color: #ffff;
+  --header-icon-color: #ffffff;
+  --header-icon-background: #363636;
+  --sidebar-background: #343434;
+  --sidebar-title-color: #ffff;
+  --sidebar-item-background: #000000;
+  --sidebar-title-color-hover: #ffff;
+  --button-background: inherit;
+  --wrapper-background: inherit;
+  --wraper-playlists: inherit;
+  --button-category-color: #ffffff;
+  --button-category-background: inherit;
+  --button-category-active: #0947a2;
+  --player-background: #333333;
+  --player-background-icon: inherit;
+  --border: none;
+  --custom-blocks-border: 1px solid #484848;
+  --modal-background: #323232;
+  --modal-color: #fff;
+}
+
+h1, h2, h3, h4 {
+  color: var(--header-title);
+}
+
+.slider {
   h1 {
-    color: #ffffff;
-  }
-  .header {
-    background-color: #3c3c3c;
-    border: none;
-      p {
-        color: #ffffff;
-    }
-    input {
-      background-color: inherit;
-      color: #ffffff;
-    }
-
-    &__user, &__sun {
-      width: 35px;
-      height: 35px;
-      color: #ffffff;
-      background-color: #363636;
-    }
-    &__sun {
-      color: #ffe04d;
-    }
-
-    &__moon {
-      background-color: #3c3c3c;
-      color: #ffffff;
-      width: 35px;
-      height: 35px;
-    }
-  }
-  .sidebar {
-    background-color: #343434;
-    h2, h3 {
-      color: #ffffff;
-    }
-    li:hover {
-      color: #ffffff;
-      background-color: #000000;
-    }
-    &__playlist:hover {
-      background-color: #000000;
-    }
-
-    .sidebar__bottom-create-button {
-      background-color: inherit;
-      color: #ffffff;
-      &:hover {
-        background-color: #000000;
-      }
-    }
-  }
-  .sound__block {
-    border: none;
-  }
-  .main__title {
-
-    &_icon {
-      color: #ffffff;
-    }
-  }
-
-  .main__back {
-    transition: 0.3s;
-    &_icon, &_text {
-      color: #ffffff;
-    }
-    &:hover {
-      background-color: #303030;
-    }
-  }
-  .genres__item-wrapper, .custom, .bottom {
-    background-color: inherit;
-  }
-  .main__category_button {
-    color: #ffffff;
-    background-color: #1e1e1e;
-    
-    &.active {
-      background-color: #0947a2;
-    }
-  }
-  .player {
-    border: none;
-    background-color: #2c2c2c;
-    button {
-      background-color: inherit;
-      color: #ffffff;
-    }
-    .player__button-play {
-      background-color: rgb(56, 103, 163);
-    }
-  }
-  .favorite__icon {
-    background: inherit;
-  }
-  .custplaylist__title {
-    color: #ffffff;
-  }
-  .custom, .bottom {
-    border: 1px solid #484848;
-    .enter, h2, h4 {
-      color: #ffffff;
-    }
-  }
-  .custom__button-del_modal, .addFavorite-modal, .custom__modal {
-    background-color: #323232;
-  }
-  .sound__right {
-    button {
-      background-color: inherit;
-    }
-  }
-  .custom__modal {
-    .custom__modal-line {
-      background-color: #fff;
-    }
-    button {
-      background-color: inherit;
-      color: #ffffff;
-    }
-  }
-  .addedModal {
-    background-color: #323232;
-    p, li {
-     color: #ffffff;
-    }
+    color: #fff;
   }
 }
 
-body {
-  background: var(--background-color);
-  color: var(--text-color);
-}

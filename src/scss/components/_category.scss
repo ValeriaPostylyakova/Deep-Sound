@@ -9,10 +9,11 @@
     font-size: 14px;
     border-radius: 15px;
     font-weight: 600;
-    background-color: #f8f8f8;
+    background-color: var(--button-category-background);
+    color: var(--button-category-color);
 
     &.active {
-      background-color: #7399e2;
+      background-color: var(--button-category-active);
       color: #ffffff;
     }
   }

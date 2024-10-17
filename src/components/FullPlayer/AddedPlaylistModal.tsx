@@ -21,7 +21,6 @@ const AddedPlaylistModal: React.FC<AddedPlaylistModal> = ({ obj }) => {
             ...obj,
             parentId,
         });
-
         dispatch(createPlaylistAction.setParentId(parentId));
     };
 

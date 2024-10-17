@@ -30,7 +30,7 @@ const CreatePlaylistButton = () => {
             className="sidebar__bottom-create-button"
         >
             <FaPlus style={{ width: '16px', height: '16px' }} />
-            <p>Создать плейлист</p>
+            <h1>Создать плейлист</h1>
         </button>
     );
 };

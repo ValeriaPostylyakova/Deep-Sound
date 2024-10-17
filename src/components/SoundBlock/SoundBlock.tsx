@@ -39,10 +39,10 @@ const SoundBlock: React.FC<SongObj> = ({
                 </div>
                 <div className="sound__name">
                     <h3>{title}</h3>
-                    <p>{author}</p>
+                    <h4>{author}</h4>
                 </div>
             </div>
-            <p className="time">{time}</p>
+            <h4 className="time">{time}</h4>
         </div>
     );
 };
