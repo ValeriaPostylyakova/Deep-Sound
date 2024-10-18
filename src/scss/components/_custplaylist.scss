@@ -221,10 +221,21 @@
     }
 
     &_time {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       p {
         color: var(--header-title);
         font-weight: 500;
         font-size: 16px;
+      }
+      button {
+        background-color: var(--wrapper-background);
+      }
+      &-delete {
+        width: 30px;
+        height: 30px;
+        color: var(--header-title);
       }
     }
   }

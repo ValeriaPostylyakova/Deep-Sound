@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { songsAction } from '../../redux/songs/slice.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
+import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 
 type PlaylistProps = {
     parentId?: number;
@@ -23,6 +24,7 @@ const Playlist: React.FC<PlaylistProps> = ({ imageUrl, title, songs }) => {
         dispatch(playlistAction.setPlayerActive(true));
         dispatch(playlistAction.setPlaylist(songs));
         dispatch(songsAction.setClickPlay(false));
+        dispatch(playlistTracksActions.setActivePlayer(false));
         dispatch(sliderAction.setActivePlayerSlide(false));
     };
 

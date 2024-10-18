@@ -7,6 +7,7 @@ import { songsAction } from '../../redux/songs/slice.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
+import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 
 const SoundBlock: React.FC<SongObj> = ({
     id,
@@ -19,6 +20,7 @@ const SoundBlock: React.FC<SongObj> = ({
     const dispatch: AppDispatch = useDispatch();
 
     const onClickSoundPlay = () => {
+        dispatch(playlistTracksActions.setActivePlayer(false));
         dispatch(sliderAction.setActivePlayerSlide(false));
         dispatch(playlistAction.setPlayerActive(false));
         dispatch(songsAction.setClickPlay(true));

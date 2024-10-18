@@ -1,11 +1,14 @@
-import { Status } from '../songs/types.ts';
-import { createSlice } from '@reduxjs/toolkit';
+import { SongObj, Status } from '../songs/types.ts';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchPlaylistTracks } from './asyncAction.ts';
 import { PlaylistTracksState } from './types.ts';
+import axios from 'axios';
 
 const initialState: PlaylistTracksState = {
     playlistTracks: [],
+    activePlayer: false,
     activeBar: false,
+    songId: 0,
     status: Status.LOADING,
 };
 
@@ -13,8 +16,19 @@ const playlistTracks = createSlice({
     name: 'customPlaylistTracks',
     initialState,
     reducers: {
-        setActiveBar(state, action) {
-            state.activeBar = action.payload;
+        setActivePlayer(state, action: PayloadAction<boolean>) {
+            state.activePlayer = action.payload;
+        },
+        setRemoveTrack(state, action: PayloadAction<SongObj>) {
+            state.playlistTracks = state.playlistTracks.filter(
+                (obj) => obj.id !== action.payload.id
+            );
+            axios.delete(
+                `https://985cc4acb156d262.mokky.dev/addSong/${action.payload.id}`
+            );
+        },
+        setSongId(state, action: PayloadAction<SongObj>) {
+            state.songId = action.payload.id;
         },
     },
     extraReducers: (builder) => {

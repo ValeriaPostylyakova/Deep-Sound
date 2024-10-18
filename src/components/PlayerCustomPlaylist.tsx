@@ -1,42 +1,48 @@
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store.ts';
 import * as React from 'react';
 import { SongObj } from '../redux/songs/types.ts';
-
+import ButtonsFavoritePlus from './FullPlayer/ButtonsFavoritePlus.tsx';
+import ButtonOfsetTime from './FullPlayer/ButtonOfsetTime.tsx';
 import { IoPlaySkipForward } from 'react-icons/io5';
 import ButtonPlayPause from './FullPlayer/ButtonPlayPause.tsx';
+import ButtonRepeat from './FullPlayer/ButtonRepeat.tsx';
 import PlayerTracks from './FullPlayer/PlayerTracks.tsx';
 import PlayerVolume from './FullPlayer/PlayerVolume.tsx';
-import ButtonOfsetTime from './FullPlayer/ButtonOfsetTime.tsx';
-import ButtonRepeat from './FullPlayer/ButtonRepeat.tsx';
-import ButtonsFavoritePlus from './FullPlayer/ButtonsFavoritePlus.tsx';
 
-type PlayerProps = {
-    sliceArray: SongObj[];
-};
-
-const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
+const PlayerCustomPlaylist = () => {
+    const playlistTracks = useSelector(
+        (state: RootState) => state.playlistTracksReducer.playlistTracks
+    );
+    const songId = useSelector(
+        (state: RootState) => state.playlistTracksReducer.songId
+    );
     const [song, setSong] = React.useState<SongObj | undefined>();
     const audioSliderRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
-    const obj = sliceArray[0];
+    const songIndex = playlistTracks.findIndex((obj) => obj.id === songId);
+    const obj = playlistTracks[songIndex];
 
     React.useEffect(() => {
         setSong(obj);
     }, [obj]);
 
-    const index = sliceArray.findIndex((obj: SongObj) => obj.id === song?.id);
+    const index = playlistTracks.findIndex(
+        (obj: SongObj) => obj.id === song?.id
+    );
 
     const onClickNextPrev = (event: React.MouseEvent<HTMLButtonElement>) => {
         const classBtn = event.currentTarget.className;
         if (classBtn === 'next') {
-            return setSong(sliceArray[index + 1]);
+            return setSong(playlistTracks[index + 1]);
         } else {
-            return setSong(sliceArray[index - 1]);
+            return setSong(playlistTracks[index - 1]);
         }
     };
 
     const getAutoNextSong = () => {
-        return setSong(sliceArray[index + 1]);
+        return setSong(playlistTracks[index + 1]);
     };
 
     return (
@@ -86,4 +92,4 @@ const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
     );
 };
 
-export default PlayerArray;
+export default PlayerCustomPlaylist;

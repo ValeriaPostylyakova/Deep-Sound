@@ -18,6 +18,7 @@ import CustomPlaylists from './page/CustomPlaylists.tsx';
 import CreateCustomPlaylist from './page/CreateCustomPlaylist.tsx';
 
 import { useTheme } from './hooks/theme.ts';
+import CustomPlayer from './components/CustomPlayer.tsx';
 
 function App() {
     const { theme, setTheme } = useTheme();
@@ -78,6 +79,7 @@ function App() {
             <Player />
             <PlayerSlider />
             <PlayerPlaylist />
+            <CustomPlayer />
         </div>
     );
 }

@@ -10,6 +10,7 @@ import { songsAction } from '../../redux/songs/slice.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
 import { favoriteAction } from '../../redux/favorite/slice.ts';
+import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 
 const FavoriteBlock: React.FC<SongObj> = ({
     id,
@@ -23,6 +24,7 @@ const FavoriteBlock: React.FC<SongObj> = ({
 
     const onClickSoundPlay = () => {
         dispatch(sliderAction.setActivePlayerSlide(false));
+        dispatch(playlistTracksActions.setActivePlayer(false));
         dispatch(playerAction.setPlay(false));
         dispatch(playerAction.setSong({ id: currentId }));
         dispatch(songsAction.setClickPlay(true));

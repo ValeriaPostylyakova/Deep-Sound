@@ -6,9 +6,11 @@ import { songsAction } from '../../redux/songs/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
 import { AppDispatch } from '../../redux/store.ts';
 import { useDispatch } from 'react-redux';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 
 const CustomSongBlock: React.FC<SongObj> = ({
-    currentId,
+    id,
     title,
     imageUrl,
     author,
@@ -16,18 +18,26 @@ const CustomSongBlock: React.FC<SongObj> = ({
 }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const onClickTrack = () => {
+    const onClickTrack = (id: number) => {
+        dispatch(playlistTracksActions.setSongId({ id } as SongObj));
+        dispatch(playlistTracksActions.setActivePlayer(true));
         dispatch(sliderAction.setActivePlayerSlide(false));
         dispatch(playlistAction.setPlayerActive(false));
-        dispatch(songsAction.setClickPlay(true));
+        dispatch(songsAction.setClickPlay(false));
         dispatch(playerAction.setPlay(false));
-        dispatch(playerAction.setSong({ id: currentId }));
+    };
+
+    const onClickDeleteTrack = (id: number) => {
+        dispatch(playlistTracksActions.setRemoveTrack({ id } as SongObj));
     };
 
     return (
-        <div onClick={onClickTrack} className="custom__block">
+        <div className="custom__block">
             <div className="custom__block_container">
-                <div className="custom__block_info">
+                <div
+                    onClick={() => onClickTrack(id)}
+                    className="custom__block_info"
+                >
                     <img
                         className="custom__block_images"
                         src={imageUrl}
@@ -40,6 +50,9 @@ const CustomSongBlock: React.FC<SongObj> = ({
                 </div>
                 <div className="custom__block_time">
                     <p>{time}</p>
+                    <button onClick={() => onClickDeleteTrack(id)}>
+                        <IoMdCloseCircleOutline className="custom__block_time-delete" />
+                    </button>
                 </div>
             </div>
         </div>

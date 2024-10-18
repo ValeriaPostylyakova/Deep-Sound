@@ -15,6 +15,7 @@ import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { songsAction } from '../../redux/songs/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
 import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
+import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 
 type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
@@ -98,6 +99,7 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         dispatch(playlistAction.setPlayerActive(false));
         dispatch(songsAction.setClickPlay(true));
         dispatch(playerAction.setPlay(false));
+        dispatch(playlistTracksActions.setActivePlayer(false));
         dispatch(playerAction.setSong({ id: currentId }));
     };
 

@@ -20,6 +20,7 @@ import { DataObj } from '../../redux/sliderPlayer/types.ts';
 import { fetchSlider } from '../../redux/sliderPlayer/asyncAction.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
+import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 
 const SliderBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -32,6 +33,7 @@ const SliderBlock: React.FC = () => {
         dispatch(sliderAction.setSliderId({ id } as DataObj));
         dispatch(songsAction.setClickPlay(false));
         dispatch(playlistAction.setPlayerActive(false));
+        dispatch(playlistTracksActions.setActivePlayer(false));
         dispatch(sliderAction.setActivePlayerSlide(true));
     };
 
