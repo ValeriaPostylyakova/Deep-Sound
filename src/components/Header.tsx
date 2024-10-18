@@ -52,9 +52,9 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                             <CiSearch className="header__left-search-mobail-search" />
                         </button>
                     )}
-                    <button>
+                    <Link to="/registration">
                         <FaRegUserCircle className="header__user" />
-                    </button>
+                    </Link>
                     <button onClick={onClickTheme}>
                         {theme === 'light' ? (
                             <MdOutlineWbSunny className="header__sun" />

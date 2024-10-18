@@ -11,7 +11,7 @@ const PlayerSlider = () => {
     return (
         activePlayerSlide && (
             <div className="player">
-                <PlayerArray sliceArray={slideFilterData} />
+                <PlayerArray sliceArray={slideFilterData} songIndex={0} />
             </div>
         )
     );

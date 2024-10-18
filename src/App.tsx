@@ -18,7 +18,8 @@ import CustomPlaylists from './page/CustomPlaylists.tsx';
 import CreateCustomPlaylist from './page/CreateCustomPlaylist.tsx';
 
 import { useTheme } from './hooks/theme.ts';
-import CustomPlayer from './components/CustomPlayer.tsx';
+import PlayerCustomPlaylist from './components/PlayerCustomPlaylist.tsx';
+import Registration from './page/Registration.tsx';
 
 function App() {
     const { theme, setTheme } = useTheme();
@@ -72,6 +73,10 @@ function App() {
                                 path="/custom-playlist/:id"
                                 element={<CreateCustomPlaylist />}
                             />
+                            <Route
+                                path="/registration"
+                                element={<Registration />}
+                            />
                         </Routes>
                     </div>
                 </main>
@@ -79,7 +84,7 @@ function App() {
             <Player />
             <PlayerSlider />
             <PlayerPlaylist />
-            <CustomPlayer />
+            <PlayerCustomPlaylist />
         </div>
     );
 }

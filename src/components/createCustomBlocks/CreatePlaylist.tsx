@@ -1,21 +1,23 @@
+import * as React from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import { RiPlayListLine } from 'react-icons/ri';
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { FaPlay } from 'react-icons/fa6';
 
-import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { createPlaylistAction } from '../../redux/createPlaylist/slice.ts';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
-import { fetchPlaylistTracks } from '../../redux/createPlaylistTracks/asyncAction.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { songsAction } from '../../redux/songs/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
-import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
 import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
+import { fetchPlaylistTracks } from '../../redux/createPlaylistTracks/asyncAction.ts';
+import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
+
+import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
 
 type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
@@ -33,10 +35,6 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
 
     const actionBarActive = useSelector(
         (state: RootState) => state.createPlaylistReducer.actionBarActive
-    );
-
-    const restorePlaylist = useSelector(
-        (state: RootState) => state.createPlaylistReducer.restorePlaylist
     );
 
     const id = window.location.pathname.slice(17);
@@ -75,15 +73,10 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
     const onClickDeletePlaylist = async () => {
         dispatch(createPlaylistAction.setDeletePlaylist(true));
         try {
-            if (restorePlaylist) {
-                dispatch(createPlaylistAction.setDeletePlaylist(false));
-                return;
-            } else {
-                await axios.delete(
-                    `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
-                );
-                setTimeout(handleModal, 2000);
-            }
+            await axios.delete(
+                `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
+            );
+            setTimeout(handleModal, 2000);
         } catch (err) {
             console.error(err);
             alert(

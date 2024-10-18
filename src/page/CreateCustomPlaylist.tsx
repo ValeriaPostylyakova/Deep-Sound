@@ -1,12 +1,13 @@
-import CustomSongBlock from '../components/CustomPlaylists/CustomSongBlock.tsx';
-import { SongObj } from '../redux/songs/types.ts';
+import * as React from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store.ts';
+import { SongObj } from '../redux/songs/types.ts';
+import { fetchCustomPlaylists } from '../redux/createPlaylist/asyncAction.ts';
 
+import CustomSongBlock from '../components/CustomPlaylists/CustomSongBlock.tsx';
 import CreatePlaylist from '../components/createCustomBlocks/CreatePlaylist.tsx';
 import DeletePlaylistModal from '../components/createCustomBlocks/DeletePlaylistModal.tsx';
-import * as React from 'react';
-import { fetchCustomPlaylists } from '../redux/createPlaylist/asyncAction.ts';
 
 const CreateCustomPlaylist = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -19,7 +20,7 @@ const CreateCustomPlaylist = () => {
 
     React.useEffect(() => {
         dispatch(fetchCustomPlaylists());
-    }, []);
+    }, [dispatch]);
 
     const id = window.location.pathname.slice(17);
     const findObj = customPlaylists.find((obj) => obj.parentId === id);
@@ -34,11 +35,7 @@ const CreateCustomPlaylist = () => {
                         <div className="custom__container-songs">
                             {playlistTracks.map(
                                 (song: SongObj, index: number) => (
-                                    <CustomSongBlock
-                                        arrayTracks={playlistTracks}
-                                        {...song}
-                                        key={index}
-                                    />
+                                    <CustomSongBlock {...song} key={index} />
                                 )
                             )}
                         </div>

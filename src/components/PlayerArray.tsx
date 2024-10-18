@@ -11,14 +11,15 @@ import ButtonsFavoritePlus from './FullPlayer/ButtonsFavoritePlus.tsx';
 
 type PlayerProps = {
     sliceArray: SongObj[];
+    songIndex: number;
 };
 
-const PlayerArray: React.FC<PlayerProps> = ({ sliceArray }) => {
+const PlayerArray: React.FC<PlayerProps> = ({ sliceArray, songIndex }) => {
     const [song, setSong] = React.useState<SongObj | undefined>();
     const audioSliderRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
-    const obj = sliceArray[0];
+    const obj = sliceArray[songIndex];
 
     React.useEffect(() => {
         setSong(obj);

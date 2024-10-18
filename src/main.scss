@@ -23,6 +23,7 @@ html[data-theme="light"] {
   --custom-blocks-border: none;
   --modal-background: #ffff;
   --modal-color: #6d6d6d;
+  --registation-background: rgb(243, 243, 243);
 }
 
 html[data-theme="dark"] {
@@ -50,6 +51,7 @@ html[data-theme="dark"] {
   --custom-blocks-border: 1px solid #484848;
   --modal-background: #323232;
   --modal-color: #fff;
+  --registation-background: #262626;
 }
 
 h1, h2, h3, h4 {

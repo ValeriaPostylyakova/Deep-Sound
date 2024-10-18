@@ -11,7 +11,7 @@ const PlayerPlaylist = () => {
     return (
         playerActive && (
             <div className="player">
-                <PlayerArray sliceArray={playlist} />
+                <PlayerArray sliceArray={playlist} songIndex={0} />
             </div>
         )
     );
