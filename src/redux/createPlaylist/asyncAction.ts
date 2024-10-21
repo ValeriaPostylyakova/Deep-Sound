@@ -3,12 +3,14 @@ import { CustomPlaylistObj } from './types.ts';
 
 import axios from 'axios';
 
-export const fetchCustomPlaylists = createAsyncThunk<CustomPlaylistObj[]>(
-    'customPlaylists/fetchPlaylistsStatus',
-    async () => {
-        const { data } = await axios.get(
-            'https://985cc4acb156d262.mokky.dev/createPlaylist'
-        );
-        return data;
-    }
-);
+export const fetchCustomPlaylists = createAsyncThunk<
+    CustomPlaylistObj[],
+    string
+>('customPlaylists/fetchPlaylistsStatus', async (token) => {
+    const { data } = await axios.get(
+        'https://985cc4acb156d262.mokky.dev/createPlaylist',
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    return data;
+});

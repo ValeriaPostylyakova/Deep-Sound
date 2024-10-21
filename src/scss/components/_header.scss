@@ -112,6 +112,7 @@
   }
 
   &__user, &__sun {
+    cursor: pointer;
     width: 35px;
     height: 35px;
     color: var(--header-icon-color);
@@ -123,6 +124,14 @@
   }
   &__sun {
     color: #796041;
+  }
+  &__reg-button {
+    padding: 9px 20px;
+    border-radius: 1rem;
+    background-color: #4331ca;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
   }
 }
 

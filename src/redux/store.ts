@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { filterReducer } from './filter/slice.ts';
+import { filterReducer } from './headerFilter/slice.ts';
 import { songsReducer } from './songs/slice.ts';
 import { playerReducer } from './player/slice.ts';
 import { sliderReducer } from './sliderPlayer/slice.ts';
@@ -11,6 +11,7 @@ import { collectionsReducer } from './collections/slice.ts';
 import { collectionReducer } from './collection/slice.ts';
 import { createPlaylistReducer } from './createPlaylist/slice.ts';
 import { playlistTracksReducer } from './createPlaylistTracks/slice.ts';
+import { profileReducer } from './profile/slice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
         collectionReducer,
         createPlaylistReducer,
         playlistTracksReducer,
+        profileReducer,
     },
 });
 

@@ -5,6 +5,7 @@ import { FilterState } from './types.ts';
 const initialState: FilterState = {
     categoryIndex: 0,
     searchValue: '',
+    registrationUser: false,
 };
 
 export const filterSlice = createSlice({
@@ -13,6 +14,9 @@ export const filterSlice = createSlice({
     reducers: {
         setSearchValue(state, action: PayloadAction<string>) {
             state.searchValue = action.payload;
+        },
+        setUser(state, action: PayloadAction<boolean>) {
+            state.registrationUser = action.payload;
         },
     },
 });

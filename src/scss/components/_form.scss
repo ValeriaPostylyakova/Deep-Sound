@@ -82,4 +82,35 @@
     color: #c63e3e;
     font-size: 15px;
   }
+  &__block-bottom {
+    margin-top: 0.6rem;
+    margin-right: auto;
+    color: var(--header-title);
+
+    span {
+      margin-left: 0.5rem;
+      color: #304189;
+      border-bottom: 1px solid #304189;
+      cursor: pointer;
+    }
+  }
+}
+
+.authorization {
+  position: relative;
+  width: 350px;
+  height: 300px;
+  border-radius: 0.8rem;
+  background-color: var(--registation-background);
+
+  &__button {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #304189;
+    color: #ffffff;
+    padding: 6px 20px;
+    border-radius: 1rem;
+    font-size: 16px;
+  }
 }

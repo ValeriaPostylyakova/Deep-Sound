@@ -20,6 +20,7 @@ import CreateCustomPlaylist from './page/CreateCustomPlaylist.tsx';
 import { useTheme } from './hooks/theme.ts';
 import PlayerCustomPlaylist from './components/PlayerCustomPlaylist.tsx';
 import Registration from './page/Registration.tsx';
+import Authorization from './page/Authorization.tsx';
 
 function App() {
     const { theme, setTheme } = useTheme();
@@ -76,6 +77,10 @@ function App() {
                             <Route
                                 path="/registration"
                                 element={<Registration />}
+                            />
+                            <Route
+                                path="/authorization"
+                                element={<Authorization />}
                             />
                         </Routes>
                     </div>

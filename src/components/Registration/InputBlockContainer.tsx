@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormValues } from '../../page/Registration.tsx';
+import { Link } from 'react-router-dom';
 
 type InputBlockContainerProps = {
     register: UseFormRegister<FormValues>;
@@ -69,6 +70,12 @@ const InputBlockContainer: React.FC<InputBlockContainerProps> = ({
                     </p>
                 )}
             </div>
+            <p className="registration__block-bottom">
+                Уже есть аккаунт?
+                <Link to="/authorization">
+                    <span>Войти</span>
+                </Link>
+            </p>
         </div>
     );
 };

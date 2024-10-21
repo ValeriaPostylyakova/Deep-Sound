@@ -11,15 +11,18 @@ const CreatePlaylistButton = () => {
 
     const onClickCreatePlaylist = async () => {
         const secureID = crypto.randomUUID();
-
+        const user = JSON.parse(localStorage.getItem('user') || '');
         const obj = {
             parentId: secureID,
             title: 'Новый плейлист',
         };
-        await axios.post(
-            'https://985cc4acb156d262.mokky.dev/createPlaylist',
-            obj
-        );
+
+        await axios({
+            method: 'post',
+            url: 'https://985cc4acb156d262.mokky.dev/createPlaylist',
+            data: obj,
+            headers: { Authorization: `Bearer ${user.token}` },
+        });
         dispatch(createPlaylistAction.setPlaylists(obj));
         navigate(`/custom-playlist/${obj.parentId}`);
     };

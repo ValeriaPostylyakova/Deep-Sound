@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store.ts';
 
 import { CiSearch } from 'react-icons/ci';
-import { filterAction } from '../redux/filter/slice.ts';
+import { filterAction } from '../redux/headerFilter/slice.ts';
 
 type SearchProps = {
     searchState: boolean;

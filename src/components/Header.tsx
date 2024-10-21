@@ -11,6 +11,10 @@ import { CiSearch } from 'react-icons/ci';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { IoClose } from 'react-icons/io5';
 import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store.ts';
+import { profileActions } from '../redux/profile/slice.ts';
+import UserProfile from './UserProfile.tsx';
 
 type HeaderProps = {
     theme: string;
@@ -20,6 +24,11 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
     const [menuActive, setMenuActive] = React.useState<boolean>(false);
     const [searchActive, setSearchActive] = React.useState<boolean>(false);
+    const dispatch: AppDispatch = useDispatch();
+
+    const userActive = useSelector(
+        (state: RootState) => state.profileReducer.userProfile
+    );
 
     const onClickTheme = () => {
         if (theme === 'light') {
@@ -28,6 +37,11 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
             setTheme('light');
         }
     };
+
+    const onClickProfile = () => {
+        dispatch(profileActions.setUserProfile(!userActive));
+    };
+
     return (
         <header className="header">
             <div className="header__container">
@@ -52,9 +66,6 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                             <CiSearch className="header__left-search-mobail-search" />
                         </button>
                     )}
-                    <Link to="/registration">
-                        <FaRegUserCircle className="header__user" />
-                    </Link>
                     <button onClick={onClickTheme}>
                         {theme === 'light' ? (
                             <MdOutlineWbSunny className="header__sun" />
@@ -65,6 +76,17 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                             />
                         )}
                     </button>
+                    {localStorage.getItem('user') !== null ? (
+                        <button onClick={onClickProfile}>
+                            <FaRegUserCircle className="header__user" />
+                        </button>
+                    ) : (
+                        <Link to="/registration">
+                            <button className="header__reg-button">
+                                Войти
+                            </button>
+                        </Link>
+                    )}
                     <button
                         className="burger-menu__button"
                         onClick={() => setMenuActive(!menuActive)}
@@ -76,6 +98,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                         )}
                     </button>
                     <BurgerMenu menu={menuActive} />
+                    <UserProfile />
                 </div>
             </div>
         </header>
