@@ -11,20 +11,26 @@ const CreatePlaylistButton = () => {
 
     const onClickCreatePlaylist = async () => {
         const secureID = crypto.randomUUID();
-        const user = JSON.parse(localStorage.getItem('user') || '');
         const obj = {
             parentId: secureID,
             title: 'Новый плейлист',
         };
 
-        await axios({
-            method: 'post',
-            url: 'https://985cc4acb156d262.mokky.dev/createPlaylist',
-            data: obj,
-            headers: { Authorization: `Bearer ${user.token}` },
-        });
-        dispatch(createPlaylistAction.setPlaylists(obj));
-        navigate(`/custom-playlist/${obj.parentId}`);
+        if (localStorage.getItem('user') !== null) {
+            const user = JSON.parse(localStorage.getItem('user') || '');
+
+            await axios({
+                method: 'post',
+                url: 'https://985cc4acb156d262.mokky.dev/createPlaylist',
+                data: obj,
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+
+            dispatch(createPlaylistAction.setPlaylists(obj));
+            navigate(`/Deep-Sound/custom-playlist/${obj.parentId}`);
+        } else {
+            navigate('/Deep-Sound/registration');
+        }
     };
 
     return (

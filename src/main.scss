@@ -24,6 +24,7 @@ html[data-theme="light"] {
   --modal-background: #ffff;
   --modal-color: #6d6d6d;
   --registation-background: rgb(243, 243, 243);
+  --sidebar-modal-background: #ffffff;
 }
 
 html[data-theme="dark"] {
@@ -52,6 +53,7 @@ html[data-theme="dark"] {
   --modal-background: #323232;
   --modal-color: #fff;
   --registation-background: #262626;
+  --sidebar-modal-background: #252525;
 }
 
 h1, h2, h3, h4 {

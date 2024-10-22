@@ -25,7 +25,7 @@ const CreateCustomPlaylist = () => {
         }
     }, [dispatch]);
 
-    const id = window.location.pathname.slice(17);
+    const id = window.location.pathname.slice(28);
     const findObj = customPlaylists.find((obj) => obj.parentId === id);
 
     return (

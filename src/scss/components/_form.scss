@@ -98,10 +98,28 @@
 
 .authorization {
   position: relative;
-  width: 350px;
+  width: 400px;
   height: 300px;
   border-radius: 0.8rem;
   background-color: var(--registation-background);
+
+  &__block-bottom {
+    margin-top: 1.5rem;
+    margin-right: auto;
+    color: var(--header-title);
+    visibility: hidden;
+
+    &.block {
+      visibility: visible;
+    }
+
+    span {
+      margin-left: 0.5rem;
+      color: #304189;
+      border-bottom: 1px solid #304189;
+      cursor: pointer;
+    }
+  }
 
   &__button {
     position: absolute;

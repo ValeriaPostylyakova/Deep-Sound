@@ -17,7 +17,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
                 <div className="sidebar__container">
                     <div className="sidebar__top">
                         <ul>
-                            <Link to="/">
+                            <Link to="/Deep-Sound">
                                 <li>
                                     <IoHome
                                         style={{
@@ -29,7 +29,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
                                     <p>Главная</p>
                                 </li>
                             </Link>
-                            <Link to="favorite">
+                            <Link to="/FDeep-Sound/favorite">
                                 <li>
                                     <MdFavorite
                                         style={{

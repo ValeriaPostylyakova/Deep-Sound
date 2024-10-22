@@ -18,6 +18,7 @@ import { fetchPlaylistTracks } from '../../redux/createPlaylistTracks/asyncActio
 import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
 
 import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
+import { SongObj } from '../../redux/songs/types.ts';
 
 type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
@@ -37,7 +38,7 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         (state: RootState) => state.createPlaylistReducer.actionBarActive
     );
 
-    const id = window.location.pathname.slice(17);
+    const id = window.location.pathname.slice(28);
 
     React.useEffect(() => {
         dispatch(fetchPlaylistTracks(id));
@@ -66,17 +67,21 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
 
     const handleModal = () => {
         dispatch(createPlaylistAction.setDeletePlaylist(false));
-        navigate('/');
+        navigate('/Deep-Sound/');
         window.location.reload();
     };
 
     const onClickDeletePlaylist = async () => {
         dispatch(createPlaylistAction.setDeletePlaylist(true));
         try {
-            await axios.delete(
-                `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`
-            );
-            setTimeout(handleModal, 2000);
+            if (localStorage.getItem('user') !== null) {
+                const obj = JSON.parse(localStorage.getItem('user') || '');
+                await axios.delete(
+                    `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`,
+                    { headers: { Authorization: `Bearer ${obj.token}` } }
+                );
+                setTimeout(handleModal, 2000);
+            }
         } catch (err) {
             console.error(err);
             alert(
@@ -87,13 +92,13 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
     };
 
     const onClickPlay = () => {
-        const currentId = playlistTracks[0].currentId;
+        const id = playlistTracks[0].id;
+        dispatch(playlistTracksActions.setSongId({ id: id } as SongObj));
+        dispatch(playlistTracksActions.setActivePlayer(true));
         dispatch(sliderAction.setActivePlayerSlide(false));
         dispatch(playlistAction.setPlayerActive(false));
-        dispatch(songsAction.setClickPlay(true));
+        dispatch(songsAction.setClickPlay(false));
         dispatch(playerAction.setPlay(false));
-        dispatch(playlistTracksActions.setActivePlayer(false));
-        dispatch(playerAction.setSong({ id: currentId }));
     };
 
     return (

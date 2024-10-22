@@ -51,7 +51,19 @@ html {
   }
 
   &__bottom {
+    position: relative;
     padding-top: 20px;
+
+    &_modal {
+      position: absolute;
+      left: 0;
+      top: 8vw;
+      z-index: 100;
+      border-radius: 10px;
+      background-color: var(--sidebar-modal-background);
+      padding: 15px 10px;
+      color: var(--header-title);
+    }
 
     &-container {
       margin-bottom: 20px;

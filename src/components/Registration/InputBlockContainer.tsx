@@ -72,7 +72,7 @@ const InputBlockContainer: React.FC<InputBlockContainerProps> = ({
             </div>
             <p className="registration__block-bottom">
                 Уже есть аккаунт?
-                <Link to="/authorization">
+                <Link to="/Deep-Sound/authorization">
                     <span>Войти</span>
                 </Link>
             </p>

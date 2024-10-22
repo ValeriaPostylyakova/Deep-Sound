@@ -12,7 +12,7 @@ const CustomPlaylistsBlock: React.FC<CustomPlaylistObj> = ({
     }, []);
 
     return (
-        <Link to={`/custom-playlist/${parentId}`}>
+        <Link to={`/Deep-Sound/custom-playlist/${parentId}`}>
             <div className="custplaylist">
                 <div className="custplaylist__container-2">
                     <div className="custplaylist__images">

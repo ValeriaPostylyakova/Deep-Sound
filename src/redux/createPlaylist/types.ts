@@ -8,6 +8,7 @@ export interface CreatePlaylistState {
     inputValue: string;
     deletePlaylist: boolean | null;
     actionBarActive: boolean;
+    modalActive: boolean;
 }
 
 export type CustomPlaylistObj = {

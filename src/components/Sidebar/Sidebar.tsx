@@ -12,7 +12,7 @@ const Sidebar = () => {
             <div className="sidebar__container">
                 <div className="sidebar__top">
                     <ul>
-                        <Link to="/">
+                        <Link to="/Deep-Sound/">
                             <li>
                                 <IoHome
                                     style={{
@@ -24,7 +24,7 @@ const Sidebar = () => {
                                 <h2>Главная</h2>
                             </li>
                         </Link>
-                        <Link to="favorite">
+                        <Link to="/Deep-Sound/favorite">
                             <li>
                                 <MdFavorite
                                     style={{
@@ -39,7 +39,7 @@ const Sidebar = () => {
                     </ul>
                 </div>
                 <div className="sidebar__bottom">
-                    <Link to="custom">
+                    <Link to="/Deep-Sound/custom">
                         <li className="sidebar__bottom-container">
                             <MdPlaylistPlay
                                 style={{ width: '25px', height: '25px' }}

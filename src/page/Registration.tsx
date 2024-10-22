@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
 import InputBlockContainer from '../components/Registration/InputBlockContainer.tsx';
-import { filterAction } from '../redux/headerFilter/slice.ts';
 import { AppDispatch } from '../redux/store.ts';
 import { useDispatch } from 'react-redux';
 import { profileActions } from '../redux/profile/slice.ts';
+import { getResponseStatus } from '../utils/getResponseStatus.ts';
 
 export type FormValues = {
     firstName: string;
@@ -29,19 +29,21 @@ const Registration: React.FC = () => {
 
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
-        const fetchData = await axios.post(
-            'https://985cc4acb156d262.mokky.dev/register',
-            { ...data, password: '12345' }
-        );
-        if (fetchData.status === 201) {
-            localStorage.setItem('user', JSON.stringify(fetchData.data));
-            navigate('/');
+        try {
+            const response = await axios.post(
+                'https://985cc4acb156d262.mokky.dev/register',
+                { ...data, password: '12345' }
+            );
+            getResponseStatus(response);
+            navigate('/Deep-Sound/');
             window.location.reload();
-            dispatch(filterAction.setUser(true));
-        }
 
-        const userObj = JSON.parse(localStorage.getItem('user') || '');
-        dispatch(profileActions.setUser(userObj));
+            const userObj = JSON.parse(localStorage.getItem('user') || '');
+            dispatch(profileActions.setUser(userObj));
+        } catch (err) {
+            console.error(err);
+            alert('Пользователь зарегистрирован');
+        }
     };
     return (
         <div className="registration-wrapper">

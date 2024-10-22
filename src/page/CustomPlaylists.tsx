@@ -16,7 +16,10 @@ const CustomPlaylists = () => {
         (state: RootState) => state.createPlaylistReducer.status
     );
     React.useEffect(() => {
-        dispatch(fetchCustomPlaylists());
+        if (localStorage.getItem('user')) {
+            const user = JSON.parse(localStorage.getItem('user') || '');
+            dispatch(fetchCustomPlaylists(user.token));
+        }
     }, [dispatch]);
 
     return (

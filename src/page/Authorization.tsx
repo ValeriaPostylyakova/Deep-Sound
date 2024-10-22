@@ -1,6 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getResponseStatus } from '../utils/getResponseStatus.ts';
+import * as React from 'react';
 
 type AutorizationValues = {
     email: string;
@@ -13,21 +15,24 @@ const Authorization = () => {
         formState: { errors },
     } = useForm<AutorizationValues>({ mode: 'onChange' });
 
+    const [searchUser, setSearchUser] = React.useState<boolean>(false);
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<AutorizationValues> = async (data) => {
-        const response = await axios.post(
-            'https://985cc4acb156d262.mokky.dev/auth',
-            {
-                ...data,
-                password: '12345',
-            }
-        );
-
-        if (response.status === 201) {
-            localStorage.setItem('user', JSON.stringify(response.data));
-            navigate('/');
+        try {
+            const response = await axios.post(
+                'https://985cc4acb156d262.mokky.dev/auth',
+                {
+                    ...data,
+                    password: '12345',
+                }
+            );
+            getResponseStatus(response);
+            navigate('/Deep-Sound/');
             window.location.reload();
+        } catch (err) {
+            console.error(err);
+            setSearchUser(true);
         }
     };
 
@@ -55,6 +60,18 @@ const Authorization = () => {
                             </p>
                         )}
                     </div>
+                    <p
+                        className={
+                            searchUser
+                                ? 'authorization__block-bottom block'
+                                : 'authorization__block-bottom'
+                        }
+                    >
+                        Пользователь не найден
+                        <Link to="/Deep-Sound/registration">
+                            <span>Зарегистрироваться</span>
+                        </Link>
+                    </p>
                     <button className="authorization__button">Войти</button>
                 </div>
             </form>

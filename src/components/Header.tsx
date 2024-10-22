@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
         <header className="header">
             <div className="header__container">
                 <div className="header__right">
-                    <Link to="/">
+                    <Link to="/Deep-Sound/">
                         <div className="header__logo">
                             <RiNeteaseCloudMusicLine className="header__logo_icon" />
                             <div>
@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                             <FaRegUserCircle className="header__user" />
                         </button>
                     ) : (
-                        <Link to="/registration">
+                        <Link to="/Deep-Sound/registration">
                             <button className="header__reg-button">
                                 Войти
                             </button>

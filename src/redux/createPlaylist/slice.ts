@@ -10,6 +10,7 @@ const initialState: CreatePlaylistState = {
     customPlaylists: [],
     parentId: '',
     deletePlaylist: null,
+    modalActive: false,
     status: Status.LOADING,
 };
 
@@ -31,6 +32,9 @@ const createPlaylist = createSlice({
         },
         setDeletePlaylist(state, action: PayloadAction<boolean>) {
             state.deletePlaylist = action.payload;
+        },
+        setModalActive(state, action: PayloadAction<boolean>) {
+            state.modalActive = action.payload;
         },
     },
 

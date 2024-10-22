@@ -3,7 +3,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 
 const GoBack = () => {
     return (
-        <Link to="/">
+        <Link to="/Deep-Sound/">
             <button className="main__back">
                 <div className="main__back_container">
                     <IoIosArrowBack className="main__back_icon" />

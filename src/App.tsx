@@ -33,53 +33,77 @@ function App() {
                 <main className="main">
                     <div className="main__container">
                         <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="chart" element={<Chart />} />
-                            <Route path="genres" element={<Genres />} />
+                            <Route path="/Deep-Sound/" element={<Home />} />
                             <Route
-                                path="collections"
+                                path="/Deep-Sound/chart"
+                                element={<Chart />}
+                            />
+                            <Route
+                                path="/Deep-Sound/genres"
+                                element={<Genres />}
+                            />
+                            <Route
+                                path="/Deep-Sound/collections"
                                 element={<Collections />}
                             />
-                            <Route path="favorite" element={<Favorite />} />
-                            <Route path="/genres/pop" element={<Genre />} />
-                            <Route path="/genres/rock" element={<Genre />} />
-                            <Route path="/genres/indie" element={<Genre />} />
                             <Route
-                                path="/genres/alternative"
+                                path="/Deep-Sound/favorite"
+                                element={<Favorite />}
+                            />
+                            <Route
+                                path="/Deep-Sound/genres/pop"
                                 element={<Genre />}
                             />
-                            <Route path="/genres/dance" element={<Genre />} />
-                            <Route path="/genres/rap" element={<Genre />} />
                             <Route
-                                path="/collections/hits"
+                                path="/Deep-Sound/genres/rock"
+                                element={<Genre />}
+                            />
+                            <Route
+                                path="/Deep-Sound/genres/indie"
+                                element={<Genre />}
+                            />
+                            <Route
+                                path="/Deep-Sound/genres/alternative"
+                                element={<Genre />}
+                            />
+                            <Route
+                                path="/Deep-Sound/genres/dance"
+                                element={<Genre />}
+                            />
+                            <Route
+                                path="/Deep-Sound/genres/rap"
+                                element={<Genre />}
+                            />
+                            <Route
+                                path="/Deep-Sound/collections/hits"
                                 element={<Collection />}
                             />
                             <Route
-                                path="/collections/new_music"
+                                path="/Deep-Sound/collections/new_music"
                                 element={<Collection />}
                             />
                             <Route
-                                path="/collections/party"
+                                path="/Deep-Sound/collections/party"
                                 element={<Collection />}
                             />
                             <Route
-                                path="/collections/children"
+                                path="/Deep-Sound/collections/children"
                                 element={<Collection />}
                             />
                             <Route
-                                path="/custom"
+                                path="/Deep-Sound/custom"
                                 element={<CustomPlaylists />}
                             />
                             <Route
-                                path="/custom-playlist/:id"
+                                path="/Deep-Sound/custom-playlist/:id"
                                 element={<CreateCustomPlaylist />}
                             />
                             <Route
-                                path="/registration"
+                                path="/Deep-Sound/registration"
                                 element={<Registration />}
                             />
                             <Route
-                                path="/authorization"
+                                path="/Deep-Sound/authorization"
                                 element={<Authorization />}
                             />
                         </Routes>

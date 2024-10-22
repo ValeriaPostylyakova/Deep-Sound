@@ -2,6 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { SongObj } from '../songs/types.ts';
 import axios from 'axios';
 
+// type Params = {
+//     id: string;
+//     token: string;
+// };
+
 export const fetchPlaylistTracks = createAsyncThunk<SongObj[], string>(
     'playlistTracks/fetchTracksStatus',
     async (id: string) => {

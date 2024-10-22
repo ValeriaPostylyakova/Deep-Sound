@@ -25,7 +25,10 @@ const PlaylistBlock: React.FC = () => {
     }, [playlists]);
 
     return customPlaylists.map((playlist: CustomPlaylistObj) => (
-        <Link key={playlist.id} to={`/custom-playlist/${playlist.parentId}`}>
+        <Link
+            key={playlist.id}
+            to={`/Deep-Sound/custom-playlist/${playlist.parentId}`}
+        >
             <div className="sidebar__playlist">
                 <div className="sidebar__playlist-container">
                     <div className="sidebar__playlist-images">
