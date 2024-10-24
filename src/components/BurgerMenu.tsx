@@ -1,59 +1,17 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-
-import { IoHome } from 'react-icons/io5';
-import { MdFavorite, MdPlaylistPlay } from 'react-icons/md';
-import CreatePlaylistButton from './Sidebar/CreatePlaylistButton.tsx';
+import SidebarContainer from './Sidebar/SidebarContainer.tsx';
 
 type BurgerMenuProps = {
     menu: boolean;
+    setMenu: (value: boolean) => void;
 };
 
-const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu }) => {
+const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu, setMenu }) => {
     return (
         <>
-            <div className={menu ? 'burger-menu__background' : ''}></div>
+            <div onClick={() => setMenu(false)} className={menu ? 'burger-menu__background' : ''}></div>
             <div className={menu ? 'burger-menu menu-active' : 'burger-menu'}>
-                <div className="sidebar__container">
-                    <div className="sidebar__top">
-                        <ul>
-                            <Link to="/Deep-Sound">
-                                <li>
-                                    <IoHome
-                                        style={{
-                                            width: '20px',
-                                            height: '20px',
-                                            color: 'blue',
-                                        }}
-                                    />
-                                    <p>Главная</p>
-                                </li>
-                            </Link>
-                            <Link to="/FDeep-Sound/favorite">
-                                <li>
-                                    <MdFavorite
-                                        style={{
-                                            width: '21px',
-                                            height: '21px',
-                                            color: 'red',
-                                        }}
-                                    />
-                                    <p>Закладки</p>
-                                </li>
-                            </Link>
-                        </ul>
-                    </div>
-                    <div className="sidebar__bottom">
-                        <div>
-                            <MdPlaylistPlay
-                                style={{ width: '25px', height: '25px' }}
-                            />
-                            <p>Мои плейлисты</p>
-                        </div>
-
-                        <CreatePlaylistButton />
-                    </div>
-                </div>
+                <SidebarContainer/>
             </div>
         </>
     );

@@ -6,7 +6,19 @@
     display: flex;
     align-items: center;
     gap: 2rem;
-    flex-wrap: wrap;
+
+    @media screen and (max-width: 960px){
+      gap: 1rem;
+    }
+
+    @media screen and (max-width: 754px){
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 420px){
+      display: grid;
+      grid-template-columns: 1fr;
+    }
   }
 
   &__playlist {
@@ -14,6 +26,10 @@
     flex: 1 1 auto;
     border-radius: 15px;
     transition: 0.3s;
+
+    img {
+      max-width: 100%;
+    }
 
     &:hover {
       opacity: 0.8;
@@ -28,5 +44,10 @@
     padding: 20px 0 0 20px;
     font-size: 18px;
     color: #000000;
+
+    @media screen and (max-width: 960px){
+      padding: 10px 0 0 10px;
+      font-size: 15px;
+    }
   }
 }

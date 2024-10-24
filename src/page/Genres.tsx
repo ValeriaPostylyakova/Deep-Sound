@@ -12,7 +12,7 @@ const Genres = () => {
             <GoBack />
             <div className="genres__container">
                 {genres.map((genre, index: number) => (
-                    <GenresBlock {...genre} key={index} />
+                    <GenresBlock className='' {...genre} key={index} />
                 ))}
             </div>
         </>

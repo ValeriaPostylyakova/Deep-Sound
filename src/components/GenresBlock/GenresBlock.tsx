@@ -14,6 +14,7 @@ export type GenresBlockProps = {
     imageUrl: string;
     linkUrl: string;
     categoryArray?: CategoryArray[];
+    className: string;
 };
 
 const GenresBlock: React.FC<GenresBlockProps> = ({
@@ -22,6 +23,7 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
     imageUrl,
     linkUrl,
     categoryArray,
+    className,
 }) => {
     const dispatch: AppDispatch = useDispatch();
 
@@ -41,7 +43,7 @@ const GenresBlock: React.FC<GenresBlockProps> = ({
             className="genres__container_link"
             onClick={() => onClickPlaylist(id, categoryArray, title)}
         >
-            <div className="genres__container_playlist">
+            <div className={className}>
                 <img src={imageUrl} alt="genre" />
                 <div className="genres__container_active"></div>
             </div>

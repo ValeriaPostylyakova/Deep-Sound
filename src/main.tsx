@@ -8,7 +8,7 @@ import './main.scss';
 
 createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
-        <BrowserRouter basename="/Deep-Sound/">
+        <BrowserRouter basename="/">
             <App />
         </BrowserRouter>
     </Provider>

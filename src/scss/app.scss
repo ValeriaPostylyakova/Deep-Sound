@@ -56,12 +56,21 @@
         h1 {
             font-size: 26px;
             font-weight: 700;
+
+            @media screen and (max-width: 450px){
+                font-size: 22px;
+            }
         }
 
         &_icon {
             width: 25px;
             height: 25px;
             color: var(--header-icon-color);
+
+            @media screen and (max-width: 450px){
+                width: 21px;
+                height: 21px;
+            }
         }
 
         &:hover {

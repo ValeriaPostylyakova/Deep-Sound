@@ -18,6 +18,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 19px 10px 0 10px;
+
+    @media screen and (max-width: 526px) {
+      margin: 0;
+    }
   }
 
   &__right {
@@ -36,6 +40,11 @@
       width: 37px;
       height: 37px;
       color: #172194;
+
+      @media screen and (max-width: 526px) {
+        width: 35px;
+        height: 35px;
+      }
     }
     
     p {
@@ -43,6 +52,10 @@
       font-weight: 700;
       font-size: 16px;
       text-transform: uppercase;
+
+      @media screen and (max-width: 526px) {
+        font-size: 14px;
+      }
     }
   }
 
@@ -51,12 +64,23 @@
     align-items: center;
     gap: 2rem;
 
+    @media screen and (max-width: 526px) {
+      gap: 1.3rem;
+    }
+
     .burger-menu__button {
+      background-color: var(--button-background);
       display: none;
 
       &_icon {
+        color: var(--header-title);
         width: 37px;
         height: 37px;
+
+        @media screen and (max-width: 526px) {
+          width: 34px;
+          height: 34px;
+        }
       }
 
       @media screen and (max-width: 1300px) {
@@ -65,15 +89,21 @@
     }
 
     &-search-mobail {
+      background-color: var(--button-background);
       display: none;
 
       &-search {
+        color: var(--header-title);
         width: 37px;
         height: 37px;
       }
 
       @media screen and (max-width: 1300px) {
         display: block;
+      }
+
+      @media screen and (max-width: 783px) {
+        display: none;
       }
     }
   }
@@ -88,8 +118,16 @@
       display: none;
     }
 
+    @media screen and (max-width: 922px) {
+      margin-left: -9rem;
+    }
+
     &.search-active {
       display: block;
+
+      @media screen and (max-width: 783px) {
+        display: none;
+      }
     }
   }
 
@@ -117,10 +155,20 @@
     height: 35px;
     color: var(--header-icon-color);
     background-color: var(--header-icon-background);
+
+    @media screen and (max-width: 526px) {
+      width: 34px;
+      height: 34px;
+    }
   }
   &__moon {
     color: #ffffff;
     background-color: var(--header-icon-background);
+
+    @media screen and (max-width: 526px) {
+      width: 34px;
+      height: 34px;
+    }
   }
   &__sun {
     color: #796041;

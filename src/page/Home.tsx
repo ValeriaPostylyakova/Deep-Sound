@@ -36,7 +36,7 @@ const Home: React.FC = () => {
         dispatch(fetchSongs());
         dispatch(fetchGenres());
         dispatch(fetchCollections());
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
@@ -66,17 +66,16 @@ const Home: React.FC = () => {
             <section className="genres">
                 <div className="genres__container">
                     {genres
-                        .slice(0, 5)
                         .map((genre: Genres, index: number) =>
                             statusGenres === 'loading' ? (
                                 <GenresBlockSkeleton key={index} />
                             ) : (
                                 <GenresBlock
+                                    className=''
                                     categoryArray={[]}
                                     title=""
                                     key={genre.id}
-                                    {...genre}
-                                />
+                                    {...genre}                                />
                             )
                         )}
                 </div>

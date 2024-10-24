@@ -57,7 +57,6 @@ const SliderBlock: React.FC = () => {
                                 <p>{slide.subtitle}</p>
                                 <div className="slider__container-bottom">
                                     <button className="slider__container-bottom-buttons">
-                                        {/*<IoMdPause className="buttons_pause" />*/}
                                         <IoPlay className="buttons_play" />
                                     </button>
                                 </div>

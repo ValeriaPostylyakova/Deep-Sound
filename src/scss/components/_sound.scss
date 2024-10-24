@@ -1,9 +1,13 @@
 .sound {
     display: grid;
-    grid-template-columns: 47% 47%;
+    grid-template-columns: minmax(40%, 47%) minmax(40%, 47%);
     grid-template-rows: repeat(3, 1fr);
     justify-content: space-between;
     margin-bottom: 65px;
+
+    @media screen and (max-width: 660px){
+        grid-template-columns: 1fr;
+    }
 
     &__block {
         padding: 10px;
@@ -13,6 +17,14 @@
         align-items: center;
         justify-content: space-between;
         border-radius: 10px;
+
+        @media screen and (max-width: 660px){
+            width: 85%;
+        }
+
+        @media screen and (max-width: 400px){
+            width: 80%;
+        }
 
         &:hover {
             box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.2);
@@ -67,6 +79,10 @@
         .time {
             font-size: 14px;
             font-weight: 500;
+
+            @media screen and (max-width: 940px){
+                display: none;
+            }
         }
 
         &_skeleton {

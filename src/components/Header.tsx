@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                             <HiOutlineMenuAlt1 className="burger-menu__button_icon" />
                         )}
                     </button>
-                    <BurgerMenu menu={menuActive} />
+                    <BurgerMenu menu={menuActive} setMenu={setMenuActive} />
                     <UserProfile />
                 </div>
             </div>
