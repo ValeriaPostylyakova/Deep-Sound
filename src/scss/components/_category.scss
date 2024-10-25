@@ -4,11 +4,18 @@
   gap: 1rem;
   margin-bottom: 20px;
 
+  &::-webkit-scrollbar { width: 0; }
+
+  @media screen and (max-width: 394px){
+    overflow-x: auto;
+  }
+
   &_button {
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 15px;
     font-weight: 600;
+    white-space: nowrap;
     background-color: var(--button-category-background);
     color: var(--button-category-color);
 

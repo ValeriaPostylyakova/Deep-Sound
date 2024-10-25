@@ -10,7 +10,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ menu, setMenu }) => {
     return (
         <>
             <div onClick={() => setMenu(false)} className={menu ? 'burger-menu__background' : ''}></div>
-            <div className={menu ? 'burger-menu menu-active' : 'burger-menu'}>
+            <div onClick={() => setMenu(false)} className={menu ? 'burger-menu menu-active' : 'burger-menu'}>
                 <SidebarContainer/>
             </div>
         </>

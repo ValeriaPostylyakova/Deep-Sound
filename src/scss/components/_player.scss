@@ -58,6 +58,11 @@ html {
                 width: 50px;
                 height: 50px;
                 border-radius: 10px;
+
+                @media screen and (max-width: 384px) {
+                    width: 40px;
+                    height: 40px;
+                }
             }
 
             &_info {
@@ -68,8 +73,12 @@ html {
                     margin-bottom: 3px;
                 }
 
-                p {
+                h3 {
                     font-weight: 300;
+
+                    @media screen and (max-width: 360px){
+                        display: none;
+                    }
                 }
             }
         }
@@ -140,6 +149,10 @@ html {
         border-radius: 3px;
         cursor: pointer;
         background-color: #e6e6e6;
+
+        @media screen and (max-width: 384px) {
+            width: 232px;
+        }
 
         &_container {
             width: 100%;

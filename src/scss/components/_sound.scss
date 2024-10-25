@@ -44,6 +44,10 @@
             align-items: center;
             gap: 2rem;
 
+            @media screen and (max-width: 430px) {
+                gap: 1rem;
+            }
+
             h2 {
                 font-size: 17px;
                 font-weight: 700;
@@ -61,11 +65,19 @@
                         font-size: 19px;
                         font-weight: 400;
                         margin-bottom: 0.5rem;
+
+                        @media screen and (max-width: 430px) {
+                            font-size: 16px;
+                        }
                     }
 
                     h4 {
                         font-weight: 300;
                         font-size: 15px;
+
+                        @media screen and (max-width: 430px) {
+                            font-size: 12px;
+                        }
                     }
                 }
             }
@@ -117,6 +129,11 @@
             width: 50px;
             height: 50px;
             border-radius: 7px;
+
+            @media screen and (max-width: 430px) {
+                width: 40px;
+                height: 40px;
+            }
         }
     }
 
@@ -140,5 +157,9 @@
         color: var(--header-title);
         font-size: 16px;
         font-weight: 400;
+
+        @media screen and (max-width: 620px){
+           display: none;
+        }
     }
 }

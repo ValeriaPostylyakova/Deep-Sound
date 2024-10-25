@@ -10,6 +10,10 @@
   background-color: var(--modal-background);
   border-left: var(--border);
 
+  @media screen and (max-width: 660px){
+    width: 100%;
+  }
+
   &.active {
     opacity: 1;
     right: 0;

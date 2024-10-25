@@ -6,6 +6,10 @@
   h1 {
     font-size: 30px;
     font-weight: 600;
+
+    @media screen and (max-width: 450px){
+      font-size: 22px;
+    }
   }
 
   &__container_1 {
@@ -30,11 +34,26 @@
   &__icon {
     max-width: 500px;
     margin-bottom: 1rem;
+
+
+    @media screen and (max-width: 540px){
+      max-width: 350px;
+    }
+
+    @media screen and (max-width: 358px){
+      max-width: 310px;
+    }
   }
 
   &__title {
     color: var(--header-title);
     font-size: 18px;
+
+    @media screen and (max-width: 358px){
+      width: 50%;
+      text-align: center;
+      font-size: 15px;
+    }
   }
 
 }

@@ -71,7 +71,6 @@ const Home: React.FC = () => {
                                 <GenresBlockSkeleton key={index} />
                             ) : (
                                 <GenresBlock
-                                    className=''
                                     categoryArray={[]}
                                     title=""
                                     key={genre.id}

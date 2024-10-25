@@ -10,6 +10,10 @@
     align-items: center;
     gap: 2.5rem;
     flex-wrap: wrap;
+
+    @media screen and (max-width: 840px) {
+      gap: 1rem;
+    }
   }
 
   &__container-2 {
@@ -34,6 +38,10 @@
     font-weight: 700;
     transition: 0.2s;
 
+    @media screen and (max-width: 840px) {
+      font-size: 14px;
+    }
+
     &:hover {
       color: #172194;
     }
@@ -46,6 +54,11 @@
     place-items: center;
     border-radius: 1rem;
     background-color: #cccccc;
+
+    @media screen and (max-width: 840px) {
+      width: 80%;
+      height: 120px;
+    }
 
     &-icon {
       width: 45px;
@@ -67,6 +80,10 @@
     margin-bottom: 3rem;
     font-size: 26px;
     font-weight: 700;
+
+    @media screen and (max-width: 563px){
+      font-size: 23px;
+    }
   }
 
   &__container {
@@ -92,6 +109,10 @@
     background-color: #fff;
     height: 75%;
 
+    @media screen and (max-width: 563px) {
+      display: none;
+    }
+
     &-icon {
       width: 40px;
       height: 40px;
@@ -105,12 +126,20 @@
     flex-direction: column;
     justify-content: space-between;
 
+    @media screen and (max-width: 563px){
+      height: 65%;
+    }
+
     &_edit {
       display: flex;
       align-items: center;
 
       .enter {
         color: var(--header-title);
+
+        @media screen and (max-width: 563px){
+          font-size: 25px;
+        }
       }
 
       &-button {
@@ -229,6 +258,10 @@
         color: var(--header-title);
         font-weight: 500;
         font-size: 16px;
+
+        @media screen and (max-width: 620px){
+          display: none;
+        }
       }
       button {
         background-color: var(--wrapper-background);
@@ -245,10 +278,18 @@
     padding: 12px 22px;
     border-radius: 15px;
 
+    @media screen and (max-width: 563px){
+      padding: 9px 18px;
+    }
+
     &-del {
       padding: 10px 12px;
       border-radius: 15px;
       background-color: #fff;
+
+      @media screen and (max-width: 563px) {
+        padding: 8px 10px;
+      }
 
       &_modal {
         cursor: pointer;
@@ -260,6 +301,10 @@
         border-radius: 12px;
         margin-top: 10px;
 
+        @media screen and (max-width: 563px){
+          padding: 8px 18px;
+        }
+
         .modal__container {
           display: flex;
           align-items: center;
@@ -269,6 +314,10 @@
         p {
           font-size: 16px;
           color: var(--header-title);
+
+          @media screen and (max-width: 563px){
+            font-size: 12px;
+          }
         }
       }
     }

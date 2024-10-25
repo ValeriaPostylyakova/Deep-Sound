@@ -11,6 +11,7 @@ const Collections = () => {
         (state: RootState) => state.collectionsReducer
     );
     React.useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(fetchCollections());
     }, []);
 

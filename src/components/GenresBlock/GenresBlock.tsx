@@ -14,7 +14,7 @@ export type GenresBlockProps = {
     imageUrl: string;
     linkUrl: string;
     categoryArray?: CategoryArray[];
-    className: string;
+    className?: string;
 };
 
 const GenresBlock: React.FC<GenresBlockProps> = ({
