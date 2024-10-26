@@ -1,16 +1,18 @@
+import * as React from 'react';
+import axios from 'axios';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
 import { SongObj } from '../../redux/songs/types.ts';
-import * as React from 'react';
-import axios from 'axios';
+
 import { createPlaylistAction } from '../../redux/createPlaylist/slice.ts';
 
-type AddedPlaylistModal = {
-    obj: SongObj | undefined;
+type PlusPlaylistModal = {
+    obj?: SongObj;
 };
 
-const AddedPlaylistModal: React.FC<AddedPlaylistModal> = ({ obj }) => {
+const PlusPlaylistModal: React.FC<PlusPlaylistModal> = ({ obj }) => {
     const dispatch: AppDispatch = useDispatch();
     const customPlaylists = useSelector(
         (state: RootState) => state.createPlaylistReducer.customPlaylists
@@ -41,4 +43,4 @@ const AddedPlaylistModal: React.FC<AddedPlaylistModal> = ({ obj }) => {
     );
 };
 
-export default AddedPlaylistModal;
+export default PlusPlaylistModal;

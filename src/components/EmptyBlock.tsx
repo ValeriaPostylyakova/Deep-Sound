@@ -1,11 +1,13 @@
-import { favorite1 } from '../viteImages/images.ts';
 import * as React from 'react';
 
-type FavoritePlaylistsEmpty = {
+import favorite1Img from '../assets/favorite-1.png';
+const favorite1: string = String(favorite1Img);
+
+type EmptyBlock = {
     title: string;
 };
 
-const FavoritePlaylistsEmpty: React.FC<FavoritePlaylistsEmpty> = ({
+const EmptyBlock: React.FC<EmptyBlock> = ({
     title,
 }) => {
     return (
@@ -22,4 +24,4 @@ const FavoritePlaylistsEmpty: React.FC<FavoritePlaylistsEmpty> = ({
     );
 };
 
-export default FavoritePlaylistsEmpty;
+export default EmptyBlock;

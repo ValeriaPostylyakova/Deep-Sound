@@ -1,9 +1,11 @@
-import GoBack from '../components/GoBack.tsx';
-import CollectionsBlock from '../components/CollectionsBlock.tsx';
 import * as React from 'react';
-import { AppDispatch, RootState } from '../redux/store.ts';
+
 import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store.ts';
 import { fetchCollections } from '../redux/collections/asyncAction.ts';
+
+import GoBack from '../components/GoBack.tsx';
+import CollectionsBlock from '../components/CollectionsBlock/CollectionsBlock.tsx';
 
 const Collections = () => {
     const dispatch: AppDispatch = useDispatch();

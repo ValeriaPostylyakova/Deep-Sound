@@ -1,33 +1,28 @@
 import * as React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/scss';
 
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { IoPlay } from 'react-icons/io5';
-// import { IoMdPause } from 'react-icons/io';
-import { Navigation, Autoplay } from 'swiper/modules';
-
-import { slides } from './json.ts';
-import NavButtons from './NavButtons.tsx';
-
-import 'swiper/scss';
-
-import { songsAction } from '../../redux/songs/slice.ts';
-
-import { DataObj } from '../../redux/sliderPlayer/types.ts';
-
 import { fetchSlider } from '../../redux/sliderPlayer/asyncAction.ts';
+import { DataObj } from '../../redux/sliderPlayer/types.ts';
+import { songsAction } from '../../redux/songs/slice.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
+
+import { slides } from './json.ts';
+import NavButtons from './NavButtons.tsx';
+import { IoPlay } from 'react-icons/io5';
 
 const SliderBlock: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(fetchSlider());
-    }, []);
+    }, [dispatch]);
 
     const onClickSlide = (id: number) => {
         dispatch(sliderAction.setSliderId({ id } as DataObj));

@@ -8,6 +8,7 @@ import { fetchCustomPlaylists } from '../redux/createPlaylist/asyncAction.ts';
 import CustomSongBlock from '../components/CustomPlaylists/CustomSongBlock.tsx';
 import CreatePlaylist from '../components/createCustomBlocks/CreatePlaylist.tsx';
 import DeletePlaylistModal from '../components/createCustomBlocks/DeletePlaylistModal.tsx';
+import { getUser } from '../utils/getUser.ts';
 
 const CreateCustomPlaylist = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -20,7 +21,7 @@ const CreateCustomPlaylist = () => {
 
     React.useEffect(() => {
         if (localStorage.getItem('user') !== null) {
-            const user = JSON.parse(localStorage.getItem('user') || '');
+            const user = getUser();
             dispatch(fetchCustomPlaylists(user.token));
         }
     }, [dispatch]);

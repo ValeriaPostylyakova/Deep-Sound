@@ -14,14 +14,12 @@ type PlayerVolumeProps = {
 
 const PlayerVolume: React.FC<PlayerVolumeProps> = ({ audioRef }) => {
     const dispatch: AppDispatch = useDispatch();
+
     const volume = useSelector(
         (state: RootState) => state.playerReducer.volume
     );
+
     const [volumeState, setVolumeState] = React.useState<number>(30);
-    const onChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(playerAction.setVolume(Number(event.target.value)));
-        setVolumeState(Number(event.target.value));
-    };
 
     React.useEffect(() => {
         if (audioRef.current) {
@@ -30,6 +28,11 @@ const PlayerVolume: React.FC<PlayerVolumeProps> = ({ audioRef }) => {
             }
         }
     }, [volume]);
+
+    const onChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(playerAction.setVolume(Number(event.target.value)));
+        setVolumeState(Number(event.target.value));
+    };
 
     return (
         <div className="player__volume">

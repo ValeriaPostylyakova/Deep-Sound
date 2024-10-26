@@ -1,9 +1,11 @@
-import { HiOutlineDotsHorizontal } from 'react-icons/hi';
-import { MdDeleteOutline } from 'react-icons/md';
+import * as React from 'react';
+
+import { UnknownAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
-import * as React from 'react';
-import { UnknownAction } from '@reduxjs/toolkit';
+
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { MdDeleteOutline } from 'react-icons/md';
 
 type ActiveBarProps = {
     onClickDelete: () => void;

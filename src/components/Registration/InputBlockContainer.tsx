@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormValues } from '../../page/Registration.tsx';
-import { Link } from 'react-router-dom';
 
 type InputBlockContainerProps = {
     register: UseFormRegister<FormValues>;

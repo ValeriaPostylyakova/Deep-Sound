@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SidebarContainer from './Sidebar/SidebarContainer.tsx';
+import SidebarContainer from '../Sidebar/SidebarContainer.tsx';
 
 type BurgerMenuProps = {
     menu: boolean;

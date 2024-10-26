@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { SongObj } from '../redux/songs/types.ts';
+import { SongObj } from '../../redux/songs/types.ts';
+
+import ButtonPlayPause from '../FullPlayerObj/ButtonPlayPause.tsx';
+import PlayerTracks from '../FullPlayerObj/PlayerTracks.tsx';
+import PlayerVolume from '../FullPlayerObj/PlayerVolume.tsx';
+import ButtonOfsetTime from '../FullPlayerObj/ButtonOfsetTime.tsx';
+import ButtonRepeat from '../FullPlayerObj/ButtonRepeat.tsx';
+import ButtonsFavoritePlus from '../FullPlayerObj/ButtonsFavoritePlus.tsx';
 
 import { IoPlaySkipForward } from 'react-icons/io5';
-import ButtonPlayPause from './FullPlayer/ButtonPlayPause.tsx';
-import PlayerTracks from './FullPlayer/PlayerTracks.tsx';
-import PlayerVolume from './FullPlayer/PlayerVolume.tsx';
-import ButtonOfsetTime from './FullPlayer/ButtonOfsetTime.tsx';
-import ButtonRepeat from './FullPlayer/ButtonRepeat.tsx';
-import ButtonsFavoritePlus from './FullPlayer/ButtonsFavoritePlus.tsx';
 
 type PlayerProps = {
     sliceArray: SongObj[];
@@ -16,6 +17,7 @@ type PlayerProps = {
 
 const PlayerArray: React.FC<PlayerProps> = ({ sliceArray, songIndex }) => {
     const [song, setSong] = React.useState<SongObj | undefined>();
+
     const audioSliderRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -30,9 +32,9 @@ const PlayerArray: React.FC<PlayerProps> = ({ sliceArray, songIndex }) => {
     const onClickNextPrev = (event: React.MouseEvent<HTMLButtonElement>) => {
         const classBtn = event.currentTarget.className;
         if (classBtn === 'next') {
-            return setSong(sliceArray[index + 1]);
+            setSong(sliceArray[index + 1]);
         } else {
-            return setSong(sliceArray[index - 1]);
+            setSong(sliceArray[index - 1]);
         }
     };
 

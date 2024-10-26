@@ -1,6 +1,7 @@
+import * as React from 'react';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
-import * as React from 'react';
 
 const DeletePlaylistModal: React.FC = () => {
     const deletePlaylist = useSelector(

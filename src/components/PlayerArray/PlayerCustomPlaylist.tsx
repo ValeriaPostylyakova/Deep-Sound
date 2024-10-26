@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store.ts';
+import { RootState } from '../../redux/store.ts';
 import PlayerArray from './PlayerArray.tsx';
 
 const PlayerCustomPlaylist = () => {
     const activePlayer = useSelector(
         (state: RootState) => state.playlistTracksReducer.activePlayer
     );
-
     const playlistTracks = useSelector(
         (state: RootState) => state.playlistTracksReducer.playlistTracks
     );

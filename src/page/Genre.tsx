@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store.ts';
 import { fetchGenre } from '../redux/genre/asyncAction.ts';
 
-import Category from '../components/Category.tsx';
+import Category from '../components/Genres/Category.tsx';
 import Playlist from '../components/Playlist/Playlist.tsx';
 import PlaylistSkeleton from '../components/Playlist/PlaylistSkeleton.tsx';
 import GoBackNavigate from '../components/GoBackNavigate.tsx';

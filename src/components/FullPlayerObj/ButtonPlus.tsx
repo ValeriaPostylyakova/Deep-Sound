@@ -1,10 +1,13 @@
-import { FiPlus } from 'react-icons/fi';
-import { playerAction } from '../../redux/player/slice.ts';
-import { AppDispatch, RootState } from '../../redux/store.ts';
-import { useDispatch, useSelector } from 'react-redux';
-import { favoriteAction } from '../../redux/favorite/slice.ts';
-import AddedPlaylistModal from './AddedPlaylistModal.tsx';
 import * as React from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store.ts';
+import { playerAction } from '../../redux/player/slice.ts';
+import { favoriteAction } from '../../redux/favorite/slice.ts';
+
+import PlusPlaylistModal from './PlusPlaylistModal.tsx';
+
+import { FiPlus } from 'react-icons/fi';
 
 const ButtonPlus = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -58,7 +61,7 @@ const ButtonPlus = () => {
             <button ref={plusRef} onClick={onClickAddedSong}>
                 <FiPlus className="player__left-button" />
             </button>
-            {addedSong && <AddedPlaylistModal obj={undefined}/>}
+            {addedSong && <PlusPlaylistModal/>}
         </>
     );
 };

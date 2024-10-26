@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store.ts';
 
 import GoBack from '../components/GoBack.tsx';
-import GenresBlock from '../components/GenresBlock/GenresBlock.tsx';
+import GenresBlock from '../components/Genres/GenresBlock.tsx';
 import * as React from 'react';
 
 const Genres = () => {

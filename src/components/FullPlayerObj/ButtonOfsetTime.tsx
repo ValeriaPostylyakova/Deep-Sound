@@ -1,9 +1,8 @@
-import { TbRewindForward10 } from 'react-icons/tb';
 import * as React from 'react';
-import { MutableRefObject } from 'react';
+import { TbRewindForward10 } from 'react-icons/tb';
 
 type ButtonOfsetTimeProps = {
-    audioRef: MutableRefObject<HTMLAudioElement | null>
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>
 }
 
 const ButtonOfsetTime: React.FC<ButtonOfsetTimeProps> = ({ audioRef }) => {

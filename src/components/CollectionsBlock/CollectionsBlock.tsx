@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { AppDispatch } from '../redux/store.ts';
+
+import { AppDispatch } from '../../redux/store.ts';
 import { useDispatch } from 'react-redux';
-import { collectionsAction } from '../redux/collections/slice.ts';
-import { collectionAction } from '../redux/collection/slice.ts';
+
+import { collectionsAction } from '../../redux/collections/slice.ts';
+import { collectionAction } from '../../redux/collection/slice.ts';
 
 type CollectionBlockProps = {
     id: number;

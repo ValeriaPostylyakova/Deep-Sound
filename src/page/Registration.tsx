@@ -3,12 +3,15 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
-import InputBlockContainer from '../components/Registration/InputBlockContainer.tsx';
-import { AppDispatch } from '../redux/store.ts';
 import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store.ts';
 import { profileActions } from '../redux/profile/slice.ts';
+
 import { getResponseStatus } from '../utils/getResponseStatus.ts';
+import { getUser } from '../utils/getUser.ts';
+import InputBlockContainer from '../components/Registration/InputBlockContainer.tsx';
+
+import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
 
 export type FormValues = {
     firstName: string;
@@ -38,8 +41,8 @@ const Registration: React.FC = () => {
             navigate('/Deep-Sound/');
             window.location.reload();
 
-            const userObj = JSON.parse(localStorage.getItem('user') || '');
-            dispatch(profileActions.setUser(userObj));
+            const user = getUser();
+            dispatch(profileActions.setUser(user.data));
         } catch (err) {
             console.error(err);
             alert('Пользователь зарегистрирован');

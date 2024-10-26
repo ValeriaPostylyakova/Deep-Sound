@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
-import { FaMusic } from 'react-icons/fa6';
 
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
+import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
 import { fetchCustomPlaylists } from '../../redux/createPlaylist/asyncAction.ts';
+
+import { getUser } from '../../utils/getUser.ts';
+import { FaMusic } from 'react-icons/fa6';
 
 const PlaylistBlock: React.FC = () => {
     const customPlaylists = useSelector(
@@ -18,8 +20,8 @@ const PlaylistBlock: React.FC = () => {
     );
 
     React.useEffect(() => {
+        const user = getUser();
         if (localStorage.getItem('user') !== null) {
-            const user = JSON.parse(localStorage.getItem('user') || '');
             dispatch(fetchCustomPlaylists(user.token));
         }
     }, [playlists]);
@@ -36,11 +38,6 @@ const PlaylistBlock: React.FC = () => {
                     </div>
                     <div className="sidebar__playlist_info">
                         <h3>{playlist.title}</h3>
-                        {/*<h4>*/}
-                        {/*    {playlistTracks.length <= 4*/}
-                        {/*        ? playlistTracks.length + ' трека'*/}
-                        {/*        : playlistTracks.length + ' треков'}*/}
-                        {/*</h4>*/}
                     </div>
                 </div>
             </div>

@@ -5,11 +5,10 @@ import { RootState } from '../../redux/store.ts';
 
 import { SongObj } from '../../redux/songs/types.ts';
 
-import AddedPlaylistModal from './AddedPlaylistModal.tsx';
-
 import ButtonFavorite from './ButtonFavorite.tsx';
 import ButtonPlus from './ButtonPlus.tsx';
 import FavoriteModal from './FavoriteModal.tsx';
+import PlusPlaylistModal from './PlusPlaylistModal.tsx';
 
 export type ButtonsFavoriteProps = {
     objFavorite: SongObj | undefined;
@@ -28,7 +27,7 @@ const ButtonsFavoritePlus: React.FC<ButtonsFavoriteProps> = ({
             <FavoriteModal />
             <div className="added__container">
                 <ButtonPlus />
-                {addedSong && <AddedPlaylistModal obj={objFavorite} />}
+                {addedSong && <PlusPlaylistModal obj={objFavorite} />}
             </div>
         </div>
     );

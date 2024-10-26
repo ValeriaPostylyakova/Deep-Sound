@@ -3,8 +3,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { SongObj } from '../../redux/songs/types.ts';
-
-import { IoPlaySkipForward } from 'react-icons/io5';
+import { playerAction } from '../../redux/player/slice.ts';
 
 import ButtonPlayPause from './ButtonPlayPause.tsx';
 import PlayerTracks from './PlayerTracks.tsx';
@@ -12,13 +11,16 @@ import PlayerVolume from './PlayerVolume.tsx';
 import ButtonsFavoritePlus from './ButtonsFavoritePlus.tsx';
 import ButtonOfsetTime from './ButtonOfsetTime.tsx';
 import ButtonRepeat from './ButtonRepeat.tsx';
-import { playerAction } from '../../redux/player/slice.ts';
+
+import { IoPlaySkipForward } from 'react-icons/io5';
+
 
 const Player: React.FC = () => {
     const audioRef = React.useRef<HTMLAudioElement | null>(null);
     const trackRef = React.useRef<HTMLDivElement | null>(null);
 
     const dispatch: AppDispatch = useDispatch();
+
     const activePlayer = useSelector(
         (state: RootState) => state.songsReducer.activePlayer
     );

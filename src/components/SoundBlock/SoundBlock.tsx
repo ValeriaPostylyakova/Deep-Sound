@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { SongObj } from '../../redux/songs/types.ts';
+
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
-import { songsAction } from '../../redux/songs/slice.ts';
 
+import { SongObj } from '../../redux/songs/types.ts';
+import { songsAction } from '../../redux/songs/slice.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';

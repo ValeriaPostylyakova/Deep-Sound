@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch } from '../redux/store.ts';
-import { RootState } from '../redux/store.ts';
+import { AppDispatch } from '../../redux/store.ts';
+import { RootState } from '../../redux/store.ts';
 
-import { CategoryArray } from '../redux/genres/types.ts';
-import { genreAction } from '../redux/genre/slice.ts';
+import { CategoryArray } from '../../redux/genres/types.ts';
+import { genreAction } from '../../redux/genre/slice.ts';
 
 const Category: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();

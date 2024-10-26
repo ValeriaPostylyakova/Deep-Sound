@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { fetchSongs } from '../redux/songs/asyncAction.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store.ts';
 import { SongObj } from '../redux/songs/types.ts';
+import { Genres } from '../redux/genres/types.ts';
+import { fetchSongs } from '../redux/songs/asyncAction.ts';
+import { fetchCollections } from '../redux/collections/asyncAction.ts';
+import { fetchGenres } from '../redux/genres/asyncAction.ts';
 
 import Title from '../components/Title.tsx';
 import SoundBlock from '../components/SoundBlock/SoundBlock.tsx';
-import GenresBlock from '../components/GenresBlock/GenresBlock.tsx';
-import CollectionsBlock from '../components/CollectionsBlock.tsx';
+import GenresBlock from '../components/Genres/GenresBlock.tsx';
+import CollectionsBlock from '../components/CollectionsBlock/CollectionsBlock.tsx';
 import SliderBlock from '../components/Slider/SliderBlock.tsx';
 import SoundBlockSkeleton from '../components/SoundBlock/SoundBlockSkeleton.tsx';
-import { fetchGenres } from '../redux/genres/asyncAction.ts';
-import GenresBlockSkeleton from '../components/GenresBlock/GenresBlockSkeleton.tsx';
-import { Genres } from '../redux/genres/types.ts';
-import { fetchCollections } from '../redux/collections/asyncAction.ts';
+import GenresBlockSkeleton from '../components/Genres/GenresBlockSkeleton.tsx';
 
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();

@@ -1,12 +1,16 @@
-import { IoMdClose } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store.ts';
-import { profileActions } from '../redux/profile/slice.ts';
 import * as React from 'react';
-import { GiExitDoor } from 'react-icons/gi';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store.ts';
+import { profileActions } from '../../redux/profile/slice.ts';
+import { FetchData } from '../../utils/getResponseStatus.ts';
+import { getUser } from '../../utils/getUser.ts';
+
+import { GiExitDoor } from 'react-icons/gi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { IoMdClose } from 'react-icons/io';
 
 const UserProfile = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -18,8 +22,8 @@ const UserProfile = () => {
 
     React.useEffect(() => {
         if (localStorage.getItem('user') !== null) {
-            const obj = JSON.parse(localStorage.getItem('user') || '');
-            dispatch(profileActions.setUser(obj.data));
+            const user = getUser();
+            dispatch(profileActions.setUser(user.data));
         }
     }, [dispatch]);
 
@@ -33,12 +37,21 @@ const UserProfile = () => {
         window.location.reload();
     };
 
+    const deleteProfile = async (user: FetchData) => {
+        try {
+            await axios.delete(
+                `https://985cc4acb156d262.mokky.dev/users/${user.data.id}`
+            );
+        } catch(err) {
+            console.error(err);
+            alert('Ошибка при удалении профиля');
+        }
+    }
+
     const onClickProfileDelete = async () => {
         if (localStorage.getItem('user') !== null) {
-            const obj = JSON.parse(localStorage.getItem('user') || '');
-            await axios.delete(
-                `https://985cc4acb156d262.mokky.dev/users/${obj.data.id}`
-            );
+            const user = getUser();
+            deleteProfile(user);
             onClickExit();
         }
     };

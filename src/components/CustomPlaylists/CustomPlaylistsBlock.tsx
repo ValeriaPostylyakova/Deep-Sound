@@ -1,7 +1,7 @@
-import { FaMusic } from 'react-icons/fa6';
 import * as React from 'react';
-import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
 import { Link } from 'react-router-dom';
+import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
+import { FaMusic } from 'react-icons/fa6';
 
 const CustomPlaylistsBlock: React.FC<CustomPlaylistObj> = ({
     title,

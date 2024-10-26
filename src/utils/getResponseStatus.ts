@@ -1,6 +1,6 @@
 import { FormValues } from '../page/Registration.tsx';
 
-type FetchData = {
+export type FetchData = {
     token: string;
     data: FormValues;
 };

@@ -1,13 +1,17 @@
 import * as React from 'react';
+
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store.ts';
+
 import { SongObj } from '../../redux/songs/types.ts';
 import { sliderAction } from '../../redux/sliderPlayer/slice.ts';
 import { playlistAction } from '../../redux/playlistPlayer/slice.ts';
 import { songsAction } from '../../redux/songs/slice.ts';
 import { playerAction } from '../../redux/player/slice.ts';
-import { AppDispatch } from '../../redux/store.ts';
-import { useDispatch } from 'react-redux';
-import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
+
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+
 
 const CustomSongBlock: React.FC<SongObj> = ({
     id,

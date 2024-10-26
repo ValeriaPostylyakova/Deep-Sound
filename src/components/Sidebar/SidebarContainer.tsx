@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { IoHome } from 'react-icons/io5';
-import { MdFavorite, MdPlaylistPlay } from 'react-icons/md';
+
 import CreatePlaylistButton from './CreatePlaylistButton.tsx';
 import PlaylistBlock from './PlaylistBlock.tsx';
+
+import { IoHome } from 'react-icons/io5';
+import { MdFavorite, MdPlaylistPlay } from 'react-icons/md';
 
 const SidebarContainer = () => {
     return (

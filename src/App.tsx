@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Header from './components/Header.tsx';
+import Header from './components/Header/Header.tsx';
 import Sidebar from './components/Sidebar/Sidebar.tsx';
 import Home from './page/Home.tsx';
 
@@ -9,16 +9,16 @@ import Chart from './page/Chart.tsx';
 import Genres from './page/Genres.tsx';
 import Collections from './page/Collections.tsx';
 import Favorite from './page/Favorite.tsx';
-import Player from './components/FullPlayer/Player.tsx';
-import PlayerSlider from './components/PlayerSlider.tsx';
+import Player from './components/FullPlayerObj/Player.tsx';
+import PlayerSlider from './components/PlayerArray/PlayerSlider.tsx';
 import Genre from './page/Genre.tsx';
-import PlayerPlaylist from './components/PlayerPlaylist.tsx';
+import PlayerPlaylist from './components/PlayerArray/PlayerPlaylist.tsx';
 import Collection from './page/Collection.tsx';
 import CustomPlaylists from './page/CustomPlaylists.tsx';
 import CreateCustomPlaylist from './page/CreateCustomPlaylist.tsx';
 
 import { useTheme } from './hooks/theme.ts';
-import PlayerCustomPlaylist from './components/PlayerCustomPlaylist.tsx';
+import PlayerCustomPlaylist from './components/PlayerArray/PlayerCustomPlaylist.tsx';
 import Registration from './page/Registration.tsx';
 import Authorization from './page/Authorization.tsx';
 

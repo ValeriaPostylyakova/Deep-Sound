@@ -2,10 +2,6 @@ import * as React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-import { RiPlayListLine } from 'react-icons/ri';
-import { MdOutlineModeEdit } from 'react-icons/md';
-import { FaPlay } from 'react-icons/fa6';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store.ts';
 import { createPlaylistAction } from '../../redux/createPlaylist/slice.ts';
@@ -17,8 +13,13 @@ import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts
 import { fetchPlaylistTracks } from '../../redux/createPlaylistTracks/asyncAction.ts';
 import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
 
+import { RiPlayListLine } from 'react-icons/ri';
+import { MdOutlineModeEdit } from 'react-icons/md';
+import { FaPlay } from 'react-icons/fa6';
+
 import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
 import { SongObj } from '../../redux/songs/types.ts';
+import { FetchData } from '../../utils/getResponseStatus.ts';
 
 type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
@@ -38,16 +39,15 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         (state: RootState) => state.createPlaylistReducer.actionBarActive
     );
 
+    const navigate = useNavigate();
+
     const id = window.location.pathname.slice(28);
+    const inputRef = React.useRef<HTMLInputElement | null>(null);
+    const buttonEditRef = React.useRef<HTMLButtonElement | null>(null);
 
     React.useEffect(() => {
         dispatch(fetchPlaylistTracks(id));
     }, [dispatch, id]);
-
-    const inputRef = React.useRef<HTMLInputElement | null>(null);
-    const buttonEditRef = React.useRef<HTMLButtonElement | null>(null);
-
-    const navigate = useNavigate();
 
     const HandleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(createPlaylistAction.setInputValue(event.target.value));
@@ -71,24 +71,27 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
         window.location.reload();
     };
 
-    const onClickDeletePlaylist = async () => {
-        dispatch(createPlaylistAction.setDeletePlaylist(true));
+    const deletePlaylist = async (obj: FetchData) => {
         try {
-            if (localStorage.getItem('user') !== null) {
-                const obj = JSON.parse(localStorage.getItem('user') || '');
-                await axios.delete(
-                    `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`,
-                    { headers: { Authorization: `Bearer ${obj.token}` } }
-                );
-                setTimeout(handleModal, 2000);
-            }
+            await axios.delete(
+                `https://985cc4acb156d262.mokky.dev/createPlaylist/${findObj?.id}`,
+                { headers: { Authorization: `Bearer ${obj.token}` } }
+            );
+            dispatch(createPlaylistAction.setDeletePlaylist(true));
         } catch (err) {
             console.error(err);
             alert(
                 'Ошибка при удалении плейлиста. Пожалуйста, перезагрузите страницу и попробуйте ещё раз'
             );
         }
-        dispatch(createPlaylistAction.setActionBarActive(false));
+    }
+
+    const onClickDeletePlaylist = () => {
+        if (localStorage.getItem('user') !== null) {
+            const obj = JSON.parse(localStorage.getItem('user') || '');
+            deletePlaylist(obj);
+            setTimeout(handleModal, 2000);
+        }
     };
 
     const onClickPlay = () => {

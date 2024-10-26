@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store.ts';
+import { profileActions } from '../../redux/profile/slice.ts';
+
+import UserProfile from '../Profile/UserProfile.tsx';
 import BurgerMenu from './BurgerMenu.tsx';
 import Search from './Search.tsx';
 
@@ -11,10 +16,6 @@ import { CiSearch } from 'react-icons/ci';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { IoClose } from 'react-icons/io5';
 import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store.ts';
-import { profileActions } from '../redux/profile/slice.ts';
-import UserProfile from './UserProfile.tsx';
 
 type HeaderProps = {
     theme: string;
