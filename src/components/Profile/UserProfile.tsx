@@ -57,33 +57,36 @@ const UserProfile = () => {
     };
 
     return (
-        <div className={userProfile ? 'user active' : 'user'}>
-            <div className="user__container">
-                <div className="user__top">
-                    <h1>Профиль</h1>
-                    <IoMdClose
-                        className="user__top_icon"
-                        onClick={onClickClose}
-                    />
-                </div>
-                <div className="user__info">
-                    <div>
-                        <p className="user__info_title">Имя:</p>
-                        <p>{user.firstName + ' ' + user.lastName}</p>
+        <div className="user__wrapper">
+            <div onClick={onClickClose} className={userProfile ? "user__blur" : ""}></div>
+            <div onClick={onClickClose} className={userProfile ? 'user active' : 'user'}>
+                <div className="user__container">
+                    <div className="user__top">
+                        <h1>Профиль</h1>
+                        <IoMdClose
+                            className="user__top_icon"
+                            onClick={onClickClose}
+                        />
                     </div>
-                    <div>
-                        <p className="user__info_title">Почта:</p>
-                        <p>{user.email}</p>
+                    <div className="user__info">
+                        <div>
+                            <p className="user__info_title">Имя:</p>
+                            <p>{user.firstName + ' ' + user.lastName}</p>
+                        </div>
+                        <div>
+                            <p className="user__info_title">Почта:</p>
+                            <p>{user.email}</p>
+                        </div>
                     </div>
+                    <button onClick={onClickExit} className="user__button">
+                        <GiExitDoor className="user__button_icon" />
+                        <p>Выход</p>
+                    </button>
+                    <button onClick={onClickProfileDelete} className="user__button">
+                        <RiDeleteBin6Line className="user__button_delete" />
+                        <p className="user__button_delete-text">Удалить аккаунт</p>
+                    </button>
                 </div>
-                <button onClick={onClickExit} className="user__button">
-                    <GiExitDoor className="user__button_icon" />
-                    <p>Выход</p>
-                </button>
-                <button onClick={onClickProfileDelete} className="user__button">
-                    <RiDeleteBin6Line className="user__button_delete" />
-                    <p className="user__button_delete-text">Удалить аккаунт</p>
-                </button>
             </div>
         </div>
     );

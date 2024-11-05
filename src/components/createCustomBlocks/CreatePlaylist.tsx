@@ -12,58 +12,39 @@ import { playerAction } from '../../redux/player/slice.ts';
 import { playlistTracksActions } from '../../redux/createPlaylistTracks/slice.ts';
 import { fetchPlaylistTracks } from '../../redux/createPlaylistTracks/asyncAction.ts';
 import { CustomPlaylistObj } from '../../redux/createPlaylist/types.ts';
-
-import { RiPlayListLine } from 'react-icons/ri';
-import { MdOutlineModeEdit } from 'react-icons/md';
-import { FaPlay } from 'react-icons/fa6';
-
-import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
 import { SongObj } from '../../redux/songs/types.ts';
 import { FetchData } from '../../utils/getResponseStatus.ts';
 
-type CreatePlaylistProps = {
+import ActiveBarPlaylist from './ActiveBarPlaylist.tsx';
+import PlaylistName from './PlaylistName.tsx';
+
+import { RiPlayListLine } from 'react-icons/ri';
+import { FaPlay } from 'react-icons/fa6';
+
+export type CreatePlaylistProps = {
     findObj: CustomPlaylistObj | undefined;
 };
 
 const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const inputValue = useSelector(
-        (state: RootState) => state.createPlaylistReducer.inputValue
-    );
     const playlistTracks = useSelector(
         (state: RootState) => state.playlistTracksReducer.playlistTracks
     );
-
     const actionBarActive = useSelector(
         (state: RootState) => state.createPlaylistReducer.actionBarActive
     );
 
     const navigate = useNavigate();
-
     const id = window.location.pathname.slice(28);
-    const inputRef = React.useRef<HTMLInputElement | null>(null);
-    const buttonEditRef = React.useRef<HTMLButtonElement | null>(null);
 
     React.useEffect(() => {
         dispatch(fetchPlaylistTracks(id));
-    }, [dispatch, id]);
 
-    const HandleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(createPlaylistAction.setInputValue(event.target.value));
-    };
-
-    const HandleMouseEnter = () => {
-        if (buttonEditRef.current) {
-            buttonEditRef.current.style.display = 'block';
+        if (findObj) {
+            dispatch(createPlaylistAction.setInputValue(findObj.title));
         }
-    };
-
-    const HandleMouseLeave = () => {
-        if (buttonEditRef.current) {
-            buttonEditRef.current.style.display = 'none';
-        }
-    };
+    }, [dispatch, id, findObj?.title]);
 
     const handleModal = () => {
         dispatch(createPlaylistAction.setDeletePlaylist(false));
@@ -84,7 +65,7 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
                 'Ошибка при удалении плейлиста. Пожалуйста, перезагрузите страницу и попробуйте ещё раз'
             );
         }
-    }
+    };
 
     const onClickDeletePlaylist = () => {
         if (localStorage.getItem('user') !== null) {
@@ -111,24 +92,7 @@ const CreatePlaylist: React.FC<CreatePlaylistProps> = ({ findObj }) => {
                     <RiPlayListLine className="custom__images-icon" />
                 </div>
                 <div className="custom__container-2">
-                    <div className="custom__container-2_edit">
-                        <input
-                            className="enter"
-                            ref={inputRef}
-                            onChange={HandleChangeInput}
-                            type="text"
-                            value={inputValue}
-                            onMouseEnter={HandleMouseEnter}
-                            onMouseLeave={HandleMouseLeave}
-                        />
-                        <button
-                            ref={buttonEditRef}
-                            className="custom__container-2_edit-button"
-                        >
-                            <MdOutlineModeEdit className="custom__container-2_edit-icon" />
-                        </button>
-                    </div>
-
+                    <PlaylistName findObj={findObj} />
                     <div className="custom__container-2_bottom">
                         <button
                             onClick={onClickPlay}

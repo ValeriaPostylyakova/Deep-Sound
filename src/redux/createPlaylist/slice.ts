@@ -5,12 +5,12 @@ import { fetchCustomPlaylists } from './asyncAction.ts';
 
 const initialState: CreatePlaylistState = {
     inputValue: 'Новый плейлист',
+    inputName: 'Новый плейлист',
     actionBarActive: false,
     playlists: [],
     customPlaylists: [],
     parentId: '',
     deletePlaylist: null,
-    modalActive: false,
     status: Status.LOADING,
 };
 
@@ -20,6 +20,9 @@ const createPlaylist = createSlice({
     reducers: {
         setInputValue(state, action: PayloadAction<string>) {
             state.inputValue = action.payload;
+        },
+        setInputName(state, action: PayloadAction<string>) {
+            state.inputName = action.payload;
         },
         setActionBarActive(state, action: PayloadAction<boolean>) {
             state.actionBarActive = action.payload;
@@ -32,9 +35,6 @@ const createPlaylist = createSlice({
         },
         setDeletePlaylist(state, action: PayloadAction<boolean>) {
             state.deletePlaylist = action.payload;
-        },
-        setModalActive(state, action: PayloadAction<boolean>) {
-            state.modalActive = action.payload;
         },
     },
 

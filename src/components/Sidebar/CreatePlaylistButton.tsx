@@ -28,11 +28,11 @@ const CreatePlaylistButton = () => {
                     data: obj,
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
-            } catch(err) {
+            } catch (err) {
                 console.error(err);
                 alert('Ошибка при создании плейлиста');
             }
-        }
+        };
 
         if (localStorage.getItem('user') !== null) {
             const user = getUser();
