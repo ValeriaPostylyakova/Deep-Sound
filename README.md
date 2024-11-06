@@ -1,50 +1,85 @@
-# React + TypeScript + Vite
+# Deep-Sound
+![Deep-Sound-light](/public/Deep-Sound-light.png)
+![Deep-Sound-dark](/public/Deep-Sound-dark.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание проекта
+Веб-приложение музыки, дизайн и изображения взяты из веб-приложения МТС-музыка.
+Проект включает в себя следующие функции:
+- прослушивание треков в слайдере
+- прослушивание треков в чарте
+- прослушивание плейлистов по жанрам и подборкам
+- переключение треков
+- зацикливание трека
+- увеличение/уменьшение громкости
+- перемотка времени трека
+- добавление треков в закладки
+- удаление треков из закладок
+- создание своих плейлистов
+- добавление треков в свои плейлисты
+- удаление треков из своих плейлистов
+- изменение названия своих плейлистов
+- удаление своих плейлистов
+- регистрация
+- авторизация
+- выход/удаление профиля
+- смена темы (светлая/тёмная)
 
-Currently, two official plugins are available:
+## Технологии
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Backend
++ MOKKY.DEV - сервис генерации REST API
 
-## Expanding the ESLint configuration
+### Frontend
++ ReactJS - библиотека для создания пользовательских интерфейсов
++ TypeScript - строго типизированный язык программирования, построенный на JavaScript
++ Redux Toolkit - инструмент для управления состоянием данных и пользовательским интерфейсом
++ React Router v6 - библиотека для навигации по проекту
++ Axios - библиотека для выполнения HTTP-запросов
++ React Hooks - useEffect, useState, useRef, useCallback
++ SASS (SCSS) - метаязык на основе CSS
++ React Hook Form - библиотека для валидации формы
++ Swiper - библиотека для создания слайдера
++ React Content Loader - библиотека для создания скелетонов
++ Code Splitting - разделение кода
++ Prettier - инструмент для автоформатирования кода
++ React Icons - подключаемые иконки
++ Vite - инструмент сборки
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Установка и запуск
+### Инструкция по установке
 
-- Configure the top-level `parserOptions` property like this:
+1. Склонируйте репозиторий
+```git
+git config --global http.postBuffer 524288000
+```
+```git
+https://github.com/ValeriaPostylyakova/Deep-Sound.git
+```
+Или скачайте репозиторий в виде **Deep-Sound-main.zip**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+2. Перейдите в директорию проекта
+```git 
+cd Deep-Sound
+```
+3. Установите пакеты
+```git
+yarn install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+4. Запустите локальный сервер
+```git
+yarn dev
 ```
+
+## Использование
+После запуска будет доступен следующий функционал: прослушивание треков, добавление треков в закладки, переключение темы. 
+
+Для того, чтобы создавать свои плейлисты, необходимо пройти регистрацию или авторизоваться на сайте.
+
+После регистрации будет доступен весь функционал приложения
+
+## Лицензия
+Приложение распространяется по лицензии [Apache License 2.0.](https://github.com/ValeriaPostylyakova/React-Pizza/blob/main/LICENSE)
+
+## Авторы проекта
++ Valeria Postylyakova - разработчик приложения

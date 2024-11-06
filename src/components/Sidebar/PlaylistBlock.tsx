@@ -20,8 +20,8 @@ const PlaylistBlock: React.FC = () => {
     );
 
     React.useEffect(() => {
-        const user = getUser();
         if (localStorage.getItem('user') !== null) {
+            const user = getUser();
             dispatch(fetchCustomPlaylists(user.token));
         }
     }, [playlists]);
