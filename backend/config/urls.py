@@ -5,9 +5,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/auth/", include("apps.authentication.urls")),
-    path("api/v1/music/", include("apps.music.urls")),
-    path("api/v1/artists/", include("apps.artists.urls")),
+    path("api/v1/auth/", include("apps.authentication.api.urls")),
+    path("api/v1/music/", include("apps.music.api.urls")),
+    path("api/v1/artists/", include("apps.artists.api.urls")),
 ]
 
 if settings.DEBUG:

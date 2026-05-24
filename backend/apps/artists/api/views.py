@@ -2,9 +2,11 @@ from django.db import transaction
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 
-from ..authentication.permissions import IsArtist
-from .models import Artist
-from .serializers import ArtistProfileReadSerializer, ArtistProfileWriteSerializer
+from apps.artists.models import Artist
+from apps.authentication.api.permissions import IsArtist
+
+from .serializers.read import ArtistProfileReadSerializer
+from .serializers.write import ArtistProfileWriteSerializer
 
 
 class ArtistProfileViewSet(viewsets.ModelViewSet):

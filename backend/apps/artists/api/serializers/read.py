@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from ..music.serializers import PlaylistReadSerializer, TrackReadSerializer
-from .models import Artist
+from apps.artists.models import Artist
+from apps.music.api.serializers.playlist.read import PlaylistReadSerializer
+from apps.music.api.serializers.tracks.read import TrackReadSerializer
 
 
 class ArtistProfileReadSerializer(serializers.ModelSerializer):
@@ -25,18 +26,3 @@ class ArtistProfileReadSerializer(serializers.ModelSerializer):
             "updated_at",
         )
         read_only_fields = ("id", "created_at", "updated_at")
-
-
-class ArtistProfileWriteSerializer(serializers.ModelSerializer):
-    avatar = serializers.ImageField(required=False)
-
-    class Meta:
-        model = Artist
-        fields = ("id", "name", "avatar", "bio")
-
-    def validate_name(self, value):
-        if len(value) < 3:
-            raise serializers.ValidationError(
-                "Слишком короткое имя. Минимальная длина - 3 символа."
-            )
-        return value

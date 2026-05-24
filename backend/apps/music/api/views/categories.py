@@ -1,12 +1,8 @@
 from rest_framework import permissions, viewsets
 
-from ..authentication.permissions import IsModerator
-from .models import Category, Playlist, Track
-from .permissions import IsOwnerOrReadOnly
-from .serializers import (
-    CetegoryReadSerializer,
-    PlaylistReadSerializer,
-)
+from apps.music.models import Category
+
+from ..serializers.categories.read import CetegoryReadSerializer
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):

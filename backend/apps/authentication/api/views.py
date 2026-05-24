@@ -5,14 +5,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import (
-    LoginSerializer,
-    RegisterSerializer,
-    UserLoginReadSerializer,
-    UserReadSerializer,
-    UserWriteSerializer,
-)
-from .tasks import send_email_welcome
+from ..api.serializers.login import LoginSerializer
+from ..api.serializers.read import UserLoginReadSerializer, UserReadSerializer
+from ..api.serializers.register import RegisterSerializer
+from ..api.serializers.write import UserWriteSerializer
+from ..tasks.email import send_email_welcome
 
 User = get_user_model()
 

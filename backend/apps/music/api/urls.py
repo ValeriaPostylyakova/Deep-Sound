@@ -1,9 +1,9 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import ArtistProfileViewSet
+from .views.categories import CategoryViewSet
 
 router = DefaultRouter()
 
-router.register("", ArtistProfileViewSet)
+router.register("categories", CategoryViewSet)
 
 urlpatterns = router.urls
