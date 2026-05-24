@@ -1,11 +1,13 @@
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/auth/', include('apps.authentication.urls')),
+    path("admin/", admin.site.urls),
+    path("api/v1/auth/", include("apps.authentication.urls")),
+    path("api/v1/music/", include("apps.music.urls")),
+    path("api/v1/artists/", include("apps.artists.urls")),
 ]
 
 if settings.DEBUG:
