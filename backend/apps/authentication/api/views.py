@@ -5,11 +5,18 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..api.serializers.login import LoginSerializer
-from ..api.serializers.read import UserLoginReadSerializer, UserReadSerializer
-from ..api.serializers.register import RegisterSerializer
-from ..api.serializers.write import UserWriteSerializer
-from ..tasks.email import send_email_welcome
+from ..tasks.email import send_change_password, send_email_welcome
+from .serializers.login import LoginSerializer
+from .serializers.read import UserLoginReadSerializer, UserReadSerializer
+from .serializers.register import RegisterSerializer
+from .serializers.write import (
+    ChangePasswordWriteSerializer,
+    ForgotPasswordWriteSerializer,
+    ResetPasswordWriteSerializer,
+    UserWriteSerializer,
+)
+from .services.password_reset import forgot_password, reset_password
+from .utils.utils import current_device_info
 
 User = get_user_model()
 
@@ -45,7 +52,7 @@ class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data)
+        serializer = LoginSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
 
@@ -78,7 +85,9 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer = self.get_serializer(
+            instance, data=request.data, partial=True, context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
@@ -111,4 +120,71 @@ def logout(request):
                 "error_details": str(e),
             },
             status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+class ForgotPasswordView(APIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ForgotPasswordWriteSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        forgot_password(serializer.validated_data["user"])
+
+        return Response(
+            {"message": "Письмо успешно отправлено на почту"}, status=status.HTTP_200_OK
+        )
+
+
+class ResetPasswordView(APIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ResetPasswordWriteSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        success = reset_password(
+            serializer.validated_data["token"], serializer.validated_data["password"]
+        )
+
+        if success:
+            return Response(
+                {"message": "Пароль успешно изменен"}, status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"message": "Токен не действителен"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+class ChangePasswordView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ChangePasswordWriteSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            data=request.data, context={"request": request}
+        )
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+
+            current_device = current_device_info(request)
+
+            send_change_password.delay(
+                request.user.email,
+                request.user.username,
+                current_device["current_time"],
+                current_device["ip_address"],
+                current_device["device_info"],
+            )
+
+            return Response(
+                {"message": "Пароль успешно изменен"}, status=status.HTTP_200_OK
+            )
+
+        return Response(
+            {"message": "Токен не действителен"}, status=status.HTTP_400_BAD_REQUEST
         )

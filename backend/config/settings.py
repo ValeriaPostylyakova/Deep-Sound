@@ -29,6 +29,7 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "django_user_agents",
 ]
 
 LOCAL_APPS = ["apps.authentication", "apps.artists", "apps.music"]
@@ -43,6 +44,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_user_agents.middleware.UserAgentMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -135,6 +137,7 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.MultiPartParser",
         "rest_framework.parsers.FormParser",
     ],
+    "EXCEPTION_HANDLER": "config.utils.custom_exception_handler",
 }
 
 
@@ -212,6 +215,8 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Europe/Moscow"
 
+CELERY_IMPORTS = ("apps.authentication.tasks",)
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -237,3 +242,7 @@ TEMPLATES = [
         },
     },
 ]
+
+PASSWORD_RESET_TTL = 60 * 10
+
+FRONTEND_URL = "http://localhost:5173"
