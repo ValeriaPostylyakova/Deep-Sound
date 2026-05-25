@@ -30,9 +30,10 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "django_user_agents",
+    "easy_thumbnails",
 ]
 
-LOCAL_APPS = ["apps.authentication", "apps.artists", "apps.music"]
+LOCAL_APPS = ["apps.authentication", "apps.artists", "apps.music", "apps.profiles"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -215,7 +216,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Europe/Moscow"
 
-CELERY_IMPORTS = ("apps.authentication.tasks",)
+CELERY_IMPORTS = ("apps.authentication.tasks", "apps.profiles.tasks")
 
 CACHES = {
     "default": {
@@ -246,3 +247,23 @@ TEMPLATES = [
 PASSWORD_RESET_TTL = 60 * 10
 
 FRONTEND_URL = "http://localhost:5173"
+
+THUMBNAIL_ALIASES = {
+    "": {
+        "avatar_small": {
+            "size": (64, 64),
+            "crop": True,
+            "quality": 80,
+        },
+        "avatar_medium": {
+            "size": (128, 128),
+            "crop": True,
+            "quality": 85,
+        },
+        "avatar_large": {
+            "size": (256, 256),
+            "crop": True,
+            "quality": 90,
+        },
+    },
+}

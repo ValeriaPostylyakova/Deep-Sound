@@ -6,14 +6,13 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..tasks.email import send_change_password, send_email_welcome
-from .serializers.login import LoginSerializer
-from .serializers.read import UserLoginReadSerializer, UserReadSerializer
-from .serializers.register import RegisterSerializer
+from .serializers.read import LoginReadSerializer
 from .serializers.write import (
     ChangePasswordWriteSerializer,
     ForgotPasswordWriteSerializer,
+    LoginWriteSerializer,
+    RegisterWriteSerializer,
     ResetPasswordWriteSerializer,
-    UserWriteSerializer,
 )
 from .services.password_reset import forgot_password, reset_password
 from .utils.utils import current_device_info
@@ -23,7 +22,7 @@ User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = RegisterSerializer
+    serializer_class = RegisterWriteSerializer
     permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
@@ -37,7 +36,7 @@ class RegisterView(generics.CreateAPIView):
 
         return Response(
             {
-                "user": RegisterSerializer(user).data,
+                "user": RegisterWriteSerializer(user).data,
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "message": "Регистрация прошла успешно",
@@ -46,53 +45,28 @@ class RegisterView(generics.CreateAPIView):
         )
 
 
-class LoginView(APIView):
-    queryset = User.objects.all()
-    serializer_class = LoginSerializer
+class LoginView(generics.GenericAPIView):
+    serializer_class = LoginWriteSerializer
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data, context={"request": request})
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data["user"]
 
+        user = serializer.validated_data["user"]
         login(request, user)
+
         refresh = RefreshToken.for_user(user)
 
         return Response(
             {
-                "user": UserLoginReadSerializer(user).data,
+                "user": LoginReadSerializer(user).data,
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "message": "Авторизация прошла успешно",
             },
             status=status.HTTP_200_OK,
         )
-
-
-class ProfileView(generics.RetrieveUpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserReadSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_serializer_class(self):
-        if self.request.method == "PATCH":
-            return UserWriteSerializer
-        return UserReadSerializer
-
-    def get_object(self):
-        return self.request.user
-
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(
-            instance, data=request.data, partial=True, context={"request": request}
-        )
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        response_serializer = UserReadSerializer(self.get_object())
-        return Response(response_serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -156,7 +130,10 @@ class ResetPasswordView(APIView):
             )
         else:
             return Response(
-                {"message": "Токен не действителен"}, status=status.HTTP_400_BAD_REQUEST
+                {
+                    "message": "Токен не действителен. Отправьте новый запрос на изменение пароля и попробуйте еще раз."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
 

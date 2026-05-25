@@ -55,7 +55,7 @@ def send_reset_password(email, link):
     msg.send()
 
 
-@shared_task(name="auth.send_security_notification", ignore_result=True)
+@shared_task(name="auth.send_change_password", ignore_result=True)
 def send_change_password(user_email, username, event_time, ip_address, device_info):
     html_content = render_to_string(
         "emails/change_password.html",

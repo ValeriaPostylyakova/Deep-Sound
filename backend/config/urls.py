@@ -8,6 +8,7 @@ urlpatterns = [
     path("api/v1/auth/", include("apps.authentication.api.urls")),
     path("api/v1/music/", include("apps.music.api.urls")),
     path("api/v1/artists/", include("apps.artists.api.urls")),
+    path("api/v1/profiles/", include("apps.profiles.api.urls")),
 ]
 
 if settings.DEBUG:

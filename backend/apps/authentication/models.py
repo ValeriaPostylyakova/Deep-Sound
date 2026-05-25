@@ -11,11 +11,11 @@ class User(AbstractUser):
         ("modarator", "moderator"),
     ]
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    first_name = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=150, blank=True, null=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
-    avatar = models.ImageField(upload_to="avatars/", null=True, blank=True)
+    avatar = models.ImageField(upload_to="avatars/users/", null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
 
