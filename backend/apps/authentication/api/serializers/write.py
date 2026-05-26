@@ -3,7 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 
-from ..utils.utils import generate_username_from_email
+from ..utils.generate_username_from_email import generate_username_from_email
 
 User = get_user_model()
 

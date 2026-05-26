@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
-from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
+
+from apps.common.utils.get_avatar_url import get_avatar_url
 
 User = get_user_model()
 
@@ -33,46 +34,10 @@ class ProfileReadSerializer(serializers.ModelSerializer):
         return obj.get_full_name
 
     def get_avatar_small(self, obj):
-        if not obj.avatar:
-            return None
-
-        return (
-            get_thumbnailer(obj.avatar)
-            .get_thumbnail(
-                {
-                    "size": (64, 64),
-                    "crop": True,
-                }
-            )
-            .url
-        )
+        get_avatar_url(obj, 64)
 
     def get_avatar_medium(self, obj):
-        if not obj.avatar:
-            return None
-
-        return (
-            get_thumbnailer(obj.avatar)
-            .get_thumbnail(
-                {
-                    "size": (128, 128),
-                    "crop": True,
-                }
-            )
-            .url
-        )
+        get_avatar_url(obj, 128)
 
     def get_avatar_large(self, obj):
-        if not obj.avatar:
-            return None
-
-        return (
-            get_thumbnailer(obj.avatar)
-            .get_thumbnail(
-                {
-                    "size": (256, 256),
-                    "crop": True,
-                }
-            )
-            .url
-        )
+        get_avatar_url(obj, 256)

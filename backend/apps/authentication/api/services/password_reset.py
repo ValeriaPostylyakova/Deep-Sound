@@ -1,9 +1,9 @@
-from apps.authentication.tasks.email import send_reset_password
+from apps.authentication.tasks.send_reset_password import send_reset_password
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 
-from ..utils.utils import generate_resed_password_token, hash_token
+from ..utils.generate_tokens import generate_resed_password_token, hash_token
 
 User = get_user_model()
 

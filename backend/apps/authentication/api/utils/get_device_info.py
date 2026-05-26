@@ -1,28 +1,7 @@
-import hashlib
-import re
-import secrets
-
 from django.utils import timezone
 
 
-def generate_username_from_email(email):
-    base = email.split("@")[0].lower()
-    base = re.sub(r"[^a-z0-9]", "", base)
-    base = base if base else "user"
-
-    random_suffix = secrets.randbelow(9000) + 1000
-    return f"{base}_{random_suffix}"
-
-
-def generate_resed_password_token():
-    return secrets.token_urlsafe(48)
-
-
-def hash_token(token):
-    return hashlib.sha256(token.encode("utf-8")).hexdigest()
-
-
-def current_device_info(request):
+def get_device_info(request):
     current_time = timezone.now().strftime("%d.%m.%Y %H:%M:%S %Z")
 
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")

@@ -3,7 +3,7 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 
 from apps.artists.models import Artist
-from apps.authentication.api.permissions import IsArtist
+from apps.common.permissions import IsArtist
 
 from .serializers.read import ArtistProfileReadSerializer
 from .serializers.write import ArtistProfileWriteSerializer

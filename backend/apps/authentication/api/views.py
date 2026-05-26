@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..tasks.email import send_change_password, send_email_welcome
+from ..tasks.send_change_password import send_change_password
+from ..tasks.send_email_welcome import send_email_welcome
 from .serializers.read import LoginReadSerializer
 from .serializers.write import (
     ChangePasswordWriteSerializer,
@@ -15,7 +16,7 @@ from .serializers.write import (
     ResetPasswordWriteSerializer,
 )
 from .services.password_reset import forgot_password, reset_password
-from .utils.utils import current_device_info
+from .utils.get_device_info import get_device_info
 
 User = get_user_model()
 
@@ -148,7 +149,7 @@ class ChangePasswordView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
-            current_device = current_device_info(request)
+            current_device = get_device_info(request)
 
             send_change_password.delay(
                 request.user.email,
