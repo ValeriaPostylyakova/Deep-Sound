@@ -47,7 +47,7 @@ class Track(models.Model):
     image = models.ImageField(upload_to="tracks/images/")
     title = models.CharField(max_length=100, unique=True)
     audio = models.FileField(upload_to="tracks/audio/")
-    duration = models.IntegerField()
+    duration = models.IntegerField(default=0)
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
     rejection_message = models.TextField(blank=True, null=True)

@@ -217,7 +217,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Europe/Moscow"
 
-CELERY_IMPORTS = ("apps.authentication.tasks", "apps.common.tasks")
+CELERY_IMPORTS = "apps.authentication.tasks"
 
 CACHES = {
     "default": {

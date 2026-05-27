@@ -1,6 +1,7 @@
-from rest_framework import permissions, viewsets
+from rest_framework import status, viewsets
+from rest_framework.response import Response
 
-from apps.common.permissions import IsArtist
+from apps.common.permissions import IsOwner, IsOwnerOrReadOnly
 from apps.music.api.serializers.playlist.read import PlaylistReadSerializer
 from apps.music.api.serializers.playlist.write import (
     PlaylistArtistWriteSerializer,
@@ -9,33 +10,48 @@ from apps.music.api.serializers.playlist.write import (
 from apps.music.models import Playlist
 
 
-class UserPlaylistViewSet(viewsets.ModelViewSet):
+class BasePlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all().order_by("-created_at")
-    permissions_classes = [permissions.IsAuthenticated]
     serializer_class = PlaylistReadSerializer
+
+    playlist_type = None
+    write_serializer_class = None
 
     def get_queryset(self):
         user = self.request.user
-        return Playlist.objects.filter(
-            author=user, type="user", status="draft", is_official=False
+        return Playlist.objects.filter(author=user, type=self.playlist_type)
+
+    def get_serializer_class(self):
+        if self.request.method in ["PATCH", "POST"]:
+            return self.write_serializer_class
+        return self.serializer_class
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        instance.refresh_from_db()
+
+        response_serializer = self.serializer_class(
+            instance, context={"request": request}
         )
-
-    def get_serializer_class(self):
-        if self.request.method in ["PATCH", "POST"]:
-            return PlaylistUserWriteSerializer
-        return PlaylistReadSerializer
+        return Response(response_serializer.data, status=status.HTTP_200_OK)
 
 
-class ArtistPlaylistViewSet(viewsets.ModelViewSet):
-    queryset = Playlist.objects.all().order_by("-created_at")
-    permission_classes = [IsArtist]
-    serializer_class = PlaylistReadSerializer
+class UserPlaylistViewSet(BasePlaylistViewSet):
+    permissions_classes = [IsOwner]
+    playlist_type = "user"
+    write_serializer_class = PlaylistUserWriteSerializer
 
     def get_queryset(self):
-        user = self.request.user
-        return Playlist.objects.filter(author=user, type="artist")
+        return super().get_queryset().filter(status="draft", is_official=False)
 
-    def get_serializer_class(self):
-        if self.request.method in ["PATCH", "POST"]:
-            return PlaylistArtistWriteSerializer
-        return PlaylistReadSerializer
+
+class ArtistPlaylistViewSet(BasePlaylistViewSet):
+    permission_classes = [IsOwnerOrReadOnly]
+    playlist_type = "artist"
+    write_serializer_class = PlaylistArtistWriteSerializer
+
+    def get_queryset(self):
+        return super().get_queryset().filter(type="artist")

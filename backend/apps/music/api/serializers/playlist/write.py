@@ -8,6 +8,7 @@ User = get_user_model()
 
 
 class PlaylistUserWriteSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
     image = serializers.ImageField(required=False)
 
     category = serializers.PrimaryKeyRelatedField(
@@ -29,7 +30,7 @@ class PlaylistUserWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Playlist
-        fields = ("name", "image", "author", "category", "tracks")
+        fields = ("id", "name", "image", "author", "category", "tracks")
 
 
 class PlaylistArtistWriteSerializer(PlaylistUserWriteSerializer):
