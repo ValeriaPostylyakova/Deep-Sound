@@ -1,9 +1,18 @@
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from apps.artists.api.views import ArtistProfileViewSet
+from apps.artists.api.views import ArtistProfileViewSet, become_artist
 
 router = DefaultRouter()
 
 router.register("", ArtistProfileViewSet)
 
-urlpatterns = router.urls
+urlpatterns = [
+    path(
+        "become-artist/",
+        become_artist,
+        name="become-artist",
+    ),
+]
+
+urlpatterns += router.urls

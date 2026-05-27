@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..tasks.send_change_password import send_change_password
-from ..tasks.send_email_welcome import send_email_welcome
 from .serializers.read import LoginReadSerializer
 from .serializers.write import (
     ChangePasswordWriteSerializer,
@@ -32,8 +31,6 @@ class RegisterView(generics.CreateAPIView):
         user = serializer.save()
 
         refresh = RefreshToken.for_user(user)
-
-        send_email_welcome.delay(user.email, user.username)
 
         return Response(
             {
@@ -99,11 +96,8 @@ def logout(request):
 
 
 class ForgotPasswordView(APIView):
-    permission_classes = [permissions.AllowAny]
-    serializer_class = ForgotPasswordWriteSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+    def post(self, request):
+        serializer = ForgotPasswordWriteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         forgot_password(serializer.validated_data["user"])
@@ -114,11 +108,8 @@ class ForgotPasswordView(APIView):
 
 
 class ResetPasswordView(APIView):
-    permission_classes = [permissions.AllowAny]
-    serializer_class = ResetPasswordWriteSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+    def post(self, request):
+        serializer = ResetPasswordWriteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         success = reset_password(
@@ -140,13 +131,13 @@ class ResetPasswordView(APIView):
 
 class ChangePasswordView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = ChangePasswordWriteSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(
+    def post(self, request):
+        serializer = ChangePasswordWriteSerializer(
             data=request.data, context={"request": request}
         )
-        if serializer.is_valid(raise_exception=True):
+
+        if serializer.is_valid():
             serializer.save()
 
             current_device = get_device_info(request)

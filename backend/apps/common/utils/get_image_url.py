@@ -1,12 +1,12 @@
 from easy_thumbnails.files import get_thumbnailer
 
 
-def get_avatar_url(obj, size, crop=True):
-    if not obj.avatar:
+def get_image_url(avatar, size, crop=True):
+    if not avatar:
         return None
 
     return (
-        get_thumbnailer(obj.avatar)
+        get_thumbnailer(avatar)
         .get_thumbnail(
             {
                 "size": (size, size),

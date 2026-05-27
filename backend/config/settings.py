@@ -31,6 +31,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "django_user_agents",
     "easy_thumbnails",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 LOCAL_APPS = ["apps.authentication", "apps.artists", "apps.music", "apps.profiles"]
@@ -216,7 +217,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Europe/Moscow"
 
-CELERY_IMPORTS = ("apps.authentication.tasks", "apps.profiles.tasks")
+CELERY_IMPORTS = ("apps.authentication.tasks", "apps.common.tasks")
 
 CACHES = {
     "default": {

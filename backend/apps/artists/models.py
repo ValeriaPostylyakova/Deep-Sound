@@ -3,6 +3,8 @@ import uuid
 from django.conf import settings
 from django.db import models
 
+from apps.common.utils.optimize_image import optimize_image
+
 
 class Artist(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
@@ -22,3 +24,8 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.avatar and hasattr(self.avatar, "file"):
+            optimize_image(self)
+        super().save(*args, **kwargs)

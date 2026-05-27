@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 
+from apps.common.validators import validate_avatar
+
 User = get_user_model()
 
 
@@ -42,13 +44,4 @@ class ProfileWriteSerializer(serializers.ModelSerializer):
         return data
 
     def validate_avatar(self, avatar):
-        if avatar.size > 5 * 1024 * 1024:
-            raise serializers.ValidationError(
-                {"message": "Размер изображения не должен превышать 5 МБ."}
-            )
-
-        if avatar.content_type not in ["image/jpeg", "image/png", "image/webp"]:
-            raise serializers.ValidationError(
-                {"message": "Допустимые форматы изображений: JPEG, PNG, WEBP."}
-            )
-        return avatar
+        return validate_avatar(avatar)
