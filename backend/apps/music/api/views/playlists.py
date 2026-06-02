@@ -1,4 +1,5 @@
 from rest_framework import status, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.common.permissions import IsOwner, IsOwnerOrReadOnly
@@ -7,7 +8,7 @@ from apps.music.api.serializers.playlist.write import (
     PlaylistArtistWriteSerializer,
     PlaylistUserWriteSerializer,
 )
-from apps.music.models import Playlist
+from apps.music.models import Playlist, Track
 
 
 class BasePlaylistViewSet(viewsets.ModelViewSet):
@@ -37,6 +38,29 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
             instance, context={"request": request}
         )
         return Response(response_serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["POST"], url_path="add-track")
+    def add_track(self, request, pk=None):
+        playlist = self.get_object()
+        track_id = request.data.get("track_id")
+
+        try:
+            find_track = Track.objects.filter(id=track_id).first()
+
+            if not find_track:
+                return Response(
+                    {"message": "Такого трека не существует"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
+            playlist.tracks.add(find_track)
+            return Response(
+                {"message": "Трек успешно добавлен в плейлист"},
+                status=status.HTTP_200_OK,
+            )
+
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserPlaylistViewSet(BasePlaylistViewSet):

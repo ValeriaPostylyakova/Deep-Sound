@@ -110,7 +110,8 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / os.getenv("STATIC_ROOT", default="staticfiles")
 
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "http://localhost:9000/deep-sound/"
+
 MEDIA_ROOT = BASE_DIR / os.getenv("MEDIA_ROOT", default="media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -266,5 +267,26 @@ THUMBNAIL_ALIASES = {
             "crop": True,
             "quality": 90,
         },
+    },
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": "minioadmin",
+            "secret_key": "minioadmin",
+            "endpoint_url": "http://localhost:9000",
+            "bucket_name": "deep-sound",
+            # --- ОБЯЗАТЕЛЬНО ДОБАВИТЬ ДЛЯ MinIO ---
+            "use_ssl": False,
+            "verify": False,
+            "custom_domain": None,
+            "default_acl": None,
+            "querystring_auth": False,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }

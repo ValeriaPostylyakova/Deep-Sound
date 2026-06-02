@@ -36,28 +36,3 @@ class TrackReadSerializer(serializers.ModelSerializer):
 
     def get_image_large(self, obj):
         return get_image_url(obj.image, 200)
-
-
-class TrackWriteSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(required=False)
-    audio = serializers.FileField(required=True)
-
-    author = serializers.PrimaryKeyRelatedField(queryset=Track.objects.all())
-    category = serializers.PrimaryKeyRelatedField(queryset=Track.objects.all())
-
-    class Meta:
-        model = Track
-        fields = (
-            "title",
-            "image",
-            "audio",
-            "author",
-            "category",
-        )
-
-        read_only_fields = ("id", "created_at")
-
-    def validate_audio(self, value):
-        if not value.name.endswith(".mp3") and not value.name.endswith(".wav"):
-            raise serializers.ValidationError("The audio file must be mp3 or wav")
-        return value

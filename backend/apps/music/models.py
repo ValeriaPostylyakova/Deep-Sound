@@ -44,7 +44,7 @@ class Category(models.Model):
 
 class Track(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    image = models.ImageField(upload_to="tracks/images/")
+    image = models.ImageField(upload_to="tracks/images/", null=True, blank=True)
     title = models.CharField(max_length=100, unique=True)
     audio = models.FileField(upload_to="tracks/audio/")
     duration = models.IntegerField(default=0)
