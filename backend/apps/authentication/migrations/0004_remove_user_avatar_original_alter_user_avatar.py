@@ -6,17 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0003_remove_user_avatar_thumbnail_user_avatar_original_and_more'),
+        (
+            "authentication",
+            "0003_remove_user_avatar_thumbnail_user_avatar_original_and_more",
+        ),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='avatar_original',
+            model_name="user",
+            name="avatar_original",
         ),
         migrations.AlterField(
-            model_name='user',
-            name='avatar',
-            field=models.ImageField(blank=True, null=True, upload_to='avatars/users/'),
+            model_name="user",
+            name="avatar",
+            field=models.ImageField(blank=True, null=True, upload_to="avatars/users/"),
         ),
     ]

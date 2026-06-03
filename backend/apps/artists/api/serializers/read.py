@@ -2,8 +2,8 @@ from rest_framework import serializers
 
 from apps.artists.models import Artist
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.api.serializers.playlist.read import PlaylistReadSerializer
-from apps.music.api.serializers.tracks.read import TrackReadSerializer
+from apps.music.api.playlists.serializers.read import PlaylistReadSerializer
+from apps.music.api.tracks.serializers.read import TrackReadSerializer
 
 
 class ArtistProfileReadSerializer(serializers.ModelSerializer):

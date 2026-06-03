@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.api.serializers.playlist.read import PlaylistReadSerializer
+from apps.music.api.playlists.serializers.read import PlaylistReadSerializer
 
 User = get_user_model()
 

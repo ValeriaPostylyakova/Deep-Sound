@@ -8,25 +8,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music', '0001_initial'),
+        ("music", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='playlist',
-            name='is_official',
+            model_name="playlist",
+            name="is_official",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='playlist',
-            name='type',
-            field=models.CharField(choices=[('user', 'Плейлист пользователя'), ('artist', 'Плейлист исполнителя')], default='user', max_length=20),
+            model_name="playlist",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("user", "Плейлист пользователя"),
+                    ("artist", "Плейлист исполнителя"),
+                ],
+                default="user",
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
-            model_name='playlist',
-            name='author',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='playlists', to=settings.AUTH_USER_MODEL),
+            model_name="playlist",
+            name="author",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="playlists",
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
     ]

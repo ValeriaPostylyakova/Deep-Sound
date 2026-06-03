@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music', '0004_alter_playlist_tracks'),
+        ("music", "0004_alter_playlist_tracks"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='playlist',
-            name='category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='playlists', to='music.category'),
+            model_name="playlist",
+            name="category",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="playlists",
+                to="music.category",
+            ),
         ),
     ]

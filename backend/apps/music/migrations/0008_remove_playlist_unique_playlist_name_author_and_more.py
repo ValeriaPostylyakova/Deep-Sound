@@ -7,17 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music', '0007_alter_playlist_name_and_more'),
+        ("music", "0007_alter_playlist_name_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='playlist',
-            name='unique_playlist_name_author',
+            model_name="playlist",
+            name="unique_playlist_name_author",
         ),
         migrations.AddConstraint(
-            model_name='playlist',
-            constraint=models.UniqueConstraint(fields=('name', 'author', 'type', 'is_official'), name='unique_playlist_name_author'),
+            model_name="playlist",
+            constraint=models.UniqueConstraint(
+                fields=("name", "author", "type", "is_official"),
+                name="unique_playlist_name_author",
+            ),
         ),
     ]

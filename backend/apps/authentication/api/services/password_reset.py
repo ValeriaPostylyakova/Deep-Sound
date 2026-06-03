@@ -1,7 +1,8 @@
-from apps.authentication.tasks.send_reset_password import send_reset_password
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+
+from apps.authentication.tasks.send_reset_password import send_reset_password
 
 from ..utils.generate_tokens import generate_resed_password_token, hash_token
 

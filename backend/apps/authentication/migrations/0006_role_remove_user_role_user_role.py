@@ -6,24 +6,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0005_alter_user_first_name_alter_user_last_name'),
+        ("authentication", "0005_alter_user_first_name_alter_user_last_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Role',
+            name="Role",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(choices=[('user', 'Пользователь'), ('artist', 'Исполнитель'), ('modarator', 'Модератор')], max_length=20, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        choices=[
+                            ("user", "Пользователь"),
+                            ("artist", "Исполнитель"),
+                            ("modarator", "Модератор"),
+                        ],
+                        max_length=20,
+                        unique=True,
+                    ),
+                ),
             ],
         ),
         migrations.RemoveField(
-            model_name='user',
-            name='role',
+            model_name="user",
+            name="role",
         ),
         migrations.AddField(
-            model_name='user',
-            name='role',
-            field=models.ManyToManyField(default='user', related_name='users', to='authentication.role'),
+            model_name="user",
+            name="role",
+            field=models.ManyToManyField(
+                default="user", related_name="users", to="authentication.role"
+            ),
         ),
     ]

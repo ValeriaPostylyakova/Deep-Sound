@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music', '0005_alter_playlist_category'),
+        ("music", "0005_alter_playlist_category"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='playlist',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='playlists/'),
+            model_name="playlist",
+            name="image",
+            field=models.ImageField(blank=True, null=True, upload_to="playlists/"),
         ),
     ]

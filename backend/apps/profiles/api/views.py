@@ -3,7 +3,6 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import BlacklistedToken, OutstandingToken
 
-
 from .serializers.read import ProfileReadSerializer
 from .serializers.write import (
     ProfileWriteSerializer,

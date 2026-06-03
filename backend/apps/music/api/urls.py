@@ -1,8 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
-from .views.categories import CategoryViewSet
-from .views.playlists import ArtistPlaylistViewSet, UserPlaylistViewSet
-from .views.tracks import TrackViewSet
+from .categories.views import CategoryViewSet
+from .playlists.views import ArtistPlaylistViewSet, UserPlaylistViewSet
+from .tracks.views import TrackViewSet
 
 router = DefaultRouter()
 

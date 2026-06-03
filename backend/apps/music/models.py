@@ -1,5 +1,4 @@
 import uuid
-from typing import Iterable
 
 from django.conf import settings
 from django.db import models
@@ -9,8 +8,16 @@ from apps.common.utils.optimize_image import optimize_image
 
 from ..artists.models import Artist
 
-STATUS_CHOICES = [
+STATUS_CHOICES_PLAYLIST = [
     ("draft", "Черновик"),
+    ("pending", "На проверке"),
+    ("rejected", "Отклонено"),
+    ("published", "Опубликовано"),
+]
+
+STATUS_CHOICES_TRACK = [
+    ("waiting", "В ожидании"),
+    ("processing", "В обработке"),
     ("pending", "На проверке"),
     ("rejected", "Отклонено"),
     ("published", "Опубликовано"),
@@ -49,7 +56,9 @@ class Track(models.Model):
     audio = models.FileField(upload_to="tracks/audio/")
     duration = models.IntegerField(default=0)
 
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES_TRACK, default="waiting"
+    )
     rejection_message = models.TextField(blank=True, null=True)
 
     author = models.ForeignKey(
@@ -68,7 +77,9 @@ class Playlist(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to="playlists/", null=True, blank=True)
 
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES_PLAYLIST, default="draft"
+    )
     rejection_message = models.TextField(blank=True, null=True)
 
     category = models.ForeignKey(

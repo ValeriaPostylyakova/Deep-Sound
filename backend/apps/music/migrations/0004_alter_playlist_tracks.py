@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music', '0003_alter_category_options_alter_category_slug'),
+        ("music", "0003_alter_category_options_alter_category_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='playlist',
-            name='tracks',
-            field=models.ManyToManyField(blank=True, related_name='playlists', to='music.track'),
+            model_name="playlist",
+            name="tracks",
+            field=models.ManyToManyField(
+                blank=True, related_name="playlists", to="music.track"
+            ),
         ),
     ]

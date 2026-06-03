@@ -15,6 +15,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 DJANGO_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -32,11 +33,14 @@ THIRD_PARTY_APPS = [
     "django_user_agents",
     "easy_thumbnails",
     "django_cleanup.apps.CleanupConfig",
+    "channels",
 ]
 
 LOCAL_APPS = ["apps.authentication", "apps.artists", "apps.music", "apps.profiles"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+ASGI_APPLICATION = "config.asgi.application"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -274,10 +278,10 @@ STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
-            "access_key": "minioadmin",
-            "secret_key": "minioadmin",
+            "access_key": os.getenv("AWS_ACCESS_KEY"),
+            "secret_key": os.getenv("AWS_SECRET_KEY"),
             "endpoint_url": "http://localhost:9000",
-            "bucket_name": "deep-sound",
+            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME"),
             # --- ОБЯЗАТЕЛЬНО ДОБАВИТЬ ДЛЯ MinIO ---
             "use_ssl": False,
             "verify": False,
@@ -288,5 +292,14 @@ STORAGES = {
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "config": {
+            "hosts": [(os.getenv("REDIS_HOST"), os.getenv("REDIS_PORT"))],
+        },
     },
 }
