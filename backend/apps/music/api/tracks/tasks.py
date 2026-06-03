@@ -7,13 +7,19 @@ from pydub import AudioSegment
 
 from apps.music.models import Track
 
+from .services import send_track_update_to_user
+
 
 @shared_task
 def process_audio_track(track_id):
     try:
         track = Track.objects.get(id=track_id)
+        user_id = track.author.id
         track.status = "processing"
         track.save()
+
+        send_track_update_to_user(user_id, track.id, "processing")
+
         orig_ext = os.path.splitext(track.audio.name)[1].replace(".", "").lower()
 
         with tempfile.NamedTemporaryFile(
@@ -36,6 +42,7 @@ def process_audio_track(track_id):
 
         track.status = "pending"
         track.save()
+        send_track_update_to_user(user_id, track.id, "pending")
 
         os.remove(temp_orig_path)
         os.remove(temp_out_path)

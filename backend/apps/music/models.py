@@ -12,6 +12,7 @@ STATUS_CHOICES_PLAYLIST = [
     ("draft", "Черновик"),
     ("pending", "На проверке"),
     ("rejected", "Отклонено"),
+    ("approved", "Одобрено"),
     ("published", "Опубликовано"),
 ]
 
@@ -20,6 +21,7 @@ STATUS_CHOICES_TRACK = [
     ("processing", "В обработке"),
     ("pending", "На проверке"),
     ("rejected", "Отклонено"),
+    ("approved", "Одобрено"),
     ("published", "Опубликовано"),
 ]
 

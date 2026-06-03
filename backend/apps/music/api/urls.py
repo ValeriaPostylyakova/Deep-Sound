@@ -9,7 +9,7 @@ router = DefaultRouter()
 router.register("categories", CategoryViewSet, basename="categories")
 router.register("user-playlists", UserPlaylistViewSet, basename="user-playlists")
 router.register("artist-playlists", ArtistPlaylistViewSet, basename="artist-playlists")
-router.register("tracks", TrackViewSet, basename="tracks")
+router.register(r"tracks", TrackViewSet, basename="track")
 
 
 urlpatterns = router.urls
