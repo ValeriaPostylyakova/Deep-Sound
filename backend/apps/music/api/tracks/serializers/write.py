@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.artists.models import Artist
-from apps.music.models import Category, Track
+from apps.music.models import Album, Category, Track
 
 
 class TrackWriteSerializer(serializers.ModelSerializer):
@@ -12,6 +12,10 @@ class TrackWriteSerializer(serializers.ModelSerializer):
 
     author = serializers.PrimaryKeyRelatedField(queryset=Artist.objects.all())
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+
+    album = serializers.PrimaryKeyRelatedField(
+        queryset=Album.objects.all(), required=False
+    )
 
     class Meta:
         model = Track
@@ -24,6 +28,7 @@ class TrackWriteSerializer(serializers.ModelSerializer):
             "category",
             "status",
             "duration",
+            "album",
         )
 
         read_only_fields = ("id", "created_at", "duration", "status")

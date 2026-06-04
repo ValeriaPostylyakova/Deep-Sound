@@ -36,7 +36,13 @@ THIRD_PARTY_APPS = [
     "channels",
 ]
 
-LOCAL_APPS = ["apps.authentication", "apps.artists", "apps.music", "apps.profiles"]
+LOCAL_APPS = [
+    "apps.authentication",
+    "apps.artists",
+    "apps.music",
+    "apps.profiles",
+    "apps.moderation",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -222,7 +228,10 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Europe/Moscow"
 
-CELERY_IMPORTS = "apps.authentication.tasks"
+CELERY_IMPORTS = [
+    "apps.authentication.tasks",
+    "apps.music.tasks",
+]
 
 CACHES = {
     "default": {
@@ -298,8 +307,13 @@ STORAGES = {
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "config": {
-            "hosts": [(os.getenv("REDIS_HOST"), os.getenv("REDIS_PORT"))],
+        "CONFIG": {
+            "hosts": [
+                (
+                    os.getenv("REDIS_HOST", "127.0.0.1"),
+                    int(os.getenv("REDIS_PORT", 6379)),
+                )
+            ],
         },
     },
 }

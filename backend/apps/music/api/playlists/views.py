@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -43,25 +44,14 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["POST"], url_path="add-track")
     def add_track(self, request, pk=None):
         playlist = self.get_object()
-        track_id = request.data.get("track_id")
 
-        try:
-            find_track = Track.objects.filter(id=track_id).first()
+        track = get_object_or_404(Track, pk=pk)
 
-            if not find_track:
-                return Response(
-                    {"message": "Такого трека не существует"},
-                    status=status.HTTP_404_NOT_FOUND,
-                )
-
-            playlist.tracks.add(find_track)
-            return Response(
-                {"message": "Трек успешно добавлен в плейлист"},
-                status=status.HTTP_200_OK,
-            )
-
-        except Exception as e:
-            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        playlist.tracks.add(track)
+        return Response(
+            {"message": "Трек успешно добавлен в плейлист"},
+            status=status.HTTP_200_OK,
+        )
 
 
 class UserPlaylistViewSet(BasePlaylistViewSet):

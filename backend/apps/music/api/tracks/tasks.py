@@ -1,51 +1,34 @@
-import os
-import tempfile
-
 from celery import shared_task
-from django.core.files.base import ContentFile
-from pydub import AudioSegment
 
+from apps.authentication.models import User
+from apps.common.utils.convert_audio import convert_audio_to_mp3
 from apps.music.models import Track
 
-from .services import send_track_update_to_user
+from .services import send_new_track_to_moderator, send_track_update_to_user
 
 
-@shared_task
-def process_audio_track(track_id):
+@shared_task(name="music.process_track")
+def process_track(track_id, user_id):
     try:
         track = Track.objects.get(id=track_id)
-        user_id = track.author.id
+        user = User.objects.get(id=user_id)
+
         track.status = "processing"
-        track.save()
+        track.save(update_fields=["status"])
 
-        send_track_update_to_user(user_id, track.id, "processing")
+        send_track_update_to_user(user.id, track.id, "processing")
 
-        orig_ext = os.path.splitext(track.audio.name)[1].replace(".", "").lower()
+        mp3_file, duration = convert_audio_to_mp3(track.audio, track.audio.name)
 
-        with tempfile.NamedTemporaryFile(
-            suffix=f".{orig_ext}", delete=False
-        ) as temp_orig:
-            temp_orig.write(track.audio.read())
-            temp_orig_path = temp_orig.name
-
-        temp_out_path = temp_orig_path + "_converted.mp3"
-
-        audio = AudioSegment.from_file(temp_orig_path, format=orig_ext)
-
-        audio.export(temp_out_path, format="mp3", bitrate="192k")
-
-        track.duration = audio.duration_seconds
-
-        with open(temp_out_path, "rb") as f:
-            filename = f"track_{track.id}.mp3"
-            track.audio.save(filename, ContentFile(f.read()), save=False)
+        track.duration = duration
+        filename = f"track_{track.id}.mp3"
+        track.audio.save(filename, mp3_file, save=False)
 
         track.status = "pending"
-        track.save()
-        send_track_update_to_user(user_id, track.id, "pending")
+        track.save(update_fields=["status"])
 
-        os.remove(temp_orig_path)
-        os.remove(temp_out_path)
+        send_track_update_to_user(user.id, track.id, "pending")
+        send_new_track_to_moderator(track)
 
     except Exception as e:
         if "track" in locals():

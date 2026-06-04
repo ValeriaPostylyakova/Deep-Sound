@@ -16,7 +16,7 @@ STATUS_CHOICES_PLAYLIST = [
     ("published", "Опубликовано"),
 ]
 
-STATUS_CHOICES_TRACK = [
+STATUS_CHOICES_TRACK_ALBUM = [
     ("waiting", "В ожидании"),
     ("processing", "В обработке"),
     ("pending", "На проверке"),
@@ -51,6 +51,44 @@ class Category(models.Model):
         return self.name
 
 
+class Album(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="albums/", null=True, blank=True)
+
+    author = models.ForeignKey(
+        Artist, on_delete=models.SET_NULL, null=True, related_name="albums"
+    )
+
+    category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, related_name="albums"
+    )
+
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES_TRACK_ALBUM, default="draft"
+    )
+    rejection_message = models.TextField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "author"],
+                name="unique_album_name_author",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.name} by {self.author}"
+
+    def save(self, *args, **kwargs):
+        if self.image and hasattr(self.image, "file"):
+            optimize_image(self)
+        super().save(*args, **kwargs)
+
+
 class Track(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     image = models.ImageField(upload_to="tracks/images/", null=True, blank=True)
@@ -59,7 +97,7 @@ class Track(models.Model):
     duration = models.IntegerField(default=0)
 
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES_TRACK, default="waiting"
+        max_length=20, choices=STATUS_CHOICES_TRACK_ALBUM, default="waiting"
     )
     rejection_message = models.TextField(blank=True, null=True)
 
@@ -69,6 +107,10 @@ class Track(models.Model):
 
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, related_name="tracks"
+    )
+
+    album = models.ForeignKey(
+        Album, on_delete=models.PROTECT, related_name="tracks", null=True, blank=True
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -111,7 +153,7 @@ class Playlist(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=["name", "author", "type", "is_official"],
-                name="unique_playlist_name_author",
+                name="unique_playlist_name_author_type_is_official",
             ),
         ]
 
