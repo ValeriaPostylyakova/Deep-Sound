@@ -4,28 +4,37 @@ from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.common.permissions import IsArtist, IsModerator, IsOwner
+from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.serializers.write import TrackWriteSerializer
-from apps.music.models import Album, Track
+from apps.music.models import Album
 
-from .serializers.read import ReadAlbumSerializer
-from .serializers.write import WriteAlbumSerializer
+from .serializers.read import AlbumReadSerializer
+from .serializers.write import AlbumWriteSerializer
 from .services import send_status_album_to_user, send_to_moderator
 from .tasks import proccess_track_to_album
 
 
 class AlbumViewSet(viewsets.ModelViewSet):
-    queryset = Album.objects.all().select_related("category", "author")
+    queryset = (
+        Album.objects.all()
+        .select_related("category", "author")
+        .prefetch_related("tracks")
+    )
 
     def get_serializer_class(self):
         if self.request.method in ["POST", "PATCH", "PUT"]:
-            return WriteAlbumSerializer
-        return ReadAlbumSerializer
+            return AlbumWriteSerializer
+        return AlbumReadSerializer
 
     def get_permissions(self):
         if self.action == "review":
             return [IsModerator()]
+
         return [IsArtist()]
+
+    def perform_destroy(self, instance):
+        instance.tracks.all().update(album=None)
+        instance.delete()
 
     @action(detail=True, methods=["POST"], url_path="add-track")
     def add_track(self, request, *args, **kwargs):
@@ -48,14 +57,25 @@ class AlbumViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED,
         )
 
-    @action(detail=True, methods=["POST"], url_path="delete-track")
+    @action(detail=True, methods=["DELETE"], url_path="delete-track")
     def delete_track(self, request, *args, **kwargs):
         album = self.get_object()
         track_id = request.data.get("track_id")
 
-        album.tracks.remove(track_id)
+        track = album.tracks.filter(id=track_id).first()
 
-        return Response({"message": "Трек успешно удален из альбома"})
+        if not track:
+            return Response(
+                {"message": "Трек не найден в этом альбоме."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        album.tracks.remove(track)
+
+        return Response(
+            {"message": "Трек успешно удален из альбома"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
 
     @action(detail=True, methods=["POST"], url_path="send-to-moderation")
     def send_to_moderation(self, request, pk=None):

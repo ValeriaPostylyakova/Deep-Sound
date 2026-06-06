@@ -1,15 +1,18 @@
+from django.conf import settings
 from django.db import transaction
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from apps.common.permissions import IsArtist, IsModerator, IsOwner
+from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.services import send_track_update_to_user
 from apps.music.models import Track
 
 from .serializers.read import TrackReadSerializer
 from .serializers.write import TrackWriteSerializer
 from .tasks import process_track
+from .utils.stream_track import process_stream_track
 
 
 class TrackViewSet(viewsets.ModelViewSet):
@@ -22,7 +25,9 @@ class TrackViewSet(viewsets.ModelViewSet):
         return TrackReadSerializer
 
     def get_permissions(self):
-        if self.action == "review":
+        if self.action == "list":
+            return [AllowAny()]
+        elif self.action == "review":
             return [IsModerator()]
         return [IsArtist()]
 
@@ -66,3 +71,12 @@ class TrackViewSet(viewsets.ModelViewSet):
             )
 
         return Response({"status": f"Трек успешно переведен в статус {track.status}"})
+
+    @action(detail=True, methods=["GET"], url_path="stream")
+    def stream_track(self, request, pk=None):
+        track = self.get_object()
+
+        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+        object_name = track.audio.name
+
+        return process_stream_track(request, bucket_name, object_name)

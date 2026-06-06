@@ -15,9 +15,6 @@ class PlaylistReadSerializer(serializers.ModelSerializer):
 
     tracks = TrackReadSerializer(many=True)
     category = serializers.StringRelatedField()
-    author = serializers.StringRelatedField()
-
-    rejection_message = serializers.CharField(read_only=True)
 
     class Meta:
         model = Playlist
@@ -28,12 +25,8 @@ class PlaylistReadSerializer(serializers.ModelSerializer):
             "image_medium",
             "image_large",
             "category",
-            "author",
             "tracks",
-            "type",
             "is_official",
-            "status",
-            "rejection_message",
             "created_at",
             "updated_at",
         )

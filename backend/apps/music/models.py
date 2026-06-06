@@ -25,11 +25,6 @@ STATUS_CHOICES_TRACK_ALBUM = [
     ("published", "Опубликовано"),
 ]
 
-TYPE_PLAYLIST_CHOICES = [
-    ("user", "Плейлист пользователя"),
-    ("artist", "Плейлист исполнителя"),
-]
-
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -124,7 +119,6 @@ class Playlist(models.Model):
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES_PLAYLIST, default="draft"
     )
-    rejection_message = models.TextField(blank=True, null=True)
 
     category = models.ForeignKey(
         Category,
@@ -135,14 +129,14 @@ class Playlist(models.Model):
     )
 
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="playlists"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="playlists",
+        blank=True,
+        null=True,
     )
 
     tracks = models.ManyToManyField(Track, related_name="playlists", blank=True)
-
-    type = models.CharField(
-        max_length=20, choices=TYPE_PLAYLIST_CHOICES, default="user"
-    )
 
     is_official = models.BooleanField(default=False)
 
@@ -152,13 +146,12 @@ class Playlist(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["name", "author", "type", "is_official"],
-                name="unique_playlist_name_author_type_is_official",
+                fields=["name", "is_official"], name="unique_official_playlist_name"
             ),
         ]
 
     def __str__(self):
-        return f"{self.name} by {self.author}"
+        return f"{self.name} by {self.category}"
 
     def save(self, *args, **kwargs):
         if self.image and hasattr(self.image, "file"):

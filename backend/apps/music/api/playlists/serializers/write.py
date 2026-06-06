@@ -7,13 +7,10 @@ from apps.music.models import Category, Playlist, Track
 User = get_user_model()
 
 
-class PlaylistUserWriteSerializer(serializers.ModelSerializer):
+class BasePlaylistWriteSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     image = serializers.ImageField(required=False)
 
-    category = serializers.PrimaryKeyRelatedField(
-        queryset=Category.objects.all(), required=False
-    )
     tracks = serializers.PrimaryKeyRelatedField(
         many=True,
         queryset=Track.objects.all(),
@@ -26,16 +23,25 @@ class PlaylistUserWriteSerializer(serializers.ModelSerializer):
         validators=[MinLengthValidator(4), MaxLengthValidator(50)]
     )
 
+    class Meta:
+        model = Playlist
+        fields = ("id", "name", "image", "tracks")
+        read_only_fields = ("id",)
+
+
+class PlaylistUserWriteSerializer(BasePlaylistWriteSerializer):
     author = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
-        model = Playlist
-        fields = ("id", "name", "image", "author", "category", "tracks")
+        fields = BasePlaylistWriteSerializer.Meta.fields + ("author",)
 
 
-class PlaylistArtistWriteSerializer(PlaylistUserWriteSerializer):
-    def create(self, validated_data):
-        if self.context.get("request").user.is_artist:
-            validated_data["type"] = "artist"
+class PlaylistModeratorWriteSerializer(BasePlaylistWriteSerializer):
+    category = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(), required=False
+    )
 
-        return super().create(validated_data)
+    is_official = serializers.BooleanField(default=True)
+
+    class Meta:
+        fields = BasePlaylistWriteSerializer.Meta.fields + ("category", "is_official")
