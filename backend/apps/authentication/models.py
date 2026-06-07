@@ -10,7 +10,7 @@ class Role(models.Model):
     ROLE_NAME_CHOICES = [
         ("user", "Пользователь"),
         ("artist", "Исполнитель"),
-        ("modarator", "Модератор"),
+        ("moderator", "Модератор"),
     ]
 
     name = models.CharField(max_length=20, unique=True, choices=ROLE_NAME_CHOICES)
@@ -51,7 +51,7 @@ class User(AbstractUser):
 
     @property
     def is_moderator(self):
-        return self.role.filter(name="modarator").exists()
+        return self.role.filter(name="moderator").exists()
 
     @property
     def is_artist(self):

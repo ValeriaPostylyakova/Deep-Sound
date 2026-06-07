@@ -54,7 +54,7 @@ class ProfileReadSerializer(serializers.ModelSerializer):
         if not hasattr(obj, "playlists") or not obj.playlists.exists():
             return []
 
-        filtered_playlists = obj.playlists.filter(type="user").order_by("-created_at")[
+        filtered_playlists = obj.playlists.order_by("-created_at")[
             :3
         ]
 

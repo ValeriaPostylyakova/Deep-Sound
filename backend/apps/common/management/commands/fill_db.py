@@ -41,7 +41,7 @@ class Command(BaseCommand):
         self.stdout.write("Создание ролей...")
         role_user, _ = Role.objects.get_or_create(name="user")
         role_artist, _ = Role.objects.get_or_create(name="artist")
-        role_mod, _ = Role.objects.get_or_create(name="modarator")
+        role_mod, _ = Role.objects.get_or_create(name="moderator")
 
         self.stdout.write("Создание пользователей...")
 
