@@ -21,8 +21,6 @@ class Role(models.Model):
 
 class User(AbstractUser):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     avatar = models.ImageField(upload_to="avatars/users/", null=True, blank=True)
@@ -44,10 +42,6 @@ class User(AbstractUser):
         if self.avatar and hasattr(self.avatar, "file"):
             optimize_image(self)
         super().save(*args, **kwargs)
-
-    @property
-    def get_full_name(self):
-        return f"{self.first_name} {self.last_name}".strip()
 
     @property
     def is_moderator(self):

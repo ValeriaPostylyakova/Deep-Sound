@@ -36,3 +36,17 @@ class TrackReadSerializer(serializers.ModelSerializer):
 
     def get_image_large(self, obj):
         return get_image_url(obj.image, 200)
+
+
+
+class TrackListSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    album = serializers.StringRelatedField(read_only=True)
+    author = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = Track
+        fields = ("id", "title", "image", "author", "duration", "album")
+
+    def get_image(self, obj):
+        return get_image_url(obj.image, 50)

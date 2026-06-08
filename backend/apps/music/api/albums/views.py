@@ -59,8 +59,8 @@ class AlbumViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED,
         )
 
-    @action(detail=True, methods=["DELETE"], url_path="delete-track")
-    def delete_track(self, request, *args, **kwargs):
+    @action(detail=True, methods=["DELETE"], url_path="remove-track")
+    def remove_track(self, request, *args, **kwargs):
         album = self.get_object()
         track_id = request.data.get("track_id")
 

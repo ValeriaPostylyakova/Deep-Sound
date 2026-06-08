@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from apps.artists.models import Artist
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.api.playlists.serializers.read import PlaylistReadSerializer
+from apps.music.api.playlists.serializers.read import PlaylistListSerializer
 from apps.music.api.tracks.serializers.read import TrackReadSerializer
 
 
@@ -45,7 +45,7 @@ class ArtistProfileReadSerializer(serializers.ModelSerializer):
         filtered_playlists = obj.user.playlists.order_by(
             "-created_at"
         )[:3]
-        return PlaylistReadSerializer(filtered_playlists, many=True).data
+        return PlaylistListSerializer(filtered_playlists, many=True).data
 
     def get_tracks(self, obj):
         filtered_tracks = obj.tracks.all().order_by("-created_at")[:2]

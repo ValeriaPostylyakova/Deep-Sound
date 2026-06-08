@@ -9,7 +9,7 @@ from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.services import send_track_update_to_user
 from apps.music.models import Track
 
-from .serializers.read import TrackReadSerializer
+from .serializers.read import TrackReadSerializer, TrackListSerializer
 from .serializers.write import TrackWriteSerializer
 from .tasks import process_track
 from .utils.stream_track import process_stream_track
@@ -22,7 +22,7 @@ class TrackViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in ["PATCH", "POST"]:
             return TrackWriteSerializer
-        return TrackReadSerializer
+        return TrackListSerializer
 
     def get_permissions(self):
         if self.action == "list":

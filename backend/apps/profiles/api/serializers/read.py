@@ -2,13 +2,12 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.api.playlists.serializers.read import PlaylistReadSerializer
+from apps.music.api.playlists.serializers.read import PlaylistListSerializer
 
 User = get_user_model()
 
 
 class ProfileReadSerializer(serializers.ModelSerializer):
-    full_name = serializers.SerializerMethodField()
     avatar_small = serializers.SerializerMethodField()
     avatar_medium = serializers.SerializerMethodField()
     avatar_large = serializers.SerializerMethodField()
@@ -22,10 +21,7 @@ class ProfileReadSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "email",
-            "first_name",
-            "last_name",
             "username",
-            "full_name",
             "avatar_small",
             "avatar_medium",
             "avatar_large",
@@ -36,9 +32,6 @@ class ProfileReadSerializer(serializers.ModelSerializer):
             "updated_at",
         )
         read_only_fields = ("id", "created_at", "updated_at")
-
-    def get_full_name(self, obj):
-        return obj.get_full_name
 
     def get_avatar_small(self, obj):
         return get_image_url(obj.avatar, 64)
@@ -58,4 +51,4 @@ class ProfileReadSerializer(serializers.ModelSerializer):
             :3
         ]
 
-        return PlaylistReadSerializer(filtered_playlists, many=True).data
+        return PlaylistListSerializer(filtered_playlists, many=True).data
