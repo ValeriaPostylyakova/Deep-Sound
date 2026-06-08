@@ -56,10 +56,10 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
 
 
 class UserPlaylistViewSet(BasePlaylistViewSet):
-    permissions_classes = [IsOwner]
+    permission_classes = [IsOwner]
     write_serializer_class = PlaylistUserWriteSerializer
 
 
 class ModeratorPlaylistViewSet(BasePlaylistViewSet):
-    permissions_classes = [IsModerator]
+    permission_classes = [IsModerator]
     write_serializer_class = PlaylistModeratorWriteSerializer

@@ -33,6 +33,7 @@ class PlaylistUserWriteSerializer(BasePlaylistWriteSerializer):
     author = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
+        model = Playlist
         fields = BasePlaylistWriteSerializer.Meta.fields + ("author",)
 
 
@@ -44,4 +45,5 @@ class PlaylistModeratorWriteSerializer(BasePlaylistWriteSerializer):
     is_official = serializers.BooleanField(default=True)
 
     class Meta:
+        model = Playlist
         fields = BasePlaylistWriteSerializer.Meta.fields + ("category", "is_official")

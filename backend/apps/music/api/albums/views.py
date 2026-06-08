@@ -2,6 +2,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from apps.common.permissions import IsArtist, IsModerator
@@ -29,7 +30,8 @@ class AlbumViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action == "review":
             return [IsModerator()]
-
+        elif self.action == 'list':
+            return [AllowAny()]
         return [IsArtist()]
 
     def perform_destroy(self, instance):

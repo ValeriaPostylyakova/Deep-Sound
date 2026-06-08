@@ -39,11 +39,10 @@ class ArtistProfileReadSerializer(serializers.ModelSerializer):
         return get_image_url(obj.avatar, 128)
 
     def get_avatar_large(self, obj):
-
         return get_image_url(obj.avatar, 256)
 
     def get_playlists(self, obj):
-        filtered_playlists = obj.user.playlists.filter(type="artist").order_by(
+        filtered_playlists = obj.user.playlists.order_by(
             "-created_at"
         )[:3]
         return PlaylistReadSerializer(filtered_playlists, many=True).data
