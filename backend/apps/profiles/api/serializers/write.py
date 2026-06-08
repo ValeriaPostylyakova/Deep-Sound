@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 
 from apps.common.validators import validate_avatar
@@ -9,10 +8,11 @@ User = get_user_model()
 
 class ProfileWriteSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(required=False, write_only=True)
+    email = serializers.EmailField(required=False, write_only=True)
 
     class Meta:
         model = User
-        fields = ("avatar",)
+        fields = ("avatar", "email")
 
     def validate(self, data):
         user = self.context.get("request").user
