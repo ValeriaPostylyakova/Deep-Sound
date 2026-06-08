@@ -13,8 +13,6 @@ class LoginReadSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "email",
-            "first_name",
-            "last_name",
             "avatar",
             "role",
         )
