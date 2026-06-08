@@ -1,13 +1,13 @@
 from rest_framework import serializers
 
 from apps.music.api.playlists.serializers.read import PlaylistListSerializer
-from apps.music.api.tracks.serializers.read import TrackReadSerializer
+from apps.music.api.tracks.serializers.read import TrackListSerializer
 from apps.music.models import Category
 
 
 class CetegoryReadSerializer(serializers.ModelSerializer):
     playlists = PlaylistListSerializer(many=True)
-    tracks = TrackReadSerializer(many=True)
+    tracks = TrackListSerializer(many=True)
 
     class Meta:
         model = Category

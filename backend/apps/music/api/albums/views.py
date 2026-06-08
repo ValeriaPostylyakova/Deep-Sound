@@ -2,13 +2,12 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.serializers.write import TrackWriteSerializer
 from apps.music.models import Album
-
 from .serializers.read import AlbumReadSerializer
 from .serializers.write import AlbumWriteSerializer
 from .services import send_status_album_to_user, send_to_moderator
@@ -29,10 +28,10 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == "review":
-            return [IsModerator()]
+            return [IsAuthenticated(), IsModerator()]
         elif self.action == 'list':
             return [AllowAny()]
-        return [IsArtist()]
+        return [IsAuthenticated(), IsArtist()]
 
     def perform_destroy(self, instance):
         instance.tracks.all().update(album=None)
