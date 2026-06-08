@@ -2,21 +2,18 @@ from django.db.models import Sum, Count
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 from apps.common.permissions import IsModerator, IsOwner
+from apps.music.api.paginations.cursor_paginations import PlaylistTracksCursorPagination
+from apps.music.api.paginations.number_paginations import PlaylistsSetNumberPagination
 from apps.music.models import Playlist, Track
-from .paginations.cursor_paginations import PlaylistTracksCursorPagination
-from .paginations.number_paginations import PlaylistsSetNumberPagination
-
-from .serializers.read import PlaylistListSerializer, PlaylistMainPageSerializer, PlaylistShortSerializer, \
-    PlaylistDetailSerializer
+from .serializers.read import PlaylistListSerializer, PlaylistMainPageSerializer, PlaylistDetailSerializer
 from .serializers.write import (
     PlaylistModeratorWriteSerializer,
     PlaylistUserWriteSerializer,
 )
-from ..tracks.serializers.read import TrackReadSerializer, TrackListSerializer
+from ..tracks.serializers.read import TrackListSerializer, TrackShortSerializer
 
 
 class BasePlaylistViewSet(viewsets.ModelViewSet):
@@ -48,7 +45,6 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return PlaylistDetailSerializer
         return self.serializer_class
-
 
     @action(detail=True, methods=["POST"], url_path="add-track")
     def add_track(self, request, pk=None):
@@ -84,12 +80,11 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
         tracks_queryset = playlist.tracks.all().select_related("author", "album")
         page = self.paginate_queryset(tracks_queryset)
         if page is not None:
-            serializer = TrackListSerializer(page, many=True)
+            serializer = TrackShortSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = TrackReadSerializer(tracks_queryset, many=True)
+        serializer = TrackListSerializer(tracks_queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 
 class UserPlaylistViewSet(BasePlaylistViewSet):

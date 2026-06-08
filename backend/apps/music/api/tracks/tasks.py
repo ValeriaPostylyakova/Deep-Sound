@@ -3,7 +3,6 @@ from celery import shared_task
 from apps.authentication.models import User
 from apps.common.utils.convert_audio import convert_audio_to_mp3
 from apps.music.models import Track
-
 from .services import send_new_track_to_moderator, send_track_update_to_user
 
 
@@ -22,10 +21,10 @@ def process_track(track_id, user_id):
 
         track.duration = duration
         filename = f"track_{track.id}.mp3"
-        track.audio.save(filename, mp3_file, save=False)
+        track.audio.save(filename, mp3_file)
 
         track.status = "pending"
-        track.save(update_fields=["status"])
+        track.save(update_fields=["status", "duration"])
 
         send_track_update_to_user(user.id, track.id, "pending")
         send_new_track_to_moderator(track)

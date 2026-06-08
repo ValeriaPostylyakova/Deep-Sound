@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.api.tracks.serializers.read import TrackReadSerializer
+from apps.music.api.tracks.serializers.read import TrackListSerializer
 from apps.music.models import Album
 
 
@@ -34,4 +34,4 @@ class AlbumReadSerializer(serializers.ModelSerializer):
 
     def get_tracks(self, obj):
         filtered_tracks = obj.tracks.all().order_by("-created_at")[:2]
-        return TrackReadSerializer(filtered_tracks, many=True).data
+        return TrackListSerializer(filtered_tracks, many=True).data

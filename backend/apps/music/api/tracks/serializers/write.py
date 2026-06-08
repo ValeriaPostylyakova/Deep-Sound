@@ -7,12 +7,9 @@ from apps.music.models import Album, Category, Track
 class TrackWriteSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     audio = serializers.FileField(required=True)
-    duration = serializers.FloatField(read_only=True)
-    status = serializers.CharField(read_only=True)
 
     author = serializers.PrimaryKeyRelatedField(queryset=Artist.objects.all())
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
-
     album = serializers.PrimaryKeyRelatedField(
         queryset=Album.objects.all(), required=False
     )
@@ -26,12 +23,10 @@ class TrackWriteSerializer(serializers.ModelSerializer):
             "audio",
             "author",
             "category",
-            "status",
-            "duration",
             "album",
         )
 
-        read_only_fields = ("id", "created_at", "duration", "status")
+        read_only_fields = ("id",)
 
     def validate_audio(self, value):
         import os

@@ -5,7 +5,6 @@ from django.db import models
 from pytils.translit import slugify
 
 from apps.common.utils.optimize_image import optimize_image
-
 from ..artists.models import Artist
 
 STATUS_CHOICES_PLAYLIST = [
@@ -84,6 +83,14 @@ class Album(models.Model):
         super().save(*args, **kwargs)
 
 
+class TrackText(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    text = models.TextField()
+
+    def __str__(self):
+        return f"{self.text} by {self.track.title}"
+
+
 class Track(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     image = models.ImageField(upload_to="tracks/images/", null=True, blank=True)
@@ -107,6 +114,8 @@ class Track(models.Model):
     album = models.ForeignKey(
         Album, on_delete=models.PROTECT, related_name="tracks", null=True, blank=True
     )
+
+    text = models.OneToOneField(TrackText, on_delete=models.CASCADE, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
