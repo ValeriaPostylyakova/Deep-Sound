@@ -1,23 +1,23 @@
 from rest_framework import serializers
 
-from apps.music.api.playlists.serializers.read import PlaylistListSerializer
+from apps.music.api.albums.serializers.read import AlbumListSerializer
 from apps.music.api.tracks.serializers.read import TrackListSerializer
 from apps.music.models import Category
 
 
-class CetegoryReadSerializer(serializers.ModelSerializer):
-    playlists = PlaylistListSerializer(many=True)
-    tracks = TrackListSerializer(many=True)
-
+class CategoryShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = (
-            "id",
             "name",
             "slug",
-            "playlists",
-            "tracks",
-            "created_at",
-            "updated_at",
         )
-        read_only_fields = ("id", "created_at", "updated_at")
+        read_only_fields = ("slug",)
+
+
+class CategoryStandardSerializer(CategoryShortSerializer):
+    albums = AlbumListSerializer(many=True)
+    tracks = TrackListSerializer(many=True)
+
+    class Meta(CategoryShortSerializer.Meta):
+        fields = CategoryShortSerializer.Meta.fields + ("albums", "tracks")

@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -8,7 +9,7 @@ from rest_framework.response import Response
 from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.serializers.write import TrackWriteSerializer
 from apps.music.models import Album
-from .serializers.read import AlbumReadSerializer
+from .serializers.read import AlbumListSerializer, AlbumDetailSerializer
 from .serializers.write import AlbumWriteSerializer
 from .services import send_status_album_to_user, send_to_moderator
 from .tasks import proccess_track_to_album
@@ -17,14 +18,25 @@ from .tasks import proccess_track_to_album
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = (
         Album.objects.all()
-        .select_related("category", "author")
-        .prefetch_related("tracks")
+        .select_related("author")
     )
+
+    def get_queryset(self):
+        queryset = self.queryset
+
+        if self.action == 'retrieve':
+            queryset.annotate(
+                tracks_count=Count('tracks', distinct=True),
+                duration=Sum('tracks__duration')
+            ).select_related('category').prefetch_related('tracks')
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method in ["POST", "PATCH", "PUT"]:
             return AlbumWriteSerializer
-        return AlbumReadSerializer
+        if self.action == 'retrieve':
+            return AlbumDetailSerializer
+        return AlbumListSerializer
 
     def get_permissions(self):
         if self.action == "review":
