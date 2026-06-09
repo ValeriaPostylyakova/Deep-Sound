@@ -30,17 +30,19 @@ class BasePlaylistWriteSerializer(serializers.ModelSerializer):
 
 
 class PlaylistUserWriteSerializer(BasePlaylistWriteSerializer):
-    author = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Playlist
         fields = BasePlaylistWriteSerializer.Meta.fields + ("author",)
 
-    def create(self, validated_data):
-        author = self.context["request"].user
-
-        validated_data['author'] = author
-        return super().create(validated_data)
+    validators = [
+        serializers.UniqueTogetherValidator(
+            queryset=Playlist.objects.all(),
+            fields=["name", "is_official", "author"],
+            message="Плейлист с таким названием уже существует. Пожалуйста, введите другое название.",
+        )
+    ]
 
 
 class PlaylistModeratorWriteSerializer(PlaylistUserWriteSerializer):

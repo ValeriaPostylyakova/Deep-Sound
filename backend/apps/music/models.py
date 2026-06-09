@@ -162,3 +162,51 @@ class Playlist(models.Model):
         if self.image and hasattr(self.image, "file"):
             optimize_image(self)
         super().save(*args, **kwargs)
+
+
+class FavoriteAlbum(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'album'], name="unique_user_favorite_album"
+            )
+        ]
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class FavoriteTrack(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'track'], name="unique_user_favorite_track"
+            )
+        ]
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class FavoriteArtist(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'artist'], name="unique_user_favorite_artist"
+            )
+        ]
+
+    created_at = models.DateTimeField(auto_now_add=True)

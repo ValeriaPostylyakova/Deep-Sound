@@ -6,14 +6,13 @@ from rest_framework.response import Response
 from apps.artists.models import Artist
 from apps.authentication.models import Role
 from apps.common.permissions import IsArtist
-
-from .serializers.read import ArtistProfileReadSerializer
+from .serializers.read import ArtistProfileStandardSerializer
 from .serializers.write import ArtistProfileWriteSerializer, BecomeArtistWriteSerializer
 
 
 class ArtistProfileViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
-    serializer_class = ArtistProfileReadSerializer
+    serializer_class = ArtistProfileStandardSerializer
     permission_classes = [IsArtist]
 
     def get_queryset(self):
@@ -22,7 +21,7 @@ class ArtistProfileViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in ["PATCH"]:
             return ArtistProfileWriteSerializer
-        return ArtistProfileReadSerializer
+        return ArtistProfileStandardSerializer
 
     def get_permissions(self):
         if self.request.method in ["GET", "PATCH"]:
@@ -38,7 +37,7 @@ class ArtistProfileViewSet(viewsets.ModelViewSet):
 
         instance.refresh_from_db()
 
-        read_serializer = ArtistProfileReadSerializer(
+        read_serializer = ArtistProfileStandardSerializer(
             instance, context=self.get_serializer_context()
         )
 

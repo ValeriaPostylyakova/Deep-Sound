@@ -13,3 +13,7 @@ class PlaylistsSetNumberPagination(BaseNumberPagination):
 
 class CategoriesSetNumberPagination(BaseNumberPagination):
     pass
+
+
+class FavoritesTracksNumberPagination(BaseNumberPagination):
+    page_size = 8

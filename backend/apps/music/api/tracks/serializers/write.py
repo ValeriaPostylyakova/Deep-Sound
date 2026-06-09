@@ -1,7 +1,11 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from apps.artists.models import Artist
-from apps.music.models import Album, Category, Track
+from apps.music.models import Album, Category, Track, FavoriteTrack
+
+User = get_user_model()
 
 
 class TrackWriteSerializer(serializers.ModelSerializer):
@@ -46,3 +50,20 @@ class TrackWriteSerializer(serializers.ModelSerializer):
             )
 
         return value
+
+
+class FavoriteWriteTrackSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    track = serializers.PrimaryKeyRelatedField(queryset=Track.objects.all())
+
+    class Meta:
+        model = FavoriteTrack
+        fields = ("user", "track")
+
+        validators = [
+            UniqueTogetherValidator(
+                queryset=FavoriteTrack.objects.all(),
+                fields=["user", "track"],
+                message="Этот трек уже добавлен в избранное у данного пользователя.",
+            )
+        ]

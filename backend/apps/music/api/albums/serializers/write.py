@@ -12,3 +12,11 @@ class AlbumWriteSerializer(serializers.ModelSerializer):
         model = Album
         fields = ("id", "name", "image", "author", "category")
         read_only_fields = ("id", "author", "category")
+
+    validators = [
+        serializers.UniqueTogetherValidator(
+            queryset=Album.objects.all(),
+            fields=["name", "author"],
+            message="Альбом с таким названием уже существует. Пожалуйста, введите другое название.",
+        )
+    ]

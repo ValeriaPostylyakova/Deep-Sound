@@ -29,6 +29,7 @@ class AlbumDetailSerializer(AlbumListSerializer):
     tracks_count = serializers.IntegerField(read_only=True)
     tracks = TrackAlbumSerializer(many=True, read_only=True)
     duration = serializers.IntegerField(read_only=True)
+    category = serializers.SlugRelatedField(slug_field='name', read_only=True)
 
     class Meta(AlbumListSerializer.Meta):
         fields = AlbumListSerializer.Meta.fields + ("category", "duration", "tracks_count", "tracks", "created_at")
