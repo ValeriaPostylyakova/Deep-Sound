@@ -12,7 +12,8 @@ class TrackShortSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Track
-        fields = ("id", "title", "image", "author", "duration", "album")
+        fields = ("id", "title", "image", "audio", "author", "duration", "album")
+        read_only_fields = ("id", "author", "album", "duration", "audio")
 
     def get_image(self, obj):
         return get_image_url(obj.image, 50)

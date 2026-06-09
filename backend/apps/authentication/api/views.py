@@ -5,8 +5,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..tasks.send_change_password import send_change_password
-from .serializers.read import LoginReadSerializer
 from .serializers.write import (
     ChangePasswordWriteSerializer,
     ForgotPasswordWriteSerializer,
@@ -16,6 +14,7 @@ from .serializers.write import (
 )
 from .services.password_reset import forgot_password, reset_password
 from .utils.get_device_info import get_device_info
+from ..tasks.send_change_password import send_change_password
 
 User = get_user_model()
 
@@ -34,7 +33,6 @@ class RegisterView(generics.CreateAPIView):
 
         return Response(
             {
-                "user": RegisterWriteSerializer(user).data,
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "message": "Регистрация прошла успешно",
@@ -58,7 +56,6 @@ class LoginView(generics.GenericAPIView):
 
         return Response(
             {
-                "user": LoginReadSerializer(user).data,
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "message": "Авторизация прошла успешно",

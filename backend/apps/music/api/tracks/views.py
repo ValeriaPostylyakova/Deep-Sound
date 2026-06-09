@@ -33,7 +33,7 @@ class TrackViewSet(viewsets.ModelViewSet):
                 "detail": TrackDetailSerializer,
             }
 
-            return serializers_map.get(view_mode)
+            return serializers_map.get(view_mode, TrackListSerializer)
 
         return TrackListSerializer
 

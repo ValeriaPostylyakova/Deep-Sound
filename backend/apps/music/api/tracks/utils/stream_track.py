@@ -1,3 +1,5 @@
+import io
+
 from django.conf import settings
 from ranged_response import RangedFileResponse
 from rest_framework import status
@@ -16,14 +18,16 @@ def process_stream_track(request, bucket_name, object_name):
 
     try:
         response_data = minio_client.get_object(bucket_name, object_name)
+
+        file_buffer = io.BytesIO(response_data.read())
+        response_data.close()
     except Exception as e:
         return Response(
             {"message": f"Ошибка чтения: {str(e)}"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
-    response = RangedFileResponse(request, response_data, content_type="audio/mpeg")
-
+    response = RangedFileResponse(request, file_buffer, content_type="audio/mpeg")
     response["Content-Length"] = str(stat.size)
 
     return response
