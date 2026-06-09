@@ -1,37 +1,38 @@
 from rest_framework import serializers
 
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.api.tracks.serializers.read import TrackListSerializer
+from apps.music.api.tracks.serializers.read import TrackAlbumSerializer
 from apps.music.models import Album
 
 
-class AlbumReadSerializer(serializers.ModelSerializer):
-    image_small = serializers.SerializerMethodField()
-    image_medium = serializers.SerializerMethodField()
-
-    tracks = serializers.SerializerMethodField()
+class AlbumListSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    author = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Album
-        fields = (
-            "id",
-            "name",
-            "image_small",
-            "image_medium",
-            "author",
-            "category",
-            "status",
-            "tracks",
-            "created_at",
-        )
-        read_only_fields = ("id", "created_at")
+        fields = ("id", "name", "image", "author")
+        read_only_fields = ("id",)
 
-    def get_image_small(self, obj):
+    def get_image(self, obj):
         return get_image_url(obj.image, 100)
 
-    def get_image_medium(self, obj):
-        return get_image_url(obj.image, 150)
 
-    def get_tracks(self, obj):
-        filtered_tracks = obj.tracks.all().order_by("-created_at")[:2]
-        return TrackListSerializer(filtered_tracks, many=True).data
+class AlbumWithStatusSerializer(AlbumListSerializer):
+    status = serializers.CharField(read_only=True)
+
+    class Meta(AlbumListSerializer.Meta):
+        fields = AlbumListSerializer.Meta.fields + ("status",)
+
+
+class AlbumDetailSerializer(AlbumListSerializer):
+    tracks_count = serializers.IntegerField(read_only=True)
+    tracks = TrackAlbumSerializer(many=True, read_only=True)
+    duration = serializers.IntegerField(read_only=True)
+
+    class Meta(AlbumListSerializer.Meta):
+        fields = AlbumListSerializer.Meta.fields + ("category", "duration", "tracks_count", "tracks", "created_at")
+        read_only_fields = ("created_at",)
+
+    def get_image(self, obj):
+        return get_image_url(obj.image, 150)
