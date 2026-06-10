@@ -2,6 +2,7 @@ from django.db.models import Sum, Count
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from apps.common.permissions import IsModerator, IsOwner
@@ -24,14 +25,8 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
     write_serializer_class = None
 
     def get_queryset(self):
-        user = self.request.user
-        if user.role.filter(name="moderator").exists():
-            queryset = self.queryset.filter(is_official=True)
-        else:
-            queryset = self.queryset.filter(author=user, is_official=False)
-
         if self.action in ['retrieve', 'main_page_playlists']:
-            queryset = queryset.annotate(
+            queryset = self.queryset.annotate(
                 tracks_count=Count('tracks', distinct=True),
                 duration=Sum('tracks__duration')
             )
@@ -88,19 +83,24 @@ class BasePlaylistViewSet(viewsets.ModelViewSet):
 
 
 class UserPlaylistViewSet(BasePlaylistViewSet):
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner]
     write_serializer_class = PlaylistUserWriteSerializer
+
+    def get_queryset(self):
+        return Playlist.objects.filter(author=self.request.user, is_official=False)
 
     @action(detail=False, methods=['GET'], url_path='main-page')
     def main_page_playlists(self, request):
         self.pagination_class = None
-
-        queryset = self.get_queryset().only("id", "name", "image").prefetch_related('tracks')[:5]
+        queryset = self.get_queryset().only("id", "name", "image")
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ModeratorPlaylistViewSet(BasePlaylistViewSet):
-    permission_classes = [IsModerator]
+    permission_classes = [IsAuthenticated, IsModerator]
     write_serializer_class = PlaylistModeratorWriteSerializer
+
+    def get_queryset(self):
+        return Playlist.objects.filter(is_official=True)

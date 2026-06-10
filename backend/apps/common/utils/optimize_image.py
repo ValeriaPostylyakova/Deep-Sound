@@ -1,12 +1,19 @@
 import io
 
-from django.core.files.base import ContentFile
 from PIL import Image
+from django.core.files.base import ContentFile
 
 
-def optimize_image(self):
+def optimize_image(instance):
     try:
-        img = Image.open(self.image)
+        if hasattr(instance, "image") and instance.image:
+            image_field = instance.image
+        elif hasattr(instance, "avatar") and instance.avatar:
+            image_field = instance.avatar
+        else:
+            return
+
+        img = Image.open(image_field)
 
         if img.mode in ("RGBA", "P", "CMYK"):
             img = img.convert("RGB")
@@ -25,8 +32,8 @@ def optimize_image(self):
         buffer = io.BytesIO()
         img.save(buffer, format="WEBP", quality=80, optimize=True)
 
-        filename = f"{self.id or 'playlist'}.webp"
-        self.image.save(filename, ContentFile(buffer.getvalue()), save=False)
+        filename = f"{getattr(instance, 'id', 'image')}.webp"
+        image_field.save(filename, ContentFile(buffer.getvalue()), save=False)
 
     except Exception as e:
-        print(e)
+        print(f"Ошибка оптимизации изображения: {e}")

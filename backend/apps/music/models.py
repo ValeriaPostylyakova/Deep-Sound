@@ -151,7 +151,7 @@ class Playlist(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["name", "is_official"], name="unique_official_playlist_name"
+                fields=["name", "is_official", "author"], name="unique_official_playlist_name_author"
             ),
         ]
 

@@ -22,7 +22,7 @@ class PlaylistMainPageSerializer(serializers.ModelSerializer):
 
 class PlaylistShortSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    author = serializers.StringRelatedField(read_only=True)
+    author = serializers.SlugRelatedField(slug_field="username", read_only=True)
 
     class Meta:
         model = Playlist

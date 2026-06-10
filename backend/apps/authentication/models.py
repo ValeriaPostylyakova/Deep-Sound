@@ -39,8 +39,11 @@ class User(AbstractUser):
         return self.email
 
     def save(self, *args, **kwargs):
-        if self.avatar and hasattr(self.avatar, "file"):
+        update_fields = kwargs.get("update_fields") or []
+
+        if "last_login" not in update_fields and self.avatar:
             optimize_image(self)
+
         super().save(*args, **kwargs)
 
     @property

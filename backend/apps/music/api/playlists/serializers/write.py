@@ -30,20 +30,25 @@ class BasePlaylistWriteSerializer(serializers.ModelSerializer):
 
 
 class PlaylistUserWriteSerializer(BasePlaylistWriteSerializer):
-    author = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    author = serializers.SlugRelatedField(slug_field="username", read_only=True)
 
     class Meta:
         model = Playlist
         fields = BasePlaylistWriteSerializer.Meta.fields + ("author",)
 
+    def create(self, validated_data):
+        author = self.context["request"].user
 
-class PlaylistModeratorWriteSerializer(BasePlaylistWriteSerializer):
+        validated_data['author'] = author
+        return super().create(validated_data)
+
+
+class PlaylistModeratorWriteSerializer(PlaylistUserWriteSerializer):
     category = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(), required=False
     )
 
     is_official = serializers.BooleanField(default=True)
 
-    class Meta:
-        model = Playlist
-        fields = BasePlaylistWriteSerializer.Meta.fields + ("category", "is_official")
+    class Meta(PlaylistUserWriteSerializer.Meta):
+        fields = PlaylistUserWriteSerializer.Meta.fields + ("category", "is_official")
