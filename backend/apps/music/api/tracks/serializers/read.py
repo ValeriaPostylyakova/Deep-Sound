@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.common.utils.get_image_url import get_image_url
-from apps.music.models import Track, FavoriteTrack
+from apps.music.models import Track
 
 
 class TrackShortSerializer(serializers.ModelSerializer):
@@ -42,13 +42,3 @@ class TrackAlbumSerializer(serializers.ModelSerializer):
         model = Track
         fields = ("id", "title", "author", "duration")
         read_only_fields = ("id", "author", "duration")
-
-
-class FavoriteTrackSerializer(serializers.ModelSerializer):
-    track = TrackShortSerializer()
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    class Meta:
-        model = FavoriteTrack
-        fields = ("id", "track", "user")
-        read_only_fields = ("id", "user")

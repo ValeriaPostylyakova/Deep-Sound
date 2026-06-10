@@ -25,8 +25,8 @@ class BasePlaylistWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Playlist
-        fields = ("id", "name", "image", "tracks")
-        read_only_fields = ("id",)
+        fields = ("id", "name", "image", "tracks", 'is_official')
+        read_only_fields = ("id", 'is_official')
 
 
 class PlaylistUserWriteSerializer(BasePlaylistWriteSerializer):

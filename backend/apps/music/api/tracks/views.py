@@ -8,13 +8,12 @@ from rest_framework.response import Response
 
 from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.services import send_track_update_to_user
-from apps.music.models import Track, FavoriteTrack
-from .serializers.read import TrackShortSerializer, TrackDetailSerializer, TrackListSerializer, FavoriteTrackSerializer
-from .serializers.write import TrackWriteSerializer, FavoriteWriteTrackSerializer
+from apps.music.models import Track
+from .serializers.read import TrackShortSerializer, TrackDetailSerializer, TrackListSerializer
+from .serializers.write import TrackWriteSerializer
 from .tasks import process_track
 from .utils.stream_track import process_stream_track
 from ..paginations.cursor_paginations import PlaylistTracksCursorPagination
-from ..paginations.number_paginations import FavoritesTracksNumberPagination
 
 
 class TrackViewSet(viewsets.ModelViewSet):
@@ -45,6 +44,8 @@ class TrackViewSet(viewsets.ModelViewSet):
             view_mode = self.request.query_params.get('view')
             if view_mode == 'detail':
                 return queryset.select_related("text")
+
+        return queryset
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
@@ -113,46 +114,3 @@ class TrackViewSet(viewsets.ModelViewSet):
         object_name = track.audio.name
 
         return process_stream_track(request, bucket_name, object_name)
-
-    @action(detail=False, methods=['GET', 'POST', 'DELETE'], url_path="favorite", permission_classes=[IsAuthenticated])
-    def favorite_track(self, request, pk=None):
-        if request.method == 'GET':
-            queryset = FavoriteTrack.objects.filter(user=self.request.user).select_related('track',
-                                                                                           'track__author')
-            paginator = FavoritesTracksNumberPagination()
-            page = paginator.paginate_queryset(queryset, request, view=self)
-
-            if page is not None:
-                serializer = FavoriteTrackSerializer(page, many=True)
-                return paginator.get_paginated_response(serializer.data)
-
-            serializer = FavoriteTrackSerializer(queryset, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-        if request.method == 'POST':
-            serializer = FavoriteWriteTrackSerializer(data=request.data, context={"request": request})
-            if serializer.is_valid():
-                serializer.save()
-                return Response({"message": "Трек успешно добавлен в избранное"}, status=status.HTTP_200_OK)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        if request.method == 'DELETE':
-            track_id = request.data.get("track_id")
-            if not track_id:
-                return Response(
-                    {"message": "Поле track_id обязательно."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-
-            favorite_entry = FavoriteTrack.objects.filter(user=self.request.user).first()
-            if not favorite_entry:
-                return Response(
-                    {"message": "Этот трек не найден в вашем избранном."},
-                    status=status.HTTP_404_NOT_FOUND,
-                )
-
-            favorite_entry.delete()
-            return Response(
-                {"message": "Трек успешно удален из избранного"},
-                status=status.HTTP_204_NO_CONTENT,
-            )

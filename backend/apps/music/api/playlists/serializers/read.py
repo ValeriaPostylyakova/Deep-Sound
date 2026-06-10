@@ -26,7 +26,7 @@ class PlaylistShortSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Playlist
-        fields = ("id", "name", "image", "author")
+        fields = ("id", "name", "image", "author", "is_official")
         read_only_fields = ("id",)
 
     def get_image(self, obj):
