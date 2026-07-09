@@ -1,85 +1,36 @@
-# Deep-Sound
-![Deep-Sound-light](/public/Deep-Sound-light.png)
-![Deep-Sound-dark](/public/Deep-Sound-dark.png)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Описание проекта
-Веб-приложение музыки, дизайн и изображения взяты из веб-приложения МТС-музыка.
-Проект включает в себя следующие функции:
-- прослушивание треков в слайдере
-- прослушивание треков в чарте
-- прослушивание плейлистов по жанрам и подборкам
-- переключение треков
-- зацикливание трека
-- увеличение/уменьшение громкости
-- перемотка времени трека
-- добавление треков в закладки
-- удаление треков из закладок
-- создание своих плейлистов
-- добавление треков в свои плейлисты
-- удаление треков из своих плейлистов
-- изменение названия своих плейлистов
-- удаление своих плейлистов
-- регистрация
-- авторизация
-- выход/удаление профиля
-- смена темы (светлая/тёмная)
+## Getting Started
 
-## Технологии
+First, run the development server:
 
-### Backend
-+ MOKKY.DEV - сервис генерации REST API
-
-### Frontend
-+ ReactJS - библиотека для создания пользовательских интерфейсов
-+ TypeScript - строго типизированный язык программирования, построенный на JavaScript
-+ Redux Toolkit - инструмент для управления состоянием данных и пользовательским интерфейсом
-+ React Router v6 - библиотека для навигации по проекту
-+ Axios - библиотека для выполнения HTTP-запросов
-+ React Hooks - useEffect, useState, useRef, useCallback
-+ SASS (SCSS) - метаязык на основе CSS
-+ React Hook Form - библиотека для валидации формы
-+ Swiper - библиотека для создания слайдера
-+ React Content Loader - библиотека для создания скелетонов
-+ Code Splitting - разделение кода
-+ Prettier - инструмент для автоформатирования кода
-+ React Icons - подключаемые иконки
-+ Vite - инструмент сборки
-
-## Установка и запуск
-### Инструкция по установке
-
-1. Склонируйте репозиторий
-```git
-git config --global http.postBuffer 524288000
-```
-```git
-https://github.com/ValeriaPostylyakova/Deep-Sound.git
-```
-Или скачайте репозиторий в виде **Deep-Sound-main.zip**
-
-2. Перейдите в директорию проекта
-```git 
-cd Deep-Sound
-```
-3. Установите пакеты
-```git
-yarn install
-```
-
-4. Запустите локальный сервер
-```git
+```bash
+npm run dev
+# or
 yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Использование
-После запуска будет доступен следующий функционал: прослушивание треков, добавление треков в закладки, переключение темы. 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Для того, чтобы создавать свои плейлисты, необходимо пройти регистрацию или авторизоваться на сайте.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-После регистрации будет доступен весь функционал приложения
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Лицензия
-Приложение распространяется по лицензии [Apache License 2.0.](https://github.com/ValeriaPostylyakova/React-Pizza/blob/main/LICENSE)
+## Learn More
 
-## Авторы проекта
-+ Valeria Postylyakova - разработчик приложения
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

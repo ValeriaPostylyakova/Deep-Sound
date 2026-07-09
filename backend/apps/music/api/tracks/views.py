@@ -110,7 +110,7 @@ class TrackViewSet(viewsets.ModelViewSet):
     def stream_track(self, request, pk=None):
         track = self.get_object()
 
-        bucket_name = os.getenv('AWS_STORAGE_BUCKET_NAME')
+        bucket_name = os.getenv('S3_BUCKET_NAME')
         object_name = track.audio.name
 
         return process_stream_track(request, bucket_name, object_name)

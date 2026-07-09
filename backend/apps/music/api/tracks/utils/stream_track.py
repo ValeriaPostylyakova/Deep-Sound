@@ -1,23 +1,22 @@
 import io
 
-from django.conf import settings
 from ranged_response import RangedFileResponse
 from rest_framework import status
 from rest_framework.response import Response
 
-minio_client = settings.MINIO_CLIENT
+from apps.common.minio import client
 
 
 def process_stream_track(request, bucket_name, object_name):
     try:
-        stat = minio_client.stat_object(bucket_name, object_name)
+        stat = client.stat_object(bucket_name, object_name)
     except Exception:
         return Response(
             {"message": "Файл трека не найден."}, status=status.HTTP_404_NOT_FOUND
         )
 
     try:
-        response_data = minio_client.get_object(bucket_name, object_name)
+        response_data = client.get_object(bucket_name, object_name)
 
         file_buffer = io.BytesIO(response_data.read())
         response_data.close()

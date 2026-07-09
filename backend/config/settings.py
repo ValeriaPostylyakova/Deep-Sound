@@ -3,17 +3,23 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
-from minio import Minio
+
+from apps.common.helpers import get_env_bool
 
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = os.getenv("DEBUG")
+DEBUG = get_env_bool("DEBUG", False)
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
+# USE_X_FORWARDED_HOST = True
+#
+# SECURE_PROXY_SSL_HEADER = (
+#     "HTTP_X_FORWARDED_PROTO",
+#     "https",
+# )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-
 
 DJANGO_APPS = [
     "daphne",
@@ -51,6 +57,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ASGI_APPLICATION = "config.asgi.application"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -63,23 +70,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = "config.wsgi.application"
-
 
 DATABASES = {
     "default": {
@@ -91,7 +82,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT"),
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,7 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -117,14 +106,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / os.getenv("STATIC_ROOT", default="staticfiles")
 
-
-MEDIA_URL = "http://localhost:9000/deep-sound/"
-
-MEDIA_ROOT = BASE_DIR / os.getenv("MEDIA_ROOT", default="media")
+MEDIA_URL = os.getenv("MEDIA_URL", "http://localhost:9000/deep-sound/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -155,12 +140,11 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "apps.common.exceptions.custom_exception_handler",
 }
 
+cors_raw = os.getenv("CORS_ALLOWED_ORIGINS", "")
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    origin.strip() for origin in cors_raw.split(",") if origin.strip()
 ]
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
@@ -185,34 +169,26 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "json_or_verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
+        "standard": {
+            "format": ("%(asctime)s | %(levelname)s | %(name)s | %(message)s"),
         },
     },
     "handlers": {
         "console": {
-            "level": "INFO",
             "class": "logging.StreamHandler",
-            "formatter": "json_or_verbose",
+            "formatter": "standard",
+            "level": "INFO",
         },
     },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "": {
-            "handlers": ["console"],
-            "level": "INFO",
-        },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
     },
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("SMTP_HOST")
-EMAIL_PORT = os.getenv("SMTP_PORT")
+EMAIL_PORT = int(os.getenv("SMTP_PORT", 465))
 EMAIL_HOST_USER = os.getenv("SMTP_USER")
 EMAIL_HOST_PASSWORD = os.getenv("SMTP_PASSWORD")
 
@@ -220,7 +196,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_USE_SSL = True
 
 REDIS_HOST = os.getenv("REDIS_HOST")
-REDIS_PORT = os.getenv("REDIS_PORT")
+REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 
 CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
@@ -228,7 +204,7 @@ CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TIMEZONE = TIME_ZONE
 
 CELERY_IMPORTS = [
     "apps.authentication.tasks",
@@ -263,7 +239,7 @@ TEMPLATES = [
 
 PASSWORD_RESET_TTL = 60 * 10
 
-FRONTEND_URL = "http://localhost:5173"
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 THUMBNAIL_ALIASES = {
     "": {
@@ -285,37 +261,33 @@ THUMBNAIL_ALIASES = {
     },
 }
 
+S3_ENDPOINT_URL = os.getenv("S3_ENDPOINT_URL", "http://minio:9000")
+S3_ACCESS_KEY = os.getenv("S3_ACCESS_KEY")
+S3_SECRET_KEY = os.getenv("S3_SECRET_KEY")
+S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME", "deep-sound")
+
+S3_USE_SSL = get_env_bool("S3_USE_SSL", False)
+S3_VERIFY = get_env_bool("S3_VERIFY", False)
+
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
+        "BACKEND": "apps.common.storage.LocalMinIOStorage",
         "OPTIONS": {
-            "access_key": os.getenv("AWS_ACCESS_KEY"),
-            "secret_key": os.getenv("AWS_SECRET_KEY"),
-            "endpoint_url": "http://localhost:9000",
-            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME"),
-            # --- ОБЯЗАТЕЛЬНО ДОБАВИТЬ ДЛЯ MinIO ---
-            "use_ssl": False,
-            "verify": False,
-            "custom_domain": None,
-            "default_acl": None,
+            "endpoint_url": S3_ENDPOINT_URL,
+            "access_key": S3_ACCESS_KEY,
+            "secret_key": S3_SECRET_KEY,
+            "bucket_name": S3_BUCKET_NAME,
+            "use_ssl": S3_USE_SSL,
+            "verify": S3_VERIFY,
             "querystring_auth": False,
+            "default_acl": None,
+            "custom_domain": None,
         },
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-
-MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "localhost:9000")
-MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
-MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
-
-MINIO_CLIENT = Minio(
-    MINIO_ENDPOINT,
-    access_key=MINIO_ACCESS_KEY,
-    secret_key=MINIO_SECRET_KEY,
-    secure=False,
-)
 
 CHANNEL_LAYERS = {
     "default": {
