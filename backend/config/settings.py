@@ -4,7 +4,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from apps.common.helpers import get_env_bool
+from common.helpers import get_env_bool
 
 load_dotenv()
 
@@ -44,12 +44,12 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "common",
     "apps.authentication",
     "apps.artists",
     "apps.music",
     "apps.profiles",
     "apps.moderation",
-    "apps.common",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -137,7 +137,7 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.MultiPartParser",
         "rest_framework.parsers.FormParser",
     ],
-    "EXCEPTION_HANDLER": "apps.common.exceptions.custom_exception_handler",
+    "EXCEPTION_HANDLER": "common.exceptions.custom_exception_handler",
 }
 
 cors_raw = os.getenv("CORS_ALLOWED_ORIGINS", "")
@@ -271,7 +271,7 @@ S3_VERIFY = get_env_bool("S3_VERIFY", False)
 
 STORAGES = {
     "default": {
-        "BACKEND": "apps.common.storage.LocalMinIOStorage",
+        "BACKEND": "config.storage.LocalMinIOStorage",
         "OPTIONS": {
             "endpoint_url": S3_ENDPOINT_URL,
             "access_key": S3_ACCESS_KEY,

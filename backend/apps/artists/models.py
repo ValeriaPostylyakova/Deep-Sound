@@ -3,7 +3,7 @@ import uuid
 from django.conf import settings
 from django.db import models
 
-from apps.common.utils.optimize_image import optimize_image
+from common.utils.optimize_image import optimize_image
 
 
 class Artist(models.Model):

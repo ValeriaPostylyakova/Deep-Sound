@@ -6,9 +6,9 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from apps.common.permissions import IsArtist, IsModerator
 from apps.music.api.tracks.serializers.write import TrackWriteSerializer
 from apps.music.models import Album
+from common.permissions import IsArtist, IsModerator
 from .serializers.read import AlbumListSerializer, AlbumDetailSerializer
 from .serializers.write import AlbumWriteSerializer
 from .services import send_status_album_to_user, send_to_moderator

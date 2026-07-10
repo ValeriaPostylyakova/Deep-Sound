@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from apps.common.validators import validate_avatar
+from common.validators import validate_avatar
 
 User = get_user_model()
 

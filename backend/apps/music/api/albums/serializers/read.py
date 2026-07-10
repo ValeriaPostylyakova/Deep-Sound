@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from apps.common.utils.get_image_url import get_image_url
 from apps.music.api.tracks.serializers.read import TrackAlbumSerializer
 from apps.music.models import Album
+from common.utils.get_image_url import get_image_url
 
 
 class AlbumListSerializer(serializers.ModelSerializer):

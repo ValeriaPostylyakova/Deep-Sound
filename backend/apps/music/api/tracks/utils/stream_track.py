@@ -4,7 +4,7 @@ from ranged_response import RangedFileResponse
 from rest_framework import status
 from rest_framework.response import Response
 
-from apps.common.minio import client
+from core.clients.minio import client
 
 
 def process_stream_track(request, bucket_name, object_name):

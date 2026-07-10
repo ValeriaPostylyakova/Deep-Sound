@@ -1,7 +1,7 @@
 from celery import shared_task
 
-from apps.common.utils.convert_audio import convert_audio_to_mp3
 from apps.music.models import Track
+from common.utils.convert_audio import convert_audio_to_mp3
 
 
 @shared_task(name="music.proccess_track_to_album")

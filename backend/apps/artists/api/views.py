@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from apps.artists.models import Artist
 from apps.authentication.models import Role
-from apps.common.permissions import IsArtist
+from common.permissions import IsArtist
 from .serializers.read import ArtistProfileStandardSerializer
 from .serializers.write import ArtistProfileWriteSerializer, BecomeArtistWriteSerializer
 

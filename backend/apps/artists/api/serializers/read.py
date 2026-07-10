@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.artists.models import Artist
-from apps.common.utils.get_image_url import get_image_url
+from common.utils.get_image_url import get_image_url
 
 
 class ArtistProfileStandardSerializer(serializers.ModelSerializer):

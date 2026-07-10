@@ -5,10 +5,10 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.common.permissions import IsModerator, IsOwner
 from apps.music.api.paginations.cursor_paginations import PlaylistTracksCursorPagination
 from apps.music.api.paginations.number_paginations import PlaylistsSetNumberPagination
 from apps.music.models import Playlist, Track
+from common.permissions import IsModerator, IsOwner
 from .serializers.read import PlaylistListSerializer, PlaylistMainPageSerializer, PlaylistDetailSerializer
 from .serializers.write import (
     PlaylistModeratorWriteSerializer,

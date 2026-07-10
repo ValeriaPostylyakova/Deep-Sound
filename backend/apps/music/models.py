@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 from pytils.translit import slugify
 
-from apps.common.utils.optimize_image import optimize_image
+from common.utils.optimize_image import optimize_image
 from ..artists.models import Artist
 
 STATUS_CHOICES_PLAYLIST = [

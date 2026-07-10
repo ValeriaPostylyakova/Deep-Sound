@@ -2,7 +2,7 @@ from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 
 from apps.artists.models import Artist
-from apps.common.validators import validate_avatar
+from common.validators import validate_avatar
 
 
 class ArtistProfileWriteSerializer(serializers.ModelSerializer):

@@ -1,8 +1,8 @@
 from celery import shared_task
 
 from apps.authentication.models import User
-from apps.common.utils.convert_audio import convert_audio_to_mp3
 from apps.music.models import Track
+from common.utils.convert_audio import convert_audio_to_mp3
 from .services import send_new_track_to_moderator, send_track_update_to_user
 
 
