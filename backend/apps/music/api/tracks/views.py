@@ -6,9 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from apps.music.api.tracks.services import send_track_update_to_user
 from apps.music.models import Track
-from common.permissions import IsArtist, IsModerator
+from common.permissions import IsArtist
 from .serializers.read import TrackShortSerializer, TrackDetailSerializer, TrackListSerializer
 from .serializers.write import TrackWriteSerializer
 from .tasks import process_track
@@ -71,40 +70,6 @@ class TrackViewSet(viewsets.ModelViewSet):
             {"message": "Трек успешно загружен и отправлен на модерацию"},
             status=status.HTTP_201_CREATED
         )
-
-    @action(detail=True, methods=["POST"], url_path="review", permission_classes=[IsAuthenticated, IsModerator])
-    def review(self, request, pk=None):
-
-        track = self.get_object()
-        user_id = request.user.id
-
-        decision = request.data.get("decision")
-
-        if decision == "approved":
-            track.status = "approved"
-            track.rejection_message = None
-            track.save(update_fields=["status", "rejection_message"])
-
-            send_track_update_to_user(user_id, track.id, "approved")
-
-        elif decision == "rejected":
-            track.status = "rejected"
-            track.rejection_message = request.data.get(
-                "rejection_message", "Не прошло модерацию"
-            )
-            track.save(update_fields=["status", "rejection_message"])
-
-            send_track_update_to_user(
-                user_id, track.id, "rejected", track.rejection_message
-            )
-
-        else:
-            return Response(
-                {"message": "Неверное действие. Ожидается 'approved' или 'rejected'"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        return Response({"status": f"Трек успешно переведен в статус {track.status}"})
 
     @action(detail=True, methods=["GET"], url_path="stream", permission_classes=[AllowAny])
     def stream_track(self, request, pk=None):

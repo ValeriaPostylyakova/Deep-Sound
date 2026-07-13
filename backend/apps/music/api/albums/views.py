@@ -11,7 +11,6 @@ from apps.music.models import Album
 from common.permissions import IsArtist, IsModerator
 from .serializers.read import AlbumListSerializer, AlbumDetailSerializer
 from .serializers.write import AlbumWriteSerializer
-from .services import send_status_album_to_user, send_to_moderator
 from .tasks import proccess_track_to_album
 
 
@@ -92,67 +91,10 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["POST"], url_path="send-to-moderation")
     def send_to_moderation(self, request, pk=None):
-
-        album = get_object_or_404(
-            Album.objects.select_related("author", "category").prefetch_related(
-                "tracks__author", "tracks__category"
-            ),
-            pk=pk,
-        )
+        album = get_object_or_404(Album, pk=pk)
 
         with transaction.atomic():
             album.status = "pending"
             album.save(update_fields=["status"])
 
-            transaction.on_commit(lambda: send_to_moderator(album))
-            transaction.on_commit(
-                lambda: send_status_album_to_user(
-                    request.user.id, str(album.id), album.status
-                )
-            )
-
         return Response({"message": "Альбом отправлен на модерацию"})
-
-    @action(detail=True, methods=["POST"], url_path="review")
-    def review(self, request, pk=None):
-        album = self.get_object()
-
-        decision = request.data.get("decision")
-        rejection_message = request.data.get("rejection_message", None)
-
-        if decision == "approved":
-            with transaction.atomic():
-                album.status = "approved"
-                album.save(update_fields=["status"])
-
-                transaction.on_commit(
-                    lambda: send_status_album_to_user(
-                        str(request.user.id), str(album.id), album.status
-                    )
-                )
-
-        elif decision == "rejected":
-            with transaction.atomic():
-                album.status = "rejected"
-                album.rejection_message = rejection_message
-
-                if not rejection_message:
-                    return Response(
-                        {"message": "Укажите причину отказа"},
-                        status=status.HTTP_400_BAD_REQUEST,
-                    )
-
-                album.save(update_fields=["status", "rejection_message"])
-
-                transaction.on_commit(
-                    lambda: send_status_album_to_user(
-                        str(request.user.id), str(album.id), album.status
-                    )
-                )
-        else:
-            return Response(
-                {"message": "Неверное действие. Ожидается 'approved' или 'rejected'"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        return Response({"message": "Альбом успешно проверен"})

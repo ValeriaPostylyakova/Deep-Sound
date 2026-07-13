@@ -208,7 +208,7 @@ CELERY_TIMEZONE = TIME_ZONE
 
 CELERY_IMPORTS = [
     "apps.authentication.tasks",
-    "apps.music.tasks",
+    "apps.music.tasks"
 ]
 
 CACHES = {

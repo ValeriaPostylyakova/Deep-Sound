@@ -10,7 +10,8 @@ User = get_user_model()
 def get_user_from_token(token_string):
     try:
         access_token = AccessToken(token_string)
-        user = User.objects.get(id=access_token["user_id"])
-        return user
+        return User.objects.get(id=access_token["user_id"])
     except Exception as e:
+        import logging
+        logging.getLogger(__name__).warning(f"JWT Validation inner error: {e}")
         return AnonymousUser()

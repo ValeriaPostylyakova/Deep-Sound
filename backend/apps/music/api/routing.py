@@ -1,7 +1,7 @@
 from django.urls import re_path
 
-from .tracks import consumers
+from . import consumers
 
 websocket_urlpatterns = [
-    re_path(r"^ws/dashboard/$", consumers.MusicConsumer.as_asgi()),
+    re_path(r"^ws/dashboard-check-music-status/$", consumers.MusicConsumer.as_asgi()),
 ]
