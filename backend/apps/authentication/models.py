@@ -57,3 +57,28 @@ class User(AbstractUser):
     @property
     def is_user(self):
         return self.role.filter(name="user").exists()
+
+
+class SocialAccount(models.Model):
+    PROVIDERS = (
+        ("google", "Google"),
+        ("yandex", "Yandex"),
+    )
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="social_accounts",
+    )
+
+    provider = models.CharField(max_length=20, choices=PROVIDERS)
+    provider_id = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["provider", "provider_id"],
+                name="unique_provider_account",
+            )
+        ]

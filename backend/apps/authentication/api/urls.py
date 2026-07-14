@@ -1,6 +1,8 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
+from .oauth.views.google_view import GoogleAuthView
+from .oauth.views.yandex_view import YandexAuthView
 from ..api import views
 
 urlpatterns = [
@@ -15,4 +17,6 @@ urlpatterns = [
     path(
         "change-password/", views.ChangePasswordView.as_view(), name="change-password"
     ),
+    path("oauth/google/login/", GoogleAuthView.as_view(), name="google-auth"),
+    path("oauth/yandex/login/", YandexAuthView.as_view(), name="yandex-auth")
 ]

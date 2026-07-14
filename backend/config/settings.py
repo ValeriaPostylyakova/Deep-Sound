@@ -161,6 +161,12 @@ SIMPLE_JWT = {
     "USER_ID_CLAIM": "user_id",
 }
 
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+YANDEX_CLIENT_ID = os.getenv("YANDEX_CLIENT_ID")
+YANDEX_CLIENT_SECRET = os.getenv("YANDEX_CLIENT_SECRET")
+YANDEX_REDIRECT_URI = os.getenv("YANDEX_REDIRECT_URI")
+
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
@@ -206,10 +212,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
 
-CELERY_IMPORTS = [
-    "apps.authentication.tasks",
-    "apps.music.tasks"
-]
+CELERY_IMPORTS = ["apps.authentication.tasks", "apps.music.tasks"]
 
 CACHES = {
     "default": {
