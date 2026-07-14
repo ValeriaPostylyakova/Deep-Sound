@@ -3,15 +3,16 @@ from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from apps.music.api.tracks.serializers.write import TrackWriteSerializer
 from apps.music.models import Album
-from common.permissions import IsArtist, IsModerator
+from common.permissions import IsArtistRole
 from .serializers.read import AlbumListSerializer, AlbumDetailSerializer
 from .serializers.write import AlbumWriteSerializer
 from .tasks import proccess_track_to_album
+from ..permissions import IsAlbumAndTrackAuthor
 
 
 class AlbumViewSet(viewsets.ModelViewSet):
@@ -38,11 +39,11 @@ class AlbumViewSet(viewsets.ModelViewSet):
         return AlbumListSerializer
 
     def get_permissions(self):
-        if self.action == "review":
-            return [IsAuthenticated(), IsModerator()]
-        elif self.action == 'list':
+        if self.action in ['list', 'retrieve']:
             return [AllowAny()]
-        return [IsAuthenticated(), IsArtist()]
+        if self.action in ['add-track', 'remove-track', 'send-to-moderation', 'update']:
+            return [IsAuthenticated(), IsArtistRole(), IsAlbumAndTrackAuthor()]
+        return [IsAuthenticated(), IsArtistRole()]
 
     def perform_destroy(self, instance):
         instance.tracks.all().update(album=None)

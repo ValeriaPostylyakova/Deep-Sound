@@ -1,32 +1,64 @@
 from django.db import transaction
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from apps.artists.models import Artist
 from apps.authentication.models import Role
-from common.permissions import IsArtist
+from apps.music.api.albums.serializers.read import AlbumListSerializer
+from apps.music.api.tracks.serializers.read import TrackListSerializer
+from common.permissions import IsArtistRole
 from .serializers.read import ArtistProfileStandardSerializer
 from .serializers.write import ArtistProfileWriteSerializer, BecomeArtistWriteSerializer
+from ..permissions import IsCurrentArtistProfile
 
 
 class ArtistProfileViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistProfileStandardSerializer
-    permission_classes = [IsArtist]
 
     def get_queryset(self):
+        if self.action in ['list', 'retrieve']:
+            return Artist.objects.all()
         return Artist.objects.filter(user=self.request.user)
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        return [IsArtistRole(), IsCurrentArtistProfile()]
 
     def get_serializer_class(self):
         if self.request.method in ["PATCH"]:
             return ArtistProfileWriteSerializer
         return ArtistProfileStandardSerializer
 
-    def get_permissions(self):
-        if self.request.method in ["GET", "PATCH"]:
-            self.permission_classes = [IsArtist]
-        return super().get_permissions()
+    def retrieve(self, request, *args, **kwargs):
+        artist_profile = self.get_object()
+
+        albums = (
+            artist_profile.albums
+            .select_related('category')
+            .all()
+            .order_by('-created_at')[:5]
+        )
+
+        tracks = (
+            artist_profile.tracks
+            .select_related('album', 'category', 'text')
+            .all()
+            .order_by('-created_at')[:5]
+        )
+
+        artist_serializer = self.get_serializer(artist_profile)
+        albums_serializer = AlbumListSerializer(albums, many=True, context={'request': request})
+        tracks_serializer = TrackListSerializer(tracks, many=True, context={'request': request})
+
+        return Response({
+            "artist": artist_serializer.data,
+            "albums": albums_serializer.data,
+            "tracks": tracks_serializer.data
+        })
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()

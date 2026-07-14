@@ -19,7 +19,7 @@ def process_review(model, pk, decision, rejection_message, send_notification_cal
         obj.save(update_fields=update_fields)
 
         transaction.on_commit(
-            lambda: send_notification_callback(obj, decision)
+            lambda: send_notification_callback(obj, decision, rejection_message)
         )
 
     return obj

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from apps.music.api.paginations.cursor_paginations import PlaylistTracksCursorPagination
 from apps.music.api.paginations.number_paginations import PlaylistsSetNumberPagination
 from apps.music.models import Playlist, Track
-from common.permissions import IsModerator, IsOwner
+from common.permissions import IsModeratorRole, IsOwner
 from .serializers.read import PlaylistListSerializer, PlaylistMainPageSerializer, PlaylistDetailSerializer
 from .serializers.write import (
     PlaylistModeratorWriteSerializer,
@@ -99,7 +99,7 @@ class UserPlaylistViewSet(BasePlaylistViewSet):
 
 
 class ModeratorPlaylistViewSet(BasePlaylistViewSet):
-    permission_classes = [IsAuthenticated, IsModerator]
+    permission_classes = [IsAuthenticated, IsModeratorRole]
     write_serializer_class = PlaylistModeratorWriteSerializer
 
     def get_queryset(self):

@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from apps.music.models import Track
-from common.permissions import IsArtist
+from common.permissions import IsArtistRole
 from .serializers.read import TrackShortSerializer, TrackDetailSerializer, TrackListSerializer
 from .serializers.write import TrackWriteSerializer
 from .tasks import process_track
@@ -49,9 +49,8 @@ class TrackViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
-
         else:
-            return [IsAuthenticated(), IsArtist()]
+            return [IsAuthenticated(), IsArtistRole()]
 
     def perform_create(self, serializer):
         with transaction.atomic():
