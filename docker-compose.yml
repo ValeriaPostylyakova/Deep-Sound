@@ -80,21 +80,21 @@ services:
       minio:
         condition: service_healthy
 
-  frontend:
-    build: ./frontend
-    command: yarn dev
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    ports:
-      - '3000:3000'
-    env_file:
-      - .env
-    depends_on:
-      backend:
-        condition: service_started
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+  # frontend:
+  #   build: ./frontend
+  #   command: yarn dev
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - '3000:3000'
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     backend:
+  #       condition: service_started
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
 
 volumes:
   postgres_data:

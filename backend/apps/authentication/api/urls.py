@@ -17,6 +17,7 @@ urlpatterns = [
     path(
         "change-password/", views.ChangePasswordView.as_view(), name="change-password"
     ),
+    path("verify-email/", views.VerifyEmailView.as_view(), name="verify-email"),
     path("oauth/google/login/", GoogleAuthView.as_view(), name="google-auth"),
     path("oauth/yandex/login/", YandexAuthView.as_view(), name="yandex-auth")
 ]

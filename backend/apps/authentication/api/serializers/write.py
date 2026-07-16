@@ -55,6 +55,8 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
                 validated_data["email"]
             )
 
+        validated_data["is_active"] = False
+
         return User.objects.create_user(**validated_data)
 
 
@@ -84,6 +86,12 @@ class LoginWriteSerializer(serializers.Serializer):
                 raise serializers.ValidationError(
                     {
                         "message": "Пользователь заблокирован за нарушение правил. Пожалуйста, свяжитесь с администратором."
+                    }
+                )
+            if not user.is_verified:
+                raise serializers.ValidationError(
+                    {
+                        "message": "Пользователь не подтвержден. Пожалуйста, подтвердите свою почту."
                     }
                 )
 
@@ -163,3 +171,7 @@ class ChangePasswordWriteSerializer(serializers.Serializer):
 
         user.set_password(self.validated_data["new_password"])
         user.save(update_fields=["password"])
+
+
+class VerifyEmailTokenSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True)

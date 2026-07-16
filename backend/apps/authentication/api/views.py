@@ -10,9 +10,10 @@ from .serializers.write import (
     ForgotPasswordWriteSerializer,
     LoginWriteSerializer,
     RegisterWriteSerializer,
-    ResetPasswordWriteSerializer,
+    ResetPasswordWriteSerializer, VerifyEmailTokenSerializer,
 )
 from .services.password_reset import forgot_password, reset_password
+from .services.verification_email import send_verification_link, verify_email_token
 from .utils.get_device_info import get_device_info
 from ..tasks.send_change_password import send_change_password
 
@@ -29,13 +30,11 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
 
-        refresh = RefreshToken.for_user(user)
+        send_verification_link(user.email)
 
         return Response(
             {
-                "refresh": str(refresh),
-                "access": str(refresh.access_token),
-                "message": "Регистрация прошла успешно",
+                "message": "Регистрация прошла успешно. Пожалуйста, подтвердите свою почту.",
             },
             status=status.HTTP_201_CREATED,
         )
@@ -153,4 +152,19 @@ class ChangePasswordView(APIView):
 
         return Response(
             {"message": "Токен не действителен"}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class VerifyEmailView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = VerifyEmailTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        verify_email_token(serializer.validated_data["token"])
+
+        return Response(
+            {"message": "Почта успешно подтверждена"},
+            status=status.HTTP_200_OK
         )
