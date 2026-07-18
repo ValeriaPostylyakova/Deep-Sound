@@ -2,22 +2,19 @@
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { PaletteMode, ThemeProvider } from '@mui/material/styles'
 import * as React from 'react'
-
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: '#d28219'
-		}
-	}
-})
+import { createAppTheme } from '../theme/theme'
 
 export default function ThemeGlobalProvider({
 	children
 }: {
 	children: React.ReactNode
 }) {
+	const [mode, setMode] = React.useState<PaletteMode>('dark')
+
+	const theme = React.useMemo(() => createAppTheme(mode), [mode])
+
 	return (
 		<AppRouterCacheProvider options={{ enableCssLayer: true }}>
 			<ThemeProvider theme={theme}>
