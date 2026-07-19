@@ -37,7 +37,12 @@ export default function NotFound() {
 				>
 					<DiscFullIcon sx={{ color: 'primary.main' }} />
 				</Box>
-				<Typography variant="h1">Тишина не по плану</Typography>
+				<Typography
+					sx={{ textAlign: 'center' }}
+					variant="h1"
+				>
+					Тишина не по плану
+				</Typography>
 				<Typography
 					sx={{ color: 'text.secondary', textAlign: 'center', mb: 2 }}
 				>
