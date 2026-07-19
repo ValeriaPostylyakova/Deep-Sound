@@ -1,10 +1,14 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model, login
 from rest_framework import generics, permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenRefreshView
 
+from .serializers.read import LoginReadSerializer
 from .serializers.write import (
     ChangePasswordWriteSerializer,
     ForgotPasswordWriteSerializer,
@@ -52,15 +56,48 @@ class LoginView(generics.GenericAPIView):
         login(request, user)
 
         refresh = RefreshToken.for_user(user)
-
-        return Response(
+        response = Response(
             {
-                "refresh": str(refresh),
                 "access": str(refresh.access_token),
+                "user": LoginReadSerializer(user).data,
                 "message": "Авторизация прошла успешно",
             },
             status=status.HTTP_200_OK,
         )
+
+        simple_jwt_settings = getattr(settings, "SIMPLE_JWT", {})
+        refresh_lifetime = simple_jwt_settings.get("REFRESH_TOKEN_LIFETIME")
+
+        response.set_cookie(
+            key='refresh_token',
+            value=str(refresh),
+            expires=refresh_lifetime,
+            httponly=True,
+            secure=True,
+            samesite='Lax',
+            path="/api/token/refresh/"
+        )
+
+        return response
+
+
+class CustomTokenRefreshView(TokenRefreshView):
+    def post(self, request, *args, **kwargs):
+        refresh_token = request.COOKIES.get("refresh_token")
+
+        if not refresh_token:
+            return Response(
+                {"detail": "Refresh token не найден в куках"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        serializer = self.get_serializer(data={"refresh": refresh_token})
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])

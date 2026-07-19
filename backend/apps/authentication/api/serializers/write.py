@@ -4,6 +4,7 @@ from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 
 from ..utils.generate_username_from_email import generate_username_from_email
+from ...models import Role
 
 User = get_user_model()
 
@@ -19,8 +20,9 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
             ),
         ],
     )
-    confirm_password = serializers.CharField(write_only=True)
-    username = serializers.CharField(required=False, allow_blank=True)
+    confirm_password = serializers.CharField(write_only=True, required=True)
+    username = serializers.CharField(required=False, allow_blank=True, read_only=True)
+    role = serializers.SlugRelatedField(queryset=Role.objects.all(), slug_field="name", required=True)
 
     class Meta:
         model = User
@@ -34,9 +36,10 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
             "confirm_password",
+            "role"
         )
 
-        read_only_fields = ("created_at", "updated_at")
+        read_only_fields = ("id", "created_at", "updated_at")
 
     def validate(self, data):
         if data["password"] != data["confirm_password"]:
@@ -49,15 +52,19 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop("confirm_password", None)
+        role = validated_data.pop("role", None)
 
-        if not validated_data.get("username"):
-            validated_data["username"] = generate_username_from_email(
-                validated_data["email"]
-            )
+        validated_data["username"] = generate_username_from_email(
+            validated_data["email"]
+        )
 
         validated_data["is_active"] = False
 
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        if role is not None:
+            user.role.set([role])
+
+        return user
 
 
 class LoginWriteSerializer(serializers.Serializer):

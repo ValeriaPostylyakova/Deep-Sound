@@ -16,3 +16,4 @@ export const components: Components<Theme> = {
 }
 
 export * from './DividerWithText'
+export * from './PulseButton'

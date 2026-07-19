@@ -18,7 +18,7 @@ export const DividerWithText: FC<Props> = ({ text }) => {
 			<Box
 				sx={{
 					flexGrow: 1,
-					borderTop: '1px solid',
+					borderTop: '0.2px solid',
 					borderColor: 'inherit'
 				}}
 			/>
@@ -31,7 +31,7 @@ export const DividerWithText: FC<Props> = ({ text }) => {
 			<Box
 				sx={{
 					flexGrow: 1,
-					borderTop: '1px solid',
+					borderTop: '0.2px solid',
 					borderColor: 'inherit'
 				}}
 			/>
