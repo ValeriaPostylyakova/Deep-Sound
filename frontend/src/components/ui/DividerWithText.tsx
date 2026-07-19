@@ -1,9 +1,11 @@
 import Box from '@mui/material/Box'
 import type { FC } from 'react'
 
-interface Props {}
+interface Props {
+	text?: string
+}
 
-export const DividerWithText: FC<Props> = () => {
+export const DividerWithText: FC<Props> = ({ text }) => {
 	return (
 		<Box
 			sx={{
@@ -24,7 +26,7 @@ export const DividerWithText: FC<Props> = () => {
 				component="span"
 				sx={{ mx: 1.5 }}
 			>
-				или
+				{text ?? 'или'}
 			</Box>
 			<Box
 				sx={{

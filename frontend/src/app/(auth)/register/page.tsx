@@ -1,4 +1,4 @@
-import LeftHero from '@/src/components/shared/auth/register/LeftHero'
+import LeftHero from '@/src/components/shared/forms/RegisterForm/LeftHero'
 import RegisterForm from '@/src/components/shared/forms/RegisterForm/RegisterForm'
 
 export default function RegisterPage() {

@@ -10,7 +10,7 @@ export const muiButton: Components<Theme>['MuiButton'] = {
 			borderRadius: '1rem',
 			textTransform: 'none',
 			fontWeight: 600,
-			padding: '0.4rem 1rem',
+			padding: '0.6rem 1.4rem',
 			color: theme.palette.primary.contrastText
 		})
 	},

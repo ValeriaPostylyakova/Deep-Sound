@@ -1,7 +1,12 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
-import { Box, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-export default function Header() {
+import type { FC } from 'react'
+
+interface Props {}
+
+export const Header: FC<Props> = () => {
 	return (
 		<Box className="mb-16 flex items-center justify-between">
 			<Box className="flex items-center gap-3">

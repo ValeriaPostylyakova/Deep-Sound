@@ -1,4 +1,4 @@
-import LeftHero from '@/src/components/shared/auth/login/LeftHero'
+import LeftHero from '@/src/components/shared/forms/LoginForm/LeftHero'
 import LoginForm from '@/src/components/shared/forms/LoginForm/LoginForm'
 import type { FC } from 'react'
 

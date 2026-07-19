@@ -1,10 +1,10 @@
 import { Components, Theme } from '@mui/material'
-import { muiButton } from './button'
-import { muiChip } from './chip'
-import { muiTextField } from './textField'
-import { muiToggleButton } from './toggleButton'
-import { muiToggleButtonGroup } from './toggleButtonGroup'
-import { muiTypography } from './typography'
+import { muiButton } from './mui/button'
+import { muiChip } from './mui/chip'
+import { muiTextField } from './mui/textField'
+import { muiToggleButton } from './mui/toggleButton'
+import { muiToggleButtonGroup } from './mui/toggleButtonGroup'
+import { muiTypography } from './mui/typography'
 
 export const components: Components<Theme> = {
 	MuiButton: muiButton,
@@ -14,3 +14,5 @@ export const components: Components<Theme> = {
 	MuiToggleButton: muiToggleButton,
 	MuiToggleButtonGroup: muiToggleButtonGroup
 }
+
+export * from './DividerWithText'

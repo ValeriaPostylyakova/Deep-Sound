@@ -1,13 +1,15 @@
 'use client'
 
-import { Box, Button, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 
 import { PAGES } from '@/src/configs/public-pages.config'
-import { DividerWithText } from '../DividerWithText'
 import { Footer } from '../Footer'
-import Header from '../Header'
-import SocialLogin from '../SocialLogin'
+import { Header } from '../Header'
+import { SocialLogin } from '../SocialLogin'
 import UserFields from './UserFields'
+import { DividerWithText } from '@/src/components/ui'
 
 export default function LoginForm() {
 	return (

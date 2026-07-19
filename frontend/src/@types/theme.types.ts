@@ -1,6 +1,6 @@
-import { darkThemeConfigs } from '../configs/theme'
+import { darkThemeConfig } from '../configs/theme'
 
-type ThemeTokens = typeof darkThemeConfigs
+type ThemeTokens = typeof darkThemeConfig
 
 declare module '@mui/material/styles' {
 	interface Theme {
@@ -12,5 +12,13 @@ declare module '@mui/material/styles' {
 		custom?: {
 			tokens: ThemeTokens
 		}
+	}
+
+	interface Theme {
+		animations: {}
+	}
+
+	interface ThemeOptions {
+		animations?: {}
 	}
 }

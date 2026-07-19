@@ -1,2 +1,2 @@
-export * from './auth/login.schema'
-export * from './auth/register.schema'
+export * from './login.schema'
+export * from './register.schema'

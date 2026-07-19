@@ -26,7 +26,8 @@ export const muiTypography: Components<Theme>['MuiTypography'] = {
 			fontSize: '2.5rem',
 			fontWeight: 800,
 			lineHeight: 1.2,
-			letterSpacing: '-0.02em'
+			letterSpacing: '-0.02em',
+			textAlign: 'center'
 		}),
 		h2: ({ theme }) => ({
 			fontSize: '2rem',

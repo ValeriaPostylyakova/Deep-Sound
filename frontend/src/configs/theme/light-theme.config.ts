@@ -58,5 +58,7 @@ export const lightThemeConfig = {
 
 	icons: {
 		DEFAULT: '#FFFFFF'
-	}
+	},
+
+	action: {}
 }

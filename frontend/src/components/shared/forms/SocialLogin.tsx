@@ -1,9 +1,14 @@
 import AppleIcon from '@mui/icons-material/Apple'
 import GoogleIcon from '@mui/icons-material/Google'
 
-import { Button, Stack } from '@mui/material'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 
-export default function SocialLogin() {
+import type { FC } from 'react'
+
+interface Props {}
+
+export const SocialLogin: FC<Props> = () => {
 	return (
 		<Stack
 			direction="row"

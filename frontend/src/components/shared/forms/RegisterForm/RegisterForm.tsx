@@ -1,14 +1,15 @@
 'use client'
 
+import { DividerWithText } from '@/src/components/ui'
 import { PAGES } from '@/src/configs/public-pages.config'
 import { Box, Button, Typography } from '@mui/material'
 import { useState } from 'react'
 import { Footer } from '../Footer'
-import Header from '../Header'
-import SocialLogin from '../SocialLogin'
-import PasswordFields from './PasswordFields'
+import { Header } from '../Header'
+import { SocialLogin } from '../SocialLogin'
+import { PasswordFields } from './PasswordFields'
 import RoleSelector from './RoleSelector'
-import UserFields from './UserFields'
+import { UserFields } from './UserFields'
 
 export default function RegisterForm() {
 	const [role, setRole] = useState('user')
@@ -51,35 +52,7 @@ export default function RegisterForm() {
 						Зарегистрироваться
 					</Button>
 
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							color: 'text.secondary',
-							my: 1
-						}}
-					>
-						<Box
-							sx={{
-								flexGrow: 1,
-								borderTop: '1px solid',
-								borderColor: 'inherit'
-							}}
-						/>
-						<Box
-							component="span"
-							sx={{ mx: 1.5 }}
-						>
-							или
-						</Box>
-						<Box
-							sx={{
-								flexGrow: 1,
-								borderTop: '1px solid',
-								borderColor: 'inherit'
-							}}
-						/>
-					</Box>
+					<DividerWithText />
 
 					<SocialLogin />
 

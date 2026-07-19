@@ -1,6 +1,13 @@
 import { PaletteMode, ThemeOptions, createTheme } from '@mui/material'
+import { keyframes } from '@mui/system'
 import { components } from '../components/ui'
 import { darkThemeConfig, lightThemeConfig } from '../configs/theme'
+
+const bgPulse = keyframes`
+  '0%': { transform: 'scale(1)' },
+	'50%': { transform: 'scale(2)' },
+	'100%': { transform: 'scale(1)' }
+`
 
 export const themeSettings = (mode: PaletteMode): ThemeOptions => {
 	const colors = mode === 'dark' ? darkThemeConfig : lightThemeConfig
@@ -30,6 +37,7 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
 		custom: {
 			tokens: colors
 		},
+		animations: {},
 		typography: {
 			fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif'
 		},

@@ -1,6 +1,10 @@
-import { TextField } from '@mui/material'
+import TextField from '@mui/material/TextField'
 
-export default function PasswordFields() {
+import type { FC } from 'react'
+
+interface Props {}
+
+export const PasswordFields: FC<Props> = () => {
 	return (
 		<div className="flex w-full gap-3">
 			<TextField
