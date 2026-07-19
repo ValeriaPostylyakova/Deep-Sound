@@ -8,7 +8,7 @@ export const muiToggleButtonGroup: Components<Theme>['MuiToggleButtonGroup'] = {
 	styleOverrides: {
 		root: ({ theme }) => ({
 			borderRadius: '1rem',
-			backgroundColor: theme.palette.background.paper,
+			backgroundColor: 'transparent',
 			border: `1px solid ${theme.palette.divider}`,
 			padding: '2px',
 			gap: '2px',

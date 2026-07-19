@@ -22,7 +22,7 @@ export default function LeftHero() {
 
 				<Typography
 					variant="h1"
-					sx={{ mt: 5, fontWeight: 700 }}
+					sx={{ mt: 4, fontWeight: 700 }}
 				>
 					Музыка, которая <br />
 					<Box

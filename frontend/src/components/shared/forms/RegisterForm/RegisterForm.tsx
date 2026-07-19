@@ -1,16 +1,17 @@
 'use client'
 
-import { Box, Button, Divider, Typography } from '@mui/material'
+import { PAGES } from '@/src/configs/public-pages.config'
+import { Box, Button, Typography } from '@mui/material'
 import { useState } from 'react'
-import Footer from './Footer'
-import Header from './Header'
+import { Footer } from '../Footer'
+import Header from '../Header'
+import SocialLogin from '../SocialLogin'
 import PasswordFields from './PasswordFields'
 import RoleSelector from './RoleSelector'
-import SocialLogin from './SocialLogin'
 import UserFields from './UserFields'
 
 export default function RegisterForm() {
-	const [role, setRole] = useState('listener')
+	const [role, setRole] = useState('user')
 
 	return (
 		<Box className="flex w-full flex-col overflow-y-auto px-8 py-12 md:w-[40%] lg:px-12">
@@ -50,11 +51,43 @@ export default function RegisterForm() {
 						Зарегистрироваться
 					</Button>
 
-					<Divider sx={{ py: 1, color: 'text.secondary' }}>или</Divider>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							color: 'text.secondary',
+							my: 1
+						}}
+					>
+						<Box
+							sx={{
+								flexGrow: 1,
+								borderTop: '1px solid',
+								borderColor: 'inherit'
+							}}
+						/>
+						<Box
+							component="span"
+							sx={{ mx: 1.5 }}
+						>
+							или
+						</Box>
+						<Box
+							sx={{
+								flexGrow: 1,
+								borderTop: '1px solid',
+								borderColor: 'inherit'
+							}}
+						/>
+					</Box>
 
 					<SocialLogin />
 
-					<Footer />
+					<Footer
+						text="Уже есть аккаунт?"
+						linkUrl={PAGES.LOGIN}
+						linkText="Войти"
+					/>
 				</Box>
 			</Box>
 		</Box>

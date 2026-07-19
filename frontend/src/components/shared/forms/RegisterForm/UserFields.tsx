@@ -24,7 +24,7 @@ export default function UserFields() {
 			<TextField
 				label="Email"
 				type="email"
-				placeholder="example@gmail.com"
+				placeholder="aleksandr@gmail.com"
 				fullWidth
 				slotProps={{
 					input: {

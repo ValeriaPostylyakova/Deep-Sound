@@ -26,7 +26,7 @@ export const muiButton: Components<Theme>['MuiButton'] = {
 			props: { variant: 'outlined' },
 			style: ({ theme }) => ({
 				borderColor: theme.palette.divider,
-				'&:hover': { backgroundColor: theme.palette.action.hover }
+				'&:hover': { borderColor: theme.palette.text.secondary }
 			})
 		}
 	]

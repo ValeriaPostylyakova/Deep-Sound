@@ -8,7 +8,7 @@ export const muiToggleButton: Components<Theme>['MuiToggleButton'] = {
 			fontSize: '0.875rem',
 			fontWeight: 500,
 			textTransform: 'none',
-			border: `1px solid transparent`,
+			border: `1px solid ${theme.palette.text.secondary}`,
 			color: theme.palette.text.secondary,
 			backgroundColor: 'transparent',
 

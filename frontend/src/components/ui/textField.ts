@@ -9,6 +9,9 @@ export const muiTextField: Components<Theme> = {
 		}
 	},
 	MuiOutlinedInput: {
+		defaultProps: {
+			notched: true
+		},
 		styleOverrides: {
 			root: ({ theme }) => ({
 				borderRadius: '1rem',
