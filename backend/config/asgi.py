@@ -11,7 +11,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from core.middleware.jwt import JWTAuthMiddleware
 
 from apps.moderation.api.routing import websocket_urlpatterns as moderation_websocket_urlpatterns
-from apps.music.api.routing import websocket_urlpatterns as music_websocket_urlpatterns
+from apps.artists.websocket.routing import websocket_urlpatterns as music_websocket_urlpatterns
 
 combined_websocket_urlpatterns = moderation_websocket_urlpatterns + music_websocket_urlpatterns
 

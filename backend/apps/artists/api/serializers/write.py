@@ -1,7 +1,7 @@
 from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 
-from apps.artists.models import Artist
+from apps.artists.models import ArtistProfile
 from common.validators import validate_avatar
 
 
@@ -16,20 +16,8 @@ class ArtistProfileWriteSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = Artist
+        model = ArtistProfile
         fields = ("id", "name", "avatar", "bio")
 
     def validate_avatar(self, avatar):
         return validate_avatar(avatar)
-
-
-class BecomeArtistWriteSerializer(serializers.ModelSerializer):
-    name = serializers.CharField()
-
-    class Meta:
-        model = Artist
-        fields = ("name",)
-
-    def create(self, validated_data):
-        user = self.context.get("request").user
-        return Artist.objects.create(user=user, name=validated_data["name"])

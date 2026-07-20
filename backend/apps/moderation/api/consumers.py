@@ -6,16 +6,16 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class ModeratorConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
-    def check_is_moderator(self, user):
+    def check_is_role_moderator(self, user):
         if not user or user.is_anonymous:
             return False
 
-        return user.role.filter(name="moderator").exists()
+        return user.roles.filter(name="moderator").exists()
 
     async def connect(self):
         self.user = self.scope.get("user")
 
-        is_mod = await self.check_is_moderator(self.user)
+        is_mod = await self.check_is_role_moderator(self.user)
 
         if not is_mod:
             await self.close()

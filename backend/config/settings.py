@@ -47,8 +47,8 @@ LOCAL_APPS = [
     "common",
     "apps.authentication",
     "apps.artists",
-    "apps.music",
-    "apps.profiles",
+    "apps.content",
+    "apps.listeners",
     "apps.moderation",
 ]
 
@@ -212,7 +212,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
 
-CELERY_IMPORTS = ["apps.authentication.tasks", "apps.music.tasks"]
+CELERY_IMPORTS = ["apps.authentication.tasks", "apps.content.tasks"]
 
 CACHES = {
     "default": {

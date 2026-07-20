@@ -3,7 +3,7 @@ from urllib.parse import parse_qs
 
 from django.contrib.auth.models import AnonymousUser
 
-from apps.authentication.api.services.get_user_from_token import get_user_from_token
+from apps.authentication.services.get_user_from_token import get_user_from_token
 
 logger = logging.getLogger(__name__)
 

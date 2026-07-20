@@ -8,14 +8,14 @@ class IsSuperUser(permissions.BasePermission):
 
 class IsModeratorRole(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user and request.user.role.filter(name="moderator").exists()
+        return request.user and request.user.roles.filter(name="moderator").exists()
 
 
 class IsArtistRole(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return bool(request.user and request.user.role.filter(name="artist").exists())
+        return bool(request.user and request.user.roles.filter(name="artist").exists())
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):

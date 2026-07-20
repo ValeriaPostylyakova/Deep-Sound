@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth import get_user_model, login
 from rest_framework import generics, permissions, status
 from rest_framework.decorators import api_view, permission_classes
@@ -8,7 +7,10 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .serializers.read import LoginReadSerializer
+from apps.authentication.services import forgot_password, reset_password
+from apps.authentication.services import generate_tokens
+from apps.authentication.services import send_verification_link, verify_email_token
+from apps.authentication.utils import get_device_info
 from .serializers.write import (
     ChangePasswordWriteSerializer,
     ForgotPasswordWriteSerializer,
@@ -16,9 +18,6 @@ from .serializers.write import (
     RegisterWriteSerializer,
     ResetPasswordWriteSerializer, VerifyEmailTokenSerializer,
 )
-from .services.password_reset import forgot_password, reset_password
-from .services.verification_email import send_verification_link, verify_email_token
-from .utils.get_device_info import get_device_info
 from ..tasks.send_change_password import send_change_password
 
 User = get_user_model()
@@ -44,6 +43,21 @@ class RegisterView(generics.CreateAPIView):
         )
 
 
+class VerifyEmailView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = VerifyEmailTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        verify_email_token(serializer.validated_data["token"])
+
+        return Response(
+            {"message": "Почта успешно подтверждена"},
+            status=status.HTTP_200_OK
+        )
+
+
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginWriteSerializer
     permission_classes = [permissions.AllowAny]
@@ -55,30 +69,7 @@ class LoginView(generics.GenericAPIView):
         user = serializer.validated_data["user"]
         login(request, user)
 
-        refresh = RefreshToken.for_user(user)
-        response = Response(
-            {
-                "access": str(refresh.access_token),
-                "user": LoginReadSerializer(user).data,
-                "message": "Авторизация прошла успешно",
-            },
-            status=status.HTTP_200_OK,
-        )
-
-        simple_jwt_settings = getattr(settings, "SIMPLE_JWT", {})
-        refresh_lifetime = simple_jwt_settings.get("REFRESH_TOKEN_LIFETIME")
-
-        response.set_cookie(
-            key='refresh_token',
-            value=str(refresh),
-            expires=refresh_lifetime,
-            httponly=True,
-            secure=True,
-            samesite='Lax',
-            path="/api/token/refresh/"
-        )
-
-        return response
+        return generate_tokens(user, "Авторизация прошла успешно")
 
 
 class CustomTokenRefreshView(TokenRefreshView):
@@ -189,19 +180,4 @@ class ChangePasswordView(APIView):
 
         return Response(
             {"message": "Токен не действителен"}, status=status.HTTP_400_BAD_REQUEST
-        )
-
-
-class VerifyEmailView(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request):
-        serializer = VerifyEmailTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        verify_email_token(serializer.validated_data["token"])
-
-        return Response(
-            {"message": "Почта успешно подтверждена"},
-            status=status.HTTP_200_OK
         )

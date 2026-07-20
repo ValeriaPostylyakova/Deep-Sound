@@ -1,9 +1,12 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.validators import MinLengthValidator
+from django.db import transaction
 from rest_framework import serializers
 
-from ..utils.generate_username_from_email import generate_username_from_email
+from apps.artists.models import ArtistProfile
+from apps.authentication.utils import generate_username_from_email
+from apps.listeners.models import ListenerProfile
 from ...models import Role
 
 User = get_user_model()
@@ -31,7 +34,6 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "username",
-            "avatar",
             "is_active",
             "created_at",
             "updated_at",
@@ -52,7 +54,7 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop("confirm_password", None)
-        role = validated_data.pop("role", None)
+        role_obj = validated_data.pop("role", None)
 
         validated_data["username"] = generate_username_from_email(
             validated_data["email"]
@@ -60,9 +62,15 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
 
         validated_data["is_active"] = False
 
-        user = User.objects.create_user(**validated_data)
-        if role is not None:
-            user.role.set([role])
+        with transaction.atomic():
+            user = User.objects.create_user(**validated_data)
+            listener_role = Role.objects.get(name="listener")
+            user.roles.add(listener_role)
+            ListenerProfile.objects.create(user=user)
+
+            if role_obj and role_obj.name == "artist":
+                user.roles.add(role_obj)
+                ArtistProfile.objects.create(user=user)
 
         return user
 
@@ -75,38 +83,25 @@ class LoginWriteSerializer(serializers.Serializer):
         email = data.get("email")
         password = data.get("password")
 
-        if email and password:
-            user = authenticate(
-                request=self.context.get("request"), username=email, password=password
-            )
-
-            if not user:
-                raise serializers.ValidationError(
-                    {
-                        "message": "Неправильный логин или пароль. Пожалуйста, проверьте правильность ввода данных и попробуйте ещё раз или зарегистрируйтесь."
-                    }
-                )
-
-            data["user"] = user
-
-            if not user.is_active:
-                raise serializers.ValidationError(
-                    {
-                        "message": "Пользователь заблокирован за нарушение правил. Пожалуйста, свяжитесь с администратором."
-                    }
-                )
-            if not user.is_verified:
-                raise serializers.ValidationError(
-                    {
-                        "message": "Пользователь не подтвержден. Пожалуйста, подтвердите свою почту."
-                    }
-                )
-
-        else:
+        if not email or not password:
             raise serializers.ValidationError(
                 {"message": "Пожалуйста, введите данные для входа."}
             )
 
+        user = authenticate(
+            request=self.context.get("request"),
+            username=email,
+            password=password
+        )
+
+        if not user:
+            raise serializers.ValidationError(
+                {
+                    "message": "Неправильный логин или пароль, либо ваша почта ещё не подтверждена."
+                }
+            )
+
+        data["user"] = user
         return data
 
 

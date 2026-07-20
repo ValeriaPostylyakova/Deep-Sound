@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.artists.models import Artist
+from apps.artists.models import ArtistProfile
 from common.utils.get_image_url import get_image_url
 
 
@@ -8,7 +8,7 @@ class ArtistProfileStandardSerializer(serializers.ModelSerializer):
     avatar = serializers.SerializerMethodField()
 
     class Meta:
-        model = Artist
+        model = ArtistProfile
         fields = (
             "id",
             "name",

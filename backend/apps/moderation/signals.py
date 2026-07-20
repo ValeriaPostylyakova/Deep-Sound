@@ -2,8 +2,9 @@ from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from apps.music.api.albums.services import send_to_moderator, send_status_album_to_user
-from apps.music.models import Album
+from apps.artists.services import send_album_to_moderator
+from apps.content.models import Album
+from apps.moderation.api.services.websocket import send_status_album_to_artist
 
 
 @receiver(post_save, sender=Album)
@@ -14,9 +15,9 @@ def handle_album_status_change(sender, instance, **kwargs):
         user_id = str(instance.author.user_id)
         album_id = str(instance.id)
 
-        transaction.on_commit(lambda: send_to_moderator(instance))
+        transaction.on_commit(lambda: send_album_to_moderator(instance))
         transaction.on_commit(
-            lambda: send_status_album_to_user(
+            lambda: send_status_album_to_artist(
                 user_id, album_id, "pending"
             )
         )

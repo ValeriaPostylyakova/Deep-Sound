@@ -9,7 +9,7 @@ from faker import Faker
 
 from apps.artists.models import Artist
 from apps.authentication.models import Role
-from apps.music.models import Album, Category, Playlist, Track
+from apps.content.models import Album, Category, Playlist, Track
 
 User = get_user_model()
 
@@ -57,7 +57,7 @@ class Command(BaseCommand):
             password="password123",
             first_name="Администратор",
         )
-        admin_user.role.add(role_mod)
+        admin_user.roles.add(role_mod)
 
         users = []
         artists = []
@@ -79,12 +79,12 @@ class Command(BaseCommand):
             user.save()
 
             if i < 4:
-                user.role.add(role_artist)
+                user.roles.add(role_artist)
 
                 artist = Artist.objects.create(user=user, name=f"Artist {fake.name()}")
                 artists.append(artist)
             else:
-                user.role.add(role_user)
+                user.roles.add(role_user)
             users.append(user)
 
         User.save = original_user_save
