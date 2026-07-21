@@ -12,14 +12,13 @@ class ArtistAdmin(admin.ModelAdmin):
         'name',
         'user',
         'is_verified',
-        'is_active',
         'created_at',
     )
     list_display_links = ('avatar_preview', 'name')
-    list_filter = ('is_verified', 'is_active', 'created_at')
+    list_filter = ('is_verified', 'created_at')
     search_fields = ('name', 'user__username', 'user__email')
     list_select_related = ('user',)
-    list_editable = ('is_verified', 'is_active')
+    list_editable = ('is_verified',)
     list_per_page = 25
 
     fieldsets = (
@@ -30,7 +29,7 @@ class ArtistAdmin(admin.ModelAdmin):
             'fields': ('avatar', 'avatar_preview_detail')
         }),
         (_('Статусы и доступы'), {
-            'fields': ('is_verified', 'is_active')
+            'fields': ('is_verified',)
         }),
         (_('Даты (Только чтение)'), {
             'fields': ('created_at', 'updated_at'),
@@ -53,20 +52,26 @@ class ArtistAdmin(admin.ModelAdmin):
 
     @admin.display(description=_("Аватар"))
     def avatar_preview(self, obj):
-        if obj.avatar:
-            return format_html(
-                '<img src="{}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />',
-                obj.avatar.url
-            )
+        try:
+            if obj.avatar and obj.avatar.url:
+                return format_html(
+                    '<img src="{}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />',
+                    obj.avatar.url
+                )
+        except ValueError:
+            pass
         return format_html(
             '<div style="width: 40px; height: 40px; border-radius: 50%; background-color: #ddd; display: inline-block;"></div>'
         )
 
     @admin.display(description=_("Текущий аватар (просмотр)"))
     def avatar_preview_detail(self, obj):
-        if obj.avatar:
-            return format_html(
-                '<img src="{}" style="max-width: 200px; max-height: 200px; border-radius: 8px; object-fit: contain;" />',
-                obj.avatar.url
-            )
+        try:
+            if obj.avatar and obj.avatar.url:
+                return format_html(
+                    '<img src="{}" style="max-width: 200px; max-height: 200px; border-radius: 8px; object-fit: contain;" />',
+                    obj.avatar.url
+                )
+        except ValueError:
+            pass
         return _("Аватар не загружен")

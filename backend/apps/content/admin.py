@@ -3,8 +3,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
-    Category, Album, Track, TrackText, Playlist,
-    FavoriteAlbum, FavoriteTrack, FavoriteArtist
+    Category, Album, Track, TrackText
 )
 
 
@@ -114,71 +113,3 @@ class TrackAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="max-width: 200px; max-height: 200px; border-radius: 6px;" />',
                                obj.image.url)
         return _("Обложка не загружена")
-
-
-@admin.register(Playlist)
-class PlaylistAdmin(admin.ModelAdmin):
-    list_display = ('image_preview', 'name', 'author', 'category', 'status', 'is_official', 'created_at')
-    list_display_links = ('image_preview', 'name')
-    list_filter = ('status', 'is_official', 'category', 'created_at')
-    search_fields = ('name', 'author__email', 'author__username')
-    list_select_related = ('author', 'category')
-    autocomplete_fields = ('author', 'category', 'tracks')
-    readonly_fields = ('id', 'created_at', 'updated_at', 'image_preview_detail')
-
-    fieldsets = (
-        (None, {
-            'fields': ('id', 'name', 'author', 'category', 'is_official')
-        }),
-        (_('Содержимое'), {
-            'fields': ('tracks',)
-        }),
-        (_('Медиа'), {
-            'fields': ('image', 'image_preview_detail')
-        }),
-        (_('Статус'), {
-            'fields': ('status',)
-        }),
-        (_('Даты'), {
-            'fields': ('created_at', 'updated_at')
-        }),
-    )
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('tracks')
-
-    @admin.display(description=_("Обложка"))
-    def image_preview(self, obj):
-        if obj.image:
-            return format_html(
-                '<img src="{}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;" />',
-                obj.image.url)
-        return format_html('<div style="width: 40px; height: 40px; border-radius: 4px; background-color: #ddd;"></div>')
-
-    @admin.display(description=_("Текущая обложка"))
-    def image_preview_detail(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="max-width: 200px; max-height: 200px; border-radius: 6px;" />',
-                               obj.image.url)
-        return _("Обложка не загружена")
-
-
-@admin.register(FavoriteAlbum)
-class FavoriteAlbumAdmin(admin.ModelAdmin):
-    list_display = ('user', 'album', 'created_at')
-    list_select_related = ('user', 'album')
-    search_fields = ('user__email', 'album__name')
-
-
-@admin.register(FavoriteTrack)
-class FavoriteTrackAdmin(admin.ModelAdmin):
-    list_display = ('user', 'track', 'created_at')
-    list_select_related = ('user', 'track')
-    search_fields = ('user__email', 'track__title')
-
-
-@admin.register(FavoriteArtist)
-class FavoriteArtistAdmin(admin.ModelAdmin):
-    list_display = ('user', 'artist', 'created_at')
-    list_select_related = ('user', 'artist')
-    search_fields = ('user__email', 'artist__name')

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.authentication.oauth import GoogleAuthView, YandexAuthView
+from apps.authentication.oauth.views import GoogleAuthView, YandexAuthView
 from ..api import views
 
 urlpatterns = [

@@ -2,7 +2,7 @@ from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from apps.artists.services import send_album_to_moderator
+from apps.artists.services.websocket import send_album_to_moderator
 from apps.content.models import Album
 from apps.moderation.api.services.websocket import send_status_album_to_artist
 

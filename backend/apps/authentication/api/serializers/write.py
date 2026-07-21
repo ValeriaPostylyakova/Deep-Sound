@@ -5,7 +5,7 @@ from django.db import transaction
 from rest_framework import serializers
 
 from apps.artists.models import ArtistProfile
-from apps.authentication.utils import generate_username_from_email
+from apps.authentication.utils.generate_username_from_email import generate_username_from_email
 from apps.listeners.models import ListenerProfile
 from ...models import Role
 
@@ -64,6 +64,8 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
 
         with transaction.atomic():
             user = User.objects.create_user(**validated_data)
+            user.save()
+
             listener_role = Role.objects.get(name="listener")
             user.roles.add(listener_role)
             ListenerProfile.objects.create(user=user)

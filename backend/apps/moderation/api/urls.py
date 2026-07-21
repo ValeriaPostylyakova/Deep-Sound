@@ -4,8 +4,8 @@ from apps.moderation.api.views import ModeratorViewSet
 
 router = DefaultRouter()
 router.register(r'', ModeratorViewSet, basename='moderation')
-router.register(
-    r"moderator-playlists", ModeratorPlaylistViewSet, basename="moderator-playlists"
-)
+# router.register(
+#     r"moderator-playlists", ModeratorPlaylistViewSet, basename="moderator-playlists"
+# )
 
 urlpatterns = router.urls

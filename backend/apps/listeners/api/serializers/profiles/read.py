@@ -14,3 +14,13 @@ class ListenerProfileSerializer(serializers.ModelSerializer):
 
     def get_avatar(self, obj):
         return get_image_url(obj.avatar, 50)
+
+
+class ListenerProfileDefault:
+    requires_context = True
+
+    def __call__(self, serializer_filed):
+        request = serializer_filed.context.get('request')
+        if request and hasattr(request.user, 'listener_profile'):
+            return request.user.listener_profile
+        return None

@@ -1,17 +1,26 @@
+from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
+
+from apps.artists.models import ArtistProfile
+from apps.content.models import Track, Album
+from apps.listeners.api.serializers.profiles.read import ListenerProfileDefault
+from apps.listeners.models import FavoriteTrack, FavoriteAlbum, FavoriteArtist
+
+
 class FavoriteWriteBaseSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user_profile = serializers.HiddenField(default=ListenerProfileDefault())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        target_fields = [f for f in self.fields if f != 'user']
+        target_fields = [f for f in self.fields if f != 'user_profile']
+
         if target_fields:
             target_field = target_fields[0]
-
             self.validators.append(
                 UniqueTogetherValidator(
                     queryset=self.Meta.model.objects.all(),
-                    fields=["user", target_field],
+                    fields=["user_profile", target_field],
                     message="Вы уже добавили этот объект в избранное."
                 )
             )
@@ -22,7 +31,7 @@ class FavoriteWriteTrackSerializer(FavoriteWriteBaseSerializer):
 
     class Meta:
         model = FavoriteTrack
-        fields = ("user", "track")
+        fields = ("user_profile", "track")
 
 
 class FavoriteWriteAlbumSerializer(FavoriteWriteBaseSerializer):
@@ -30,7 +39,7 @@ class FavoriteWriteAlbumSerializer(FavoriteWriteBaseSerializer):
 
     class Meta:
         model = FavoriteAlbum
-        fields = ("user", "album")
+        fields = ("user_profile", "album")
 
 
 class FavoriteWriteArtistSerializer(FavoriteWriteBaseSerializer):
@@ -38,4 +47,4 @@ class FavoriteWriteArtistSerializer(FavoriteWriteBaseSerializer):
 
     class Meta:
         model = FavoriteArtist
-        fields = ("user", "artist")
+        fields = ("user_profile", "artist")

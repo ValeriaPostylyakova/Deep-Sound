@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
-from apps.artists.services import send_track_update_status_to_artist
+from apps.artists.services.websocket import send_track_update_status_to_artist
 from apps.content.models import Album, Track
 from apps.moderation.api.serializers import ReviewAlbumAndTrackSerializer
 from apps.moderation.api.services.process_review_content import process_review_content

@@ -7,10 +7,11 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from apps.authentication.services import forgot_password, reset_password
-from apps.authentication.services import generate_tokens
-from apps.authentication.services import send_verification_link, verify_email_token
+from apps.authentication.services.generate_tokens import generate_tokens
+from apps.authentication.services.password_reset import forgot_password, reset_password
+from apps.authentication.services.verification_email import send_verification_link, verify_email_token
 from apps.authentication.utils import get_device_info
+from config import settings
 from .serializers.write import (
     ChangePasswordWriteSerializer,
     ForgotPasswordWriteSerializer,
@@ -88,17 +89,45 @@ class CustomTokenRefreshView(TokenRefreshView):
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
             raise InvalidToken(e.args[0])
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+        new_refresh = serializer.validated_data.get("refresh")
+        new_access = serializer.validated_data.get("access")
+
+        response_data = {"access": new_access}
+        response = Response(response_data, status=status.HTTP_200_OK)
+
+        if new_refresh:
+            simple_jwt_settings = getattr(settings, "SIMPLE_JWT", {})
+            refresh_lifetime = simple_jwt_settings.get(
+                "REFRESH_TOKEN_LIFETIME"
+            )
+            max_age = (
+                int(refresh_lifetime.total_seconds())
+                if refresh_lifetime
+                else None
+            )
+
+            response.set_cookie(
+                key="refresh_token",
+                value=new_refresh,
+                max_age=max_age,
+                httponly=True,
+                secure=True,
+                samesite="Lax",
+                path="/api/v1/auth/",
+            )
+
+        return response
 
 
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
 def logout(request):
     try:
-        refresh = request.data.get("refresh")
+        refresh = request.COOKIES.get("refresh_token")
         if not refresh:
             return Response(
-                {"message": "Вы не передали refresh токен в body"},
+                {"message": "Refresh token не найден"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

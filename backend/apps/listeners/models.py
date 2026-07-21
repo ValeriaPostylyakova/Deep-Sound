@@ -11,7 +11,7 @@ class ListenerProfile(models.Model):
     avatar = models.ImageField(upload_to="avatars/listeners/", null=True, blank=True)
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listener"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listener_profile"
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,7 +34,7 @@ class ListenerPlaylist(models.Model):
     category = models.ForeignKey(
         'content.Category',
         on_delete=models.PROTECT,
-        related_name="playlists",
+        related_name="listener_playlists",
         blank=True,
         null=True,
     )
@@ -42,7 +42,7 @@ class ListenerPlaylist(models.Model):
     author = models.ForeignKey(
         'ListenerProfile',
         on_delete=models.PROTECT,
-        related_name="playlists",
+        related_name="listener_playlists",
         blank=True,
         null=True,
     )
@@ -71,13 +71,13 @@ class ListenerPlaylist(models.Model):
 class FavoriteAlbum(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
 
-    user = models.ForeignKey('ListenerProfile', on_delete=models.CASCADE)
+    user_profile = models.ForeignKey('ListenerProfile', on_delete=models.CASCADE)
     album = models.ForeignKey('content.Album', on_delete=models.CASCADE)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'album'], name="unique_user_favorite_album"
+                fields=['user_profile', 'album'], name="unique_user_favorite_album"
             )
         ]
 
@@ -87,13 +87,13 @@ class FavoriteAlbum(models.Model):
 class FavoriteTrack(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
 
-    user = models.ForeignKey('ListenerProfile', on_delete=models.CASCADE)
+    user_profile = models.ForeignKey('ListenerProfile', on_delete=models.CASCADE)
     track = models.ForeignKey('content.Track', on_delete=models.CASCADE)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'track'], name="unique_user_favorite_track"
+                fields=['user_profile', 'track'], name="unique_user_favorite_track"
             )
         ]
 
@@ -103,13 +103,13 @@ class FavoriteTrack(models.Model):
 class FavoriteArtist(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
 
-    user = models.ForeignKey('ListenerProfile', on_delete=models.CASCADE)
+    user_profile = models.ForeignKey('ListenerProfile', on_delete=models.CASCADE)
     artist = models.ForeignKey('artists.ArtistProfile', on_delete=models.CASCADE)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'artist'], name="unique_user_favorite_artist"
+                fields=['user_profile', 'artist'], name="unique_user_favorite_artist"
             )
         ]
 

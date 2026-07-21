@@ -23,7 +23,7 @@ class ListenerPlaylistViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
-        queryset = self.queryset.filter(author=self.request.user)
+        queryset = self.queryset.filter(author__user=self.request.user)
 
         if self.action in ['retrieve', 'main_page_playlists']:
             queryset = queryset.annotate(
@@ -40,6 +40,9 @@ class ListenerPlaylistViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return ListenerPlaylistDetailSerializer
         return self.serializer_class
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user.listener_profile)
 
     @action(detail=False, methods=['GET'], url_path='main-page')
     def main_page_playlists(self, request):

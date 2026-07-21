@@ -1,9 +1,18 @@
+from rest_framework import serializers
+
+from apps.artists.api.serializers.read import ArtistProfileStandardSerializer
+from apps.content.api.albums.serializers.read import AlbumListSerializer
+from apps.content.api.tracks.serializers.read import TrackShortSerializer
+from apps.listeners.api.serializers.profiles.read import ListenerProfileDefault
+from apps.listeners.models import FavoriteTrack, FavoriteAlbum, FavoriteArtist
+
+
 class FavoriteBaseSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user_profile = serializers.HiddenField(default=ListenerProfileDefault())
 
     class Meta:
-        fields = ("id", "user")
-        read_only_fields = ("id", "user")
+        fields = ("id", "user_profile")
+        read_only_fields = ("id", "user_profile")
 
 
 class FavoriteTrackSerializer(FavoriteBaseSerializer):
