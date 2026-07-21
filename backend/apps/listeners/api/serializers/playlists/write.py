@@ -1,3 +1,10 @@
+from django.core.validators import MinLengthValidator, MaxLengthValidator
+from rest_framework import serializers
+
+from apps.content.models import Track
+from apps.listeners.models import ListenerPlaylist
+
+
 class BasePlaylistWriteSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     image = serializers.ImageField(required=False)
@@ -15,22 +22,21 @@ class BasePlaylistWriteSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = Playlist
-        fields = ("id", "name", "image", "tracks", 'is_official')
-        read_only_fields = ("id", 'is_official')
+        model = ListenerPlaylist
+        fields = ("id", "name", "image", "tracks",)
+        read_only_fields = ("id",)
 
 
-class PlaylistUserWriteSerializer(BasePlaylistWriteSerializer):
+class ListenerPlaylistWriteSerializer(BasePlaylistWriteSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
-        model = Playlist
         fields = BasePlaylistWriteSerializer.Meta.fields + ("author",)
 
     validators = [
         serializers.UniqueTogetherValidator(
-            queryset=Playlist.objects.all(),
-            fields=["name", "is_official", "author"],
+            queryset=ListenerPlaylist.objects.all(),
+            fields=["name", "author"],
             message="Плейлист с таким названием уже существует. Пожалуйста, введите другое название.",
         )
     ]
