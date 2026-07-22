@@ -19,6 +19,7 @@ export const RegisterSchema = z
 				/[^A-Za-z0-9А-Яа-я]/,
 				'Пароль должен содержать хотя бы один специальный символ'
 			),
+		role: z.enum(['listener', 'artist']),
 		confirmPassword: z.string()
 	})
 

@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  db:
+    ports: !override []
+    restart: always
+
+  redis:
+    ports: !override []
+    restart: always
+
+  minio:
+    ports:
+      - '9000:9000'
+    restart: always
+
+  backend:
+    command: >
+      sh -c "
+        python manage.py collectstatic --noinput &&
+        python manage.py migrate &&
+        daphne -b 0.0.0.0 -p 8000 config.asgi:application
+      "
+    volumes: !override
+      - django_static:/app/staticfiles
+    ports: !override []
+    restart: always
+
+  celery:
+    command: celery -A config worker --loglevel=info
+    volumes: !override []
+    restart: always
+
+  frontend:
+    command: yarn build
+    volumes: !override
+      - frontend_static:/app/.next
+    ports: !override []
+    restart: 'no'
+
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - django_static:/app/staticfiles:ro
+      - frontend_static:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+
+volumes:
+  postgres_data:
+  minio_data:
+  django_static:
+  frontend_static:

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 const protectedRoutes: string[] = []
 
 export function middleware(request: NextRequest) {
-	const token = request.cookies.get('session_token')?.value
+	const token = request.cookies.get('refresh_token')?.value
 	const { pathname } = request.nextUrl
 
 	const isProtectedRoute = protectedRoutes.some(route =>

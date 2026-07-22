@@ -1,31 +1,14 @@
-import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 
 import type { FC } from 'react'
+import { Logo } from '../../ui'
 
 interface Props {}
 
 export const Header: FC<Props> = () => {
 	return (
 		<Box className="mb-16 flex items-center justify-between">
-			<Box className="flex items-center gap-3">
-				<Box
-					sx={{
-						bgcolor: 'primary.main'
-					}}
-					className="flex h-10 w-10 items-center justify-center rounded-xl"
-				>
-					<MusicNoteIcon />
-				</Box>
-
-				<Typography
-					variant="h6"
-					sx={{ fontWeight: 800 }}
-				>
-					PlayCloud
-				</Typography>
-			</Box>
+			<Logo />
 		</Box>
 	)
 }

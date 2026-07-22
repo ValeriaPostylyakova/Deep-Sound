@@ -25,24 +25,28 @@ export default function NotFound() {
 				<PulseButton keyframes={pulseAnimation}>
 					<DiscFullIcon sx={{ color: 'primary.main' }} />
 				</PulseButton>
-			</Box>
-			<Typography
-				sx={{ textAlign: 'center' }}
-				variant="h1"
-			>
-				Тишина не по плану
-			</Typography>
-			<Typography sx={{ color: 'text.secondary', textAlign: 'center', mb: 2 }}>
-				Кажется, эта волна ушла в другом направлении. Вернемся к любимым трекам?
-			</Typography>
-			<Box className="flex items-center gap-4">
-				<Button onClick={() => router.push(PAGES.HOME)}>На главную</Button>
-				<Button
-					variant="outlined"
-					onClick={() => router.push(PAGES.HOME)}
+
+				<Typography
+					sx={{ textAlign: 'center' }}
+					variant="h1"
 				>
-					Поиск музыки
-				</Button>
+					Тишина не по плану
+				</Typography>
+				<Typography
+					sx={{ color: 'text.secondary', textAlign: 'center', mb: 2 }}
+				>
+					Кажется, эта волна ушла в другом направлении. Вернемся к любимым
+					трекам?
+				</Typography>
+				<Box className="flex items-center gap-4">
+					<Button onClick={() => router.push(PAGES.HOME)}>На главную</Button>
+					<Button
+						variant="outlined"
+						onClick={() => router.push(PAGES.HOME)}
+					>
+						Поиск музыки
+					</Button>
+				</Box>
 			</Box>
 		</Box>
 	)
