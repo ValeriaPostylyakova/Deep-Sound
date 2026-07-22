@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
+from apps.artists.api.permissions import IsCurrentAuthorArtist
 from apps.content.models import Track
 from apps.content.paginations.cursor_paginations import TracksCursorPagination
 from common.permissions import IsArtistRole
@@ -47,8 +48,10 @@ class TrackViewSet(viewsets.ModelViewSet):
         return queryset
 
     def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
+        if self.action in ['list', 'retrieve', 'stream_track']:
             return [AllowAny()]
+        if self.action == 'destroy':
+            return [IsAuthenticated(), IsCurrentAuthorArtist()]
         else:
             return [IsAuthenticated(), IsArtistRole()]
 
@@ -70,7 +73,7 @@ class TrackViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED
         )
 
-    @action(detail=True, methods=["GET"], url_path="stream", permission_classes=[AllowAny])
+    @action(detail=True, methods=["GET"], url_path="stream")
     def stream_track(self, request, pk=None):
         track = self.get_object()
 

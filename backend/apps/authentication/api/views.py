@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from apps.authentication.services.generate_tokens import generate_tokens
 from apps.authentication.services.password_reset import forgot_password, reset_password
-from apps.authentication.services.verification_email import send_verification_link, verify_email_token
+from apps.authentication.services.verification_email import verify_email_token, send_verification_link
 from apps.authentication.utils import get_device_info
 from config import settings
 from .serializers.write import (

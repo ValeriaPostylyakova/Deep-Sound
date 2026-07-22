@@ -31,6 +31,7 @@ class ListenerPlaylistWriteSerializer(BasePlaylistWriteSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
+        model = BasePlaylistWriteSerializer.Meta.model
         fields = BasePlaylistWriteSerializer.Meta.fields + ("author",)
 
     validators = [

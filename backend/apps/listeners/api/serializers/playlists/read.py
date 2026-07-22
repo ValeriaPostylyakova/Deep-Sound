@@ -19,7 +19,6 @@ class ListenerPlaylistMainPageSerializer(serializers.ModelSerializer):
 
 class ListenerPlaylistShortSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    author = serializers.SlugRelatedField(slug_field="username", read_only=True)
 
     class Meta:
         model = ListenerPlaylist

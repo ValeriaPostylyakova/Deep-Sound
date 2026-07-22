@@ -56,15 +56,15 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
         validated_data.pop("confirm_password", None)
         role_obj = validated_data.pop("role", None)
 
-        validated_data["username"] = generate_username_from_email(
+        username = generate_username_from_email(
             validated_data["email"]
         )
 
+        validated_data["username"] = username
         validated_data["is_active"] = False
 
         with transaction.atomic():
             user = User.objects.create_user(**validated_data)
-            user.save()
 
             listener_role = Role.objects.get(name="listener")
             user.roles.add(listener_role)
@@ -72,7 +72,7 @@ class RegisterWriteSerializer(serializers.ModelSerializer):
 
             if role_obj and role_obj.name == "artist":
                 user.roles.add(role_obj)
-                ArtistProfile.objects.create(user=user)
+                ArtistProfile.objects.create(user=user, name=username)
 
         return user
 
